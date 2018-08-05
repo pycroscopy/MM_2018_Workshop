@@ -1,0 +1,385 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pycroscopy.analysis.fit_methods &mdash; pycroscopy 0.60.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pycroscopy.analysis.fitter" href="pycroscopy.analysis.fitter.html" />
+    <link rel="prev" title="pycroscopy.analysis.be_sho_fitter" href="pycroscopy.analysis.be_sho_fitter.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> pycroscopy
+          
+
+          
+            
+            <img src="../../_static/logo_v01.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.60.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">Pycroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../package_organization.html">Package Organization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../translators.html">Data Translators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../papers_conferences.html">Papers / Conferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whats_new.html">What’s New</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../api.html#package-structure">Package Structure</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#submodules">Submodules</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../pycroscopy.analysis.html">pycroscopy.analysis</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../pycroscopy.analysis.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.io.html">pycroscopy.io</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.processing.html">pycroscopy.processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.viz.html">pycroscopy.viz</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pycroscopy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../api.html">API Reference</a> &raquo;</li>
+        
+          <li><a href="../pycroscopy.analysis.html">pycroscopy.analysis</a> &raquo;</li>
+        
+      <li>pycroscopy.analysis.fit_methods</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/_autosummary/_autosummary/pycroscopy.analysis.fit_methods.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pycroscopy.analysis.fit_methods">
+<span id="pycroscopy-analysis-fit-methods"></span><h1>pycroscopy.analysis.fit_methods<a class="headerlink" href="#module-pycroscopy.analysis.fit_methods" title="Permalink to this headline">¶</a></h1>
+<p>Created on 12/15/16 3:44 PM
+&#64;author: Numan Laanait – <a class="reference external" href="mailto:nlaanait&#37;&#52;&#48;gmail&#46;com">nlaanait<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
+<p class="rubric">Classes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pycroscopy.analysis.fit_methods.BE_Fit_Methods" title="pycroscopy.analysis.fit_methods.BE_Fit_Methods"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BE_Fit_Methods</span></code></a>()</td>
+<td>Contains fit methods that are specific to BE data.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pycroscopy.analysis.fit_methods.Fit_Methods" title="pycroscopy.analysis.fit_methods.Fit_Methods"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Fit_Methods</span></code></a>()</td>
+<td>This is a container class for the different objective functions used in BE fitting To implement a new guess generation strategy, add it following exactly how it’s done below.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pycroscopy.analysis.fit_methods.forc_iv_fit_methods" title="pycroscopy.analysis.fit_methods.forc_iv_fit_methods"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forc_iv_fit_methods</span></code></a>()</td>
+<td>Any fitting methods specific to FORC_IV should go here.</td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="pycroscopy.analysis.fit_methods.BE_Fit_Methods">
+<em class="property">class </em><code class="descname">BE_Fit_Methods</code><a class="reference internal" href="../../_modules/pycroscopy/analysis/fit_methods.html#BE_Fit_Methods"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.analysis.fit_methods.BE_Fit_Methods" title="Permalink to this definition">¶</a></dt>
+<dd><p>Contains fit methods that are specific to BE data.</p>
+<dl class="staticmethod">
+<dt id="pycroscopy.analysis.fit_methods.BE_Fit_Methods.BE_LOOP">
+<em class="property">static </em><code class="descname">BE_LOOP</code><span class="sig-paren">(</span><em>coef_vec</em>, <em>data_vec</em>, <em>dc_vec</em>, <em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/analysis/fit_methods.html#BE_Fit_Methods.BE_LOOP"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.analysis.fit_methods.BE_Fit_Methods.BE_LOOP" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>coef_vec</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.15)"><em>numpy.ndarray</em></a>) – </li>
+<li><strong>data_vec</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.15)"><em>numpy.ndarray</em></a>) – </li>
+<li><strong>dc_vec</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.15)"><em>numpy.ndarray</em></a>) – The DC offset vector</li>
+<li><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>fitness</strong> – The 1-r^2 value for the current set of loop coefficients</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pycroscopy.analysis.fit_methods.Fit_Methods">
+<em class="property">class </em><code class="descname">Fit_Methods</code><a class="reference internal" href="../../_modules/pycroscopy/analysis/fit_methods.html#Fit_Methods"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.analysis.fit_methods.Fit_Methods" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a container class for the different objective functions used in BE fitting
+To implement a new guess generation strategy, add it following exactly how it’s done below.</p>
+<p>In essence, the guess methods here need to return a callable function that will take a feature vector as the sole
+input and return the guess parameters. The guess methods here use the keyword arguments to configure the returned
+function.</p>
+<dl class="staticmethod">
+<dt id="pycroscopy.analysis.fit_methods.Fit_Methods.SHO">
+<em class="property">static </em><code class="descname">SHO</code><span class="sig-paren">(</span><em>guess</em>, <em>data_vec</em>, <em>freq_vector</em>, <em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/analysis/fit_methods.html#Fit_Methods.SHO"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.analysis.fit_methods.Fit_Methods.SHO" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates the single Harmonic Oscillator response over the given vector</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>guess</strong> (<em>array-like</em>) – The set of guess parameters to be tested</li>
+<li><strong>data_vec</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.15)"><em>numpy.ndarray</em></a>) – The data vector to compare the current guess against</li>
+<li><strong>freq_vector</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.15)"><em>numpy.ndarray</em></a>) – The frequencies that correspond to each data point in <cite>data_vec</cite></li>
+<li><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a>) – SHO parameters=(Amp,w0,Q,phi,vector). vector: 1D np.array of frequency values.
+Amp: amplitude.
+w0: resonant frequency.
+Q: Quality Factor.
+phi: Phase.
+vector:</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>SHO_func</strong></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">callable function.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pycroscopy.analysis.fit_methods.forc_iv_fit_methods">
+<em class="property">class </em><code class="descname">forc_iv_fit_methods</code><a class="reference internal" href="../../_modules/pycroscopy/analysis/fit_methods.html#forc_iv_fit_methods"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.analysis.fit_methods.forc_iv_fit_methods" title="Permalink to this definition">¶</a></dt>
+<dd><p>Any fitting methods specific to FORC_IV should go here.</p>
+<dl class="staticmethod">
+<dt id="pycroscopy.analysis.fit_methods.forc_iv_fit_methods.SHO">
+<em class="property">static </em><code class="descname">SHO</code><span class="sig-paren">(</span><em>guess</em>, <em>data_vec</em>, <em>freq_vector</em>, <em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#pycroscopy.analysis.fit_methods.forc_iv_fit_methods.SHO" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates the single Harmonic Oscillator response over the given vector</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>guess</strong> (<em>array-like</em>) – The set of guess parameters to be tested</li>
+<li><strong>data_vec</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.15)"><em>numpy.ndarray</em></a>) – The data vector to compare the current guess against</li>
+<li><strong>freq_vector</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.15)"><em>numpy.ndarray</em></a>) – The frequencies that correspond to each data point in <cite>data_vec</cite></li>
+<li><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a>) – SHO parameters=(Amp,w0,Q,phi,vector). vector: 1D np.array of frequency values.
+Amp: amplitude.
+w0: resonant frequency.
+Q: Quality Factor.
+phi: Phase.
+vector:</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>SHO_func</strong></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">callable function.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pycroscopy.analysis.fitter.html" class="btn btn-neutral float-right" title="pycroscopy.analysis.fitter" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pycroscopy.analysis.be_sho_fitter.html" class="btn btn-neutral" title="pycroscopy.analysis.be_sho_fitter" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Suhas Somnath, Chris Smith, Stephen Jesse, Numan Laanait.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.60.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

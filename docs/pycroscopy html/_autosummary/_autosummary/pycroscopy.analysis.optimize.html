@@ -1,0 +1,378 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pycroscopy.analysis.optimize &mdash; pycroscopy 0.60.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pycroscopy.io" href="../pycroscopy.io.html" />
+    <link rel="prev" title="pycroscopy.analysis.guess_methods" href="pycroscopy.analysis.guess_methods.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> pycroscopy
+          
+
+          
+            
+            <img src="../../_static/logo_v01.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.60.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">Pycroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../package_organization.html">Package Organization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../translators.html">Data Translators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../papers_conferences.html">Papers / Conferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whats_new.html">What’s New</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../api.html#package-structure">Package Structure</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#submodules">Submodules</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../pycroscopy.analysis.html">pycroscopy.analysis</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../pycroscopy.analysis.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.io.html">pycroscopy.io</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.processing.html">pycroscopy.processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.viz.html">pycroscopy.viz</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pycroscopy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../api.html">API Reference</a> &raquo;</li>
+        
+          <li><a href="../pycroscopy.analysis.html">pycroscopy.analysis</a> &raquo;</li>
+        
+      <li>pycroscopy.analysis.optimize</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/_autosummary/_autosummary/pycroscopy.analysis.optimize.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pycroscopy.analysis.optimize">
+<span id="pycroscopy-analysis-optimize"></span><h1>pycroscopy.analysis.optimize<a class="headerlink" href="#module-pycroscopy.analysis.optimize" title="Permalink to this headline">¶</a></h1>
+<p>Created on 12/15/16 10:08 AM
+&#64;author: Numan Laanait</p>
+<p class="rubric">Functions</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pycroscopy.analysis.optimize.targetFuncFit" title="pycroscopy.analysis.optimize.targetFuncFit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">targetFuncFit</span></code></a>(args,&nbsp;**kwargs)</td>
+<td>Needed to create mappable function for multiprocessing :param args: :param kwargs: :return:</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pycroscopy.analysis.optimize.targetFuncGuess" title="pycroscopy.analysis.optimize.targetFuncGuess"><code class="xref py py-obj docutils literal notranslate"><span class="pre">targetFuncGuess</span></code></a>(args,&nbsp;**kwargs)</td>
+<td>This is just creates mappable function for multiprocessing guess :param args: :param kwargs: :return:</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pycroscopy.analysis.optimize.Optimize" title="pycroscopy.analysis.optimize.Optimize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Optimize</span></code></a>([data,&nbsp;dtype,&nbsp;guess,&nbsp;dtype,&nbsp;parallel])</td>
+<td>In charge of all optimization and computation and is used within the Model Class.</td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="pycroscopy.analysis.optimize.Optimize">
+<em class="property">class </em><code class="descname">Optimize</code><span class="sig-paren">(</span><em>data=array([]</em>, <em>dtype=float64)</em>, <em>guess=array([]</em>, <em>dtype=float64)</em>, <em>parallel=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/analysis/optimize.html#Optimize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.analysis.optimize.Optimize" title="Permalink to this definition">¶</a></dt>
+<dd><p>In charge of all optimization and computation and is used within the Model Class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – </td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pycroscopy.analysis.optimize.Optimize.computeFit">
+<code class="descname">computeFit</code><span class="sig-paren">(</span><em>processors=1</em>, <em>solver_type='least_squares'</em>, <em>solver_options={}</em>, <em>obj_func={'class': 'Fit_Methods'</em>, <em>'obj_func': 'SHO'</em>, <em>'xvals': array([]</em>, <em>dtype=float64)}</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/analysis/optimize.html#Optimize.computeFit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.analysis.optimize.Optimize.computeFit" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>processors</strong> (<em>unsigned int</em>) – Number of logical cores to use for computing</li>
+<li><strong>solver_type</strong> (<em>string</em>) – Optimization solver to use (minimize,least_sq, etc…). For additional info see scipy.optimize</li>
+<li><strong>solver_options</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>(</em><em>)</em>) – Default: dict()
+Dictionary of options passed to solver. For additional info see scipy.optimize</li>
+<li><strong>obj_func</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>(</em><em>)</em>) – Default is ‘SHO’.
+Can be one of [‘wavelet_peaks’, ‘relative_maximum’, ‘gaussian_processes’].
+For updated list, run GuessMethods.methods</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>results</strong> – unknown</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">unknown</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.analysis.optimize.Optimize.computeGuess">
+<code class="descname">computeGuess</code><span class="sig-paren">(</span><em>processors=1</em>, <em>strategy='wavelet_peaks'</em>, <em>options={'peak_step': 20</em>, <em>'peak_widths': array([ 10</em>, <em>200])}</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/analysis/optimize.html#Optimize.computeGuess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.analysis.optimize.Optimize.computeGuess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the guess function using numerous cores</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>processors</strong> (<em>unsigned int</em>) – Number of logical cores to use for computing</li>
+<li><strong>strategy</strong> (<em>string</em>) – Default is ‘Wavelet_Peaks’.
+Can be one of [‘wavelet_peaks’, ‘relative_maximum’, ‘gaussian_processes’]. For updated list,
+run GuessMethods.methods</li>
+<li><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Default: Options for wavelet_peaks{“peaks_widths”: np.array([10,200]), “peak_step”:20}.
+Dictionary of options passed to strategy. For more info see GuessMethods documentation.</li>
+<li><strong>kwargs</strong> – <dl class="docutils">
+<dt>processors: int</dt>
+<dd>number of processors to use. Default all processors on the system except for 1.</dd>
+</dl>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>results</strong> – unknown</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">unknown</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pycroscopy.analysis.optimize.targetFuncFit">
+<code class="descname">targetFuncFit</code><span class="sig-paren">(</span><em>args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/analysis/optimize.html#targetFuncFit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.analysis.optimize.targetFuncFit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Needed to create mappable function for multiprocessing
+:param args:
+:param kwargs:
+:return:</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pycroscopy.analysis.optimize.targetFuncGuess">
+<code class="descname">targetFuncGuess</code><span class="sig-paren">(</span><em>args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/analysis/optimize.html#targetFuncGuess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.analysis.optimize.targetFuncGuess" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is just creates mappable function for multiprocessing guess
+:param args:
+:param kwargs:
+:return:</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../pycroscopy.io.html" class="btn btn-neutral float-right" title="pycroscopy.io" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pycroscopy.analysis.guess_methods.html" class="btn btn-neutral" title="pycroscopy.analysis.guess_methods" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Suhas Somnath, Chris Smith, Stephen Jesse, Numan Laanait.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.60.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

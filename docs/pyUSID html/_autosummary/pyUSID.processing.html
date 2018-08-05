@@ -1,0 +1,354 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyUSID.processing &mdash; pyUSID 0.0.4 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="pyUSID.viz" href="pyUSID.viz.html" />
+    <link rel="prev" title="pyUSID.io.write_utils" href="_autosummary/pyUSID.io.write_utils.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> pyUSID
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">pyUSID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../package_organization.html">Package Organization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data_format.html">Data Model and File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribution_guidelines.html">Guidelines for Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whats_new.html">What’s New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../matlab_to_python.html">Upgrading from Matlab</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyUSID.io.html">pyUSID.io</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pyUSID.processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyUSID.viz.html">pyUSID.viz</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pyUSID</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../api.html">API Reference</a> &raquo;</li>
+        
+      <li>pyUSID.processing</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/_autosummary/pyUSID.processing.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pyUSID.processing">
+<span id="pyusid-processing"></span><h1>pyUSID.processing<a class="headerlink" href="#module-pyUSID.processing" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="pyUSID.processing.parallel_compute">
+<code class="descname">parallel_compute</code><span class="sig-paren">(</span><em>data</em>, <em>func</em>, <em>cores=1</em>, <em>lengthy_computation=False</em>, <em>func_args=None</em>, <em>func_kwargs=None</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyUSID/processing/process.html#parallel_compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.processing.parallel_compute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the guess function using multiple cores</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>data</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.15)"><em>numpy.ndarray</em></a>) – Data to map function to. Function will be mapped to the first axis of data</li>
+<li><strong>func</strong> (<em>callable</em>) – Function to map to data</li>
+<li><strong>cores</strong> (<em>uint</em><em>, </em><em>optional</em>) – Number of logical cores to use to compute
+Default - 1 (serial computation)</li>
+<li><strong>lengthy_computation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether or not each computation is expected to take substantial time.
+Sometimes the time for adding more cores can outweigh the time per core
+Default - False</li>
+<li><strong>func_args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a><em>, </em><em>optional</em>) – arguments to be passed to the function</li>
+<li><strong>func_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – keyword arguments to be passed onto function</li>
+<li><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional. default = False</em>) – Whether or not to print statements that aid in debugging</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>results</strong> – List of computational results</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)">list</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyUSID.processing.Process">
+<em class="property">class </em><code class="descname">Process</code><span class="sig-paren">(</span><em>h5_main</em>, <em>cores=None</em>, <em>max_mem_mb=4096</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyUSID/processing/process.html#Process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.processing.Process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encapsulates the typical steps performed when applying a processing function to  a dataset.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>h5_main</strong> (<em>h5py.Dataset instance</em>) – The dataset over which the analysis will be performed. This dataset should be linked to the spectroscopic
+indices and values, and position indices and values datasets.</li>
+<li><strong>cores</strong> (<em>uint</em><em>, </em><em>optional</em>) – Default - all available cores - 2
+How many cores to use for the computation</li>
+<li><strong>max_mem_mb</strong> (<em>uint</em><em>, </em><em>optional</em>) – How much memory to use for the computation.  Default 1024 Mb</li>
+<li><strong>verbose</strong> (<em>Boolean</em><em>, </em><em>(</em><em>Optional</em><em>, </em><em>default = False</em><em>)</em>) – Whether or not to print debugging statements</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyUSID.processing.Process.compute">
+<code class="descname">compute</code><span class="sig-paren">(</span><em>override=False</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyUSID/processing/process.html#Process.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.processing.Process.compute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates placeholders for the results, applies the unit computation to chunks of the dataset</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>override</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional. default = False</em>) – By default, compute will simply return duplicate results to avoid recomputing or resume computation on a
+group with partial results. Set to True to force fresh computation.</li>
+<li><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – arguments to the mapped function in the correct order</li>
+<li><strong>kwargs</strong> (<em>dictionary</em>) – keyword arguments to the mapped function</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>h5_results_grp</strong> – Datagroup containing all the results</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">h5py.Datagroup object</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyUSID.processing.Process.test">
+<code class="descname">test</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyUSID/processing/process.html#Process.test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.processing.Process.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests the process on a subset (for example a pixel) of the whole data. The class can be reinstantiated with
+improved parameters and tested repeatedly until the user is content, at which point the user can call
+compute() on the whole dataset.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>- dict</strong><strong>, </strong><strong>optional</strong> (<em>kwargs</em>) – keyword arguments to test the process</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyUSID.processing.Process.use_partial_computation">
+<code class="descname">use_partial_computation</code><span class="sig-paren">(</span><em>h5_partial_group=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyUSID/processing/process.html#Process.use_partial_computation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.processing.Process.use_partial_computation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts the necessary parameters from the provided h5 group to resume computation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>h5_partial_group</strong> (<em>h5py.Datagroup object</em>) – Datagroup containing partially computed results</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pyUSID.viz.html" class="btn btn-neutral float-right" title="pyUSID.viz" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="_autosummary/pyUSID.io.write_utils.html" class="btn btn-neutral" title="pyUSID.io.write_utils" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Suhas Somnath, Chris R. Smith, Stephen Jesse.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.0.4',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

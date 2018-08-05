@@ -1,0 +1,421 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pycroscopy.viz.cluster_utils &mdash; pycroscopy 0.60.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pycroscopy.viz.image_cleaning_utils" href="pycroscopy.viz.image_cleaning_utils.html" />
+    <link rel="prev" title="pycroscopy.viz.be_viz_utils" href="pycroscopy.viz.be_viz_utils.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> pycroscopy
+          
+
+          
+            
+            <img src="../../_static/logo_v01.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.60.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">Pycroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../package_organization.html">Package Organization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../translators.html">Data Translators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../papers_conferences.html">Papers / Conferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whats_new.html">What’s New</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../api.html#package-structure">Package Structure</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.analysis.html">pycroscopy.analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.io.html">pycroscopy.io</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.processing.html">pycroscopy.processing</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../pycroscopy.viz.html">pycroscopy.viz</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../pycroscopy.viz.html#submodules">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pycroscopy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../api.html">API Reference</a> &raquo;</li>
+        
+          <li><a href="../pycroscopy.viz.html">pycroscopy.viz</a> &raquo;</li>
+        
+      <li>pycroscopy.viz.cluster_utils</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/_autosummary/_autosummary/pycroscopy.viz.cluster_utils.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pycroscopy.viz.cluster_utils">
+<span id="pycroscopy-viz-cluster-utils"></span><h1>pycroscopy.viz.cluster_utils<a class="headerlink" href="#module-pycroscopy.viz.cluster_utils" title="Permalink to this headline">¶</a></h1>
+<p class="rubric">Functions</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pycroscopy.viz.cluster_utils.plot_cluster_centroids" title="pycroscopy.viz.cluster_utils.plot_cluster_centroids"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_cluster_centroids</span></code></a>(centroids,&nbsp;x_vec[,&nbsp;…])</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param centroids:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">2D array. Centroids of clusters</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pycroscopy.viz.cluster_utils.plot_cluster_dendrogram" title="pycroscopy.viz.cluster_utils.plot_cluster_dendrogram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_cluster_dendrogram</span></code></a>(label_mat,&nbsp;e_vals,&nbsp;…)</td>
+<td>Creates and plots the dendrograms for the given label_mat and eigenvalues</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pycroscopy.viz.cluster_utils.plot_cluster_h5_group" title="pycroscopy.viz.cluster_utils.plot_cluster_h5_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_cluster_h5_group</span></code></a>(h5_group[,&nbsp;…])</td>
+<td>Plots the cluster labels and mean response for each cluster</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pycroscopy.viz.cluster_utils.plot_cluster_labels" title="pycroscopy.viz.cluster_utils.plot_cluster_labels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_cluster_labels</span></code></a>(labels_mat[,&nbsp;…])</td>
+<td>Plots the cluster labels</td>
+</tr>
+</tbody>
+</table>
+<dl class="function">
+<dt id="pycroscopy.viz.cluster_utils.plot_cluster_centroids">
+<code class="descname">plot_cluster_centroids</code><span class="sig-paren">(</span><em>centroids</em>, <em>x_vec</em>, <em>legend_mode=1</em>, <em>x_label=None</em>, <em>y_label=None</em>, <em>title=None</em>, <em>axis=None</em>, <em>overlayed=True</em>, <em>amp_units=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/viz/cluster_utils.html#plot_cluster_centroids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.viz.cluster_utils.plot_cluster_centroids" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>centroids</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.15)"><em>numpy.ndarray</em></a>) – 2D array. Centroids of clusters</li>
+<li><strong>x_vec</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.15)"><em>numpy.ndarray</em></a>) – 1D array. Vector against which the curves are plotted</li>
+<li><strong>legend_mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional. default = 1</em>) – <dl class="docutils">
+<dt>Appearance of legend:</dt>
+<dd>0 - inside the plot
+1 - outside the plot on the right
+else - colorbar instead of legend</dd>
+</dl>
+</li>
+<li><strong>x_label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em><em>, </em><em>default = None</em>) – Label for x axis</li>
+<li><strong>y_label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em><em>, </em><em>default = None</em>) – Label for y axis</li>
+<li><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em><em>, </em><em>default = None</em>) – Title for the plot</li>
+<li><strong>axis</strong> (<em>matplotlib.axes.Axes object</em><em>, </em><em>optional.</em>) – Axis to plot this image onto. Will create a new figure by default or will use this axis object to plot into</li>
+<li><strong>overlayed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – If True - all curves will be plotted overlayed on a single plot. Else, curves will be plotted separately</li>
+<li><strong>amp_units</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Units for amplitude</li>
+<li><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – will be passed on to plot_line_family(), plot_complex_spectra, plot_curves</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">fig, axes</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pycroscopy.viz.cluster_utils.plot_cluster_dendrogram">
+<code class="descname">plot_cluster_dendrogram</code><span class="sig-paren">(</span><em>label_mat</em>, <em>e_vals</em>, <em>num_comp</em>, <em>num_cluster</em>, <em>mode='Full'</em>, <em>last=None</em>, <em>sort_type='distance'</em>, <em>sort_mode=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/viz/cluster_utils.html#plot_cluster_dendrogram"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.viz.cluster_utils.plot_cluster_dendrogram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates and plots the dendrograms for the given label_mat and
+eigenvalues</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>label_mat</strong> (<em>2D real numpy array</em>) – structured as [rows, cols], from KMeans clustering</li>
+<li><strong>e_vals</strong> (<em>3D real numpy array of eigenvalues</em>) – structured as [component, rows, cols]</li>
+<li><strong>num_comp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Number of components used to make eigenvalues</li>
+<li><strong>num_cluster</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Number of cluster used to make the label_mat</li>
+<li><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – How should the dendrograms be created.
+“Full” – use all clusters when creating the dendrograms
+“Truncated” – stop showing clusters after ‘last’</li>
+<li><strong>last</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional - should be provided when using &quot;Truncated&quot;</em>) – How many merged clusters should be shown when using
+“Truncated” mode</li>
+<li><strong>sort_type</strong> (<em>{'count'</em><em>, </em><em>'distance'}</em><em>, </em><em>optional</em>) – What type of sorting should be used when plotting the
+dendrograms.  Options are:
+count - Uses the count_sort from scipy.cluster.hierachy.dendrogram
+distance - Uses the distance_sort from scipy.cluster.hierachy.dendrogram</li>
+<li><strong>sort_mode</strong> (<em>{False</em><em>, </em><em>True</em><em>, </em><em>'ascending'</em><em>, </em><em>'descending'}</em><em>, </em><em>optional</em>) – For the chosen sort_type, which mode should be used.
+False - Does no sorting
+‘ascending’ or True - The child with the minimum of the chosen sort
+parameter is plotted first
+‘descending’ - The child with the maximum of the chosen sort parameter is
+plotted first</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>fig</strong> – Figure containing the dendrogram</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">matplotlib.pyplot Figure object</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pycroscopy.viz.cluster_utils.plot_cluster_h5_group">
+<code class="descname">plot_cluster_h5_group</code><span class="sig-paren">(</span><em>h5_group</em>, <em>labels_kwargs=None</em>, <em>centroids_kwargs=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/viz/cluster_utils.html#plot_cluster_h5_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.viz.cluster_utils.plot_cluster_h5_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots the cluster labels and mean response for each cluster</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_group</strong> (<em>h5py.Datagroup object</em>) – H5 group containing the labels and mean response</li>
+<li><strong>labels_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – keyword arguments for the labels plot. NOT enabled yet.</li>
+<li><strong>centroids_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – keyword arguments for the centroids plot. NOT enabled yet.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>fig_labels</strong> (<em>figure handle</em>) – Figure containing the labels</li>
+<li><strong>fig_centroids</strong> (<em>figure handle</em>) – Figure containing the centroids</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pycroscopy.viz.cluster_utils.plot_cluster_labels">
+<code class="descname">plot_cluster_labels</code><span class="sig-paren">(</span><em>labels_mat</em>, <em>num_clusters=None</em>, <em>x_label=None</em>, <em>y_label=None</em>, <em>title=None</em>, <em>axis=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/viz/cluster_utils.html#plot_cluster_labels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.viz.cluster_utils.plot_cluster_labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots the cluster labels</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>labels_mat</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.15)"><em>numpy.ndarray</em></a>) – 1D or 2D unsigned integer array containing the labels of the clusters</li>
+<li><strong>num_clusters</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – Number of clusters</li>
+<li><strong>x_label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Label for x axis</li>
+<li><strong>y_label</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Label for y axis</li>
+<li><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Title for the plot</li>
+<li><strong>axis</strong> (<em>matplotlib.axes.Axes object</em><em>, </em><em>optional.</em>) – Axis to plot this image onto. Will create a new figure by default or will use this axis object to plot into</li>
+<li><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – will be passed on to plot() or plot_map()</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>fig</strong> (<em>matplotlib.pyplot.Figure object</em>) – figure object</li>
+<li><strong>axis</strong> (<em>matplotlib.Axes object</em>) – axis object</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pycroscopy.viz.image_cleaning_utils.html" class="btn btn-neutral float-right" title="pycroscopy.viz.image_cleaning_utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pycroscopy.viz.be_viz_utils.html" class="btn btn-neutral" title="pycroscopy.viz.be_viz_utils" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Suhas Somnath, Chris Smith, Stephen Jesse, Numan Laanait.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.60.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,1503 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyUSID.io.hdf_utils &mdash; pyUSID 0.0.4 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pyUSID.io.image" href="pyUSID.io.image.html" />
+    <link rel="prev" title="pyUSID.io" href="../pyUSID.io.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> pyUSID
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">pyUSID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../package_organization.html">Package Organization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_format.html">Data Model and File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribution_guidelines.html">Guidelines for Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whats_new.html">What’s New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../matlab_to_python.html">Upgrading from Matlab</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#submodules">Submodules</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../pyUSID.io.html">pyUSID.io</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../pyUSID.io.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">pyUSID.io.hdf_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyUSID.io.image.html">pyUSID.io.image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyUSID.io.io_utils.html">pyUSID.io.io_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyUSID.io.numpy_translator.html">pyUSID.io.numpy_translator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyUSID.io.usi_data.html">pyUSID.io.usi_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyUSID.io.translator.html">pyUSID.io.translator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyUSID.io.write_utils.html">pyUSID.io.write_utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../pyUSID.processing.html">pyUSID.processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pyUSID.viz.html">pyUSID.viz</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pyUSID</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../api.html">API Reference</a> &raquo;</li>
+        
+          <li><a href="../pyUSID.io.html">pyUSID.io</a> &raquo;</li>
+        
+      <li>pyUSID.io.hdf_utils</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/_autosummary/_autosummary/pyUSID.io.hdf_utils.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pyUSID.io.hdf_utils">
+<span id="pyusid-io-hdf-utils"></span><h1>pyUSID.io.hdf_utils<a class="headerlink" href="#module-pyUSID.io.hdf_utils" title="Permalink to this headline">¶</a></h1>
+<p>Created on Tue Nov  3 21:14:25 2015</p>
+<p>&#64;author: Suhas Somnath, Chris Smith</p>
+<p class="rubric">Functions</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.assign_group_index" title="pyUSID.io.hdf_utils.assign_group_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">assign_group_index</span></code></a>(h5_parent_group,&nbsp;base_name)</td>
+<td>Searches the parent h5 group to find the next available index for the group</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.attempt_reg_ref_build" title="pyUSID.io.hdf_utils.attempt_reg_ref_build"><code class="xref py py-obj docutils literal notranslate"><span class="pre">attempt_reg_ref_build</span></code></a>(h5_dset,&nbsp;dim_names[,&nbsp;…])</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param h5_dset:</th><td class="field-body">Dataset to which region references need to be added as attributes</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.check_and_link_ancillary" title="pyUSID.io.hdf_utils.check_and_link_ancillary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_and_link_ancillary</span></code></a>(h5_dset,&nbsp;anc_names)</td>
+<td>This function will add references to auxilliary datasets as attributes of an input dataset.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_for_matching_attrs</span></code>(h5_obj[,&nbsp;…])</td>
+<td>Compares attributes in the given H5 object against those in the provided dictionary and returns True if the parameters match, and False otherwise</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.check_for_old" title="pyUSID.io.hdf_utils.check_for_old"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_for_old</span></code></a>(h5_base,&nbsp;tool_name[,&nbsp;…])</td>
+<td>Check to see if the results of a tool already exist and if they were performed with the same parameters.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.check_if_main" title="pyUSID.io.hdf_utils.check_if_main"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_if_main</span></code></a>(h5_main[,&nbsp;verbose])</td>
+<td>Checks the input dataset to see if it has all the neccessary features to be considered a Main dataset.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.clean_reg_ref" title="pyUSID.io.hdf_utils.clean_reg_ref"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clean_reg_ref</span></code></a>(h5_dset,&nbsp;reg_ref_tuple[,&nbsp;verbose])</td>
+<td>Makes sure that the provided instructions for a region reference are indeed valid This method has become necessary since h5py allows the writing of region references larger than the maxshape</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.copy_attributes" title="pyUSID.io.hdf_utils.copy_attributes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy_attributes</span></code></a>(source,&nbsp;dest[,&nbsp;skip_refs])</td>
+<td>Copy attributes from one h5object to another</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.copy_main_attributes" title="pyUSID.io.hdf_utils.copy_main_attributes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy_main_attributes</span></code></a>(h5_main,&nbsp;h5_new)</td>
+<td>Copies the units and quantity name from one dataset to another</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.copy_reg_ref_reduced_dim" title="pyUSID.io.hdf_utils.copy_reg_ref_reduced_dim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy_reg_ref_reduced_dim</span></code></a>(h5_source,&nbsp;…)</td>
+<td>Copies a region reference from one dataset to another taking into account that a dimension has been lost from source to target</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.copy_region_refs" title="pyUSID.io.hdf_utils.copy_region_refs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy_region_refs</span></code></a>(h5_source,&nbsp;h5_target)</td>
+<td>Check the input dataset for plot groups, copy them if they exist Also make references in the Spectroscopic Values and Indices tables</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.create_empty_dataset" title="pyUSID.io.hdf_utils.create_empty_dataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_empty_dataset</span></code></a>(source_dset,&nbsp;dtype,&nbsp;…)</td>
+<td>Creates an empty dataset in the h5 file based on the provided dataset in the same or specified group</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.create_indexed_group" title="pyUSID.io.hdf_utils.create_indexed_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_indexed_group</span></code></a>(h5_parent_group,&nbsp;base_name)</td>
+<td>Creates a group with an indexed name (eg - ‘Measurement_012’) under h5_parent_group using the provided base_name as a prefix for the group’s name</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_region_reference</span></code>(h5_main,&nbsp;ref_inds)</td>
+<td>Create a region reference in the destination dataset using an iterable of pairs of indices representing the start and end points of a hyperslab block</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.create_results_group" title="pyUSID.io.hdf_utils.create_results_group"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_results_group</span></code></a>(h5_main,&nbsp;tool_name)</td>
+<td>Creates a h5py.Group object autoindexed and named as ‘DatasetName-ToolName_00x’</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.find_dataset" title="pyUSID.io.hdf_utils.find_dataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_dataset</span></code></a>(h5_group,&nbsp;dset_name)</td>
+<td>Uses visit() to find all datasets with the desired name</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.find_results_groups" title="pyUSID.io.hdf_utils.find_results_groups"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_results_groups</span></code></a>(h5_main,&nbsp;tool_name)</td>
+<td>Finds a list of all groups containing results of the process of name tool_name being applied to the dataset</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.get_all_main" title="pyUSID.io.hdf_utils.get_all_main"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_all_main</span></code></a>(parent[,&nbsp;verbose])</td>
+<td>Simple function to recursively print the contents of an hdf5 group</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.get_attr" title="pyUSID.io.hdf_utils.get_attr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_attr</span></code></a>(h5_object,&nbsp;attr_name)</td>
+<td>Returns the attribute from the h5py object</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.get_attributes" title="pyUSID.io.hdf_utils.get_attributes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_attributes</span></code></a>(h5_object[,&nbsp;attr_names])</td>
+<td>Returns attribute associated with some DataSet.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.get_auxiliary_datasets" title="pyUSID.io.hdf_utils.get_auxiliary_datasets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_auxiliary_datasets</span></code></a>(h5_object[,&nbsp;…])</td>
+<td>Returns auxiliary dataset objects associated with some DataSet through its attributes.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.get_data_descriptor" title="pyUSID.io.hdf_utils.get_data_descriptor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_data_descriptor</span></code></a>(h5_dset)</td>
+<td>Returns a string of the form ‘quantity (unit)’</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.get_dimensionality" title="pyUSID.io.hdf_utils.get_dimensionality"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_dimensionality</span></code></a>(ds_index[,&nbsp;index_sort])</td>
+<td>Get the size of each index dimension in a specified sort order</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.get_formatted_labels" title="pyUSID.io.hdf_utils.get_formatted_labels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_formatted_labels</span></code></a>(h5_dset)</td>
+<td>Takes any dataset which has the labels and units attributes and returns a list of strings formatted as ‘label k (unit k)’</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.get_group_refs" title="pyUSID.io.hdf_utils.get_group_refs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_group_refs</span></code></a>(group_name,&nbsp;h5_refs)</td>
+<td>Given a list of H5 references and a group name, this method returns H5 Datagroup object corresponding to the names.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.get_h5_obj_refs" title="pyUSID.io.hdf_utils.get_h5_obj_refs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_h5_obj_refs</span></code></a>(obj_names,&nbsp;h5_refs)</td>
+<td>Given a list of H5 references and a list of names, this method returns H5 objects corresponding to the names</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.get_indices_for_region_ref" title="pyUSID.io.hdf_utils.get_indices_for_region_ref"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_indices_for_region_ref</span></code></a>(h5_main,&nbsp;ref[,&nbsp;…])</td>
+<td>Given an hdf5 region reference and the dataset it refers to, return an array of indices within that dataset that correspond to the reference.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_region</span></code>(h5_dset,&nbsp;reg_ref_name)</td>
+<td>Gets the region in a dataset specified by a region reference</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.get_sort_order" title="pyUSID.io.hdf_utils.get_sort_order"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_sort_order</span></code></a>(ds_spec)</td>
+<td>Find how quickly the spectroscopic values are changing in each row and the order of rows from fastest changing to slowest.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.get_source_dataset" title="pyUSID.io.hdf_utils.get_source_dataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_source_dataset</span></code></a>(h5_group)</td>
+<td>Find the name of the source dataset used to create the input <cite>h5_group</cite></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.get_unit_values" title="pyUSID.io.hdf_utils.get_unit_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_unit_values</span></code></a>(h5_inds,&nbsp;h5_vals[,&nbsp;…])</td>
+<td>Gets the unit arrays of values that describe the spectroscopic dimensions</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.is_editable_h5" title="pyUSID.io.hdf_utils.is_editable_h5"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_editable_h5</span></code></a>(h5_obj)</td>
+<td>Returns True if the file containing the provided h5 object is in w or r+ modes</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.link_as_main" title="pyUSID.io.hdf_utils.link_as_main"><code class="xref py py-obj docutils literal notranslate"><span class="pre">link_as_main</span></code></a>(h5_main,&nbsp;h5_pos_inds,&nbsp;…[,&nbsp;…])</td>
+<td>Links the object references to the four position and spectrosocpic datasets as attributes of <cite>h5_main</cite></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.link_h5_obj_as_alias" title="pyUSID.io.hdf_utils.link_h5_obj_as_alias"><code class="xref py py-obj docutils literal notranslate"><span class="pre">link_h5_obj_as_alias</span></code></a>(h5_main,&nbsp;h5_ancillary,&nbsp;…)</td>
+<td>Creates Dataset attributes that contain references to other Dataset Objects.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.link_h5_objects_as_attrs" title="pyUSID.io.hdf_utils.link_h5_objects_as_attrs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">link_h5_objects_as_attrs</span></code></a>(src,&nbsp;h5_objects)</td>
+<td>Creates Dataset attributes that contain references to other Dataset Objects.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.print_tree" title="pyUSID.io.hdf_utils.print_tree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">print_tree</span></code></a>(parent[,&nbsp;rel_paths,&nbsp;main_dsets_only])</td>
+<td>Simple function to recursively print the contents of an hdf5 group</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.reshape_from_n_dims" title="pyUSID.io.hdf_utils.reshape_from_n_dims"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reshape_from_n_dims</span></code></a>(data_n_dim[,&nbsp;h5_pos,&nbsp;…])</td>
+<td>Reshape the input 2D matrix to be N-dimensions based on the position and spectroscopic datasets.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.reshape_to_n_dims" title="pyUSID.io.hdf_utils.reshape_to_n_dims"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reshape_to_n_dims</span></code></a>(h5_main[,&nbsp;h5_pos,&nbsp;…])</td>
+<td>Reshape the input 2D matrix to be N-dimensions based on the position and spectroscopic datasets.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.simple_region_ref_copy" title="pyUSID.io.hdf_utils.simple_region_ref_copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">simple_region_ref_copy</span></code></a>(h5_source,&nbsp;h5_target,&nbsp;key)</td>
+<td>Copies a region reference from one dataset to another without alteration</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.write_book_keeping_attrs" title="pyUSID.io.hdf_utils.write_book_keeping_attrs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_book_keeping_attrs</span></code></a>(h5_obj)</td>
+<td>Writes basic book-keeping and posterity related attributes to groups created in pyUSID such as machine id, pyUSID version, timestamp.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.write_ind_val_dsets" title="pyUSID.io.hdf_utils.write_ind_val_dsets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_ind_val_dsets</span></code></a>(h5_parent_group,&nbsp;dimensions)</td>
+<td>Creates h5py.Datasets for the position OR spectroscopic indices and values of the data.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.write_main_dataset" title="pyUSID.io.hdf_utils.write_main_dataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_main_dataset</span></code></a>(h5_parent_group,&nbsp;…[,&nbsp;…])</td>
+<td>Writes the provided data as a ‘Main’ dataset with all appropriate linking.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.write_reduced_spec_dsets" title="pyUSID.io.hdf_utils.write_reduced_spec_dsets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_reduced_spec_dsets</span></code></a>(h5_parent_group,&nbsp;…)</td>
+<td>Creates new Spectroscopic Indices and Values datasets from the input datasets and keeps the dimensions specified in keep_dim</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.write_region_references" title="pyUSID.io.hdf_utils.write_region_references"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_region_references</span></code></a>(h5_dset,&nbsp;reg_ref_dict)</td>
+<td>Creates attributes of a h5py.Dataset that refer to regions in the dataset</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyUSID.io.hdf_utils.write_simple_attrs" title="pyUSID.io.hdf_utils.write_simple_attrs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_simple_attrs</span></code></a>(h5_obj,&nbsp;attrs[,&nbsp;…])</td>
+<td>Writes attributes to a h5py object</td>
+</tr>
+</tbody>
+</table>
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.get_attr">
+<code class="descname">get_attr</code><span class="sig-paren">(</span><em>h5_object</em>, <em>attr_name</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#get_attr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.get_attr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the attribute from the h5py object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_object</strong> (<em>h5py.Dataset</em><em>, </em><em>h5py.Group</em><em> or </em><em>h5py.File object</em>) – object whose attribute is desired</li>
+<li><strong>attr_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Name of the attribute of interest</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>att_val</strong> – value of attribute, in certain cases (byte strings or list of byte strings) reformatted to readily usable forms</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)">object</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.get_h5_obj_refs">
+<code class="descname">get_h5_obj_refs</code><span class="sig-paren">(</span><em>obj_names</em>, <em>h5_refs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#get_h5_obj_refs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.get_h5_obj_refs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of H5 references and a list of names,
+this method returns H5 objects corresponding to the names</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>obj_names</strong> (<em>string</em><em> or </em><em>List of strings</em>) – names of target h5py objects</li>
+<li><strong>h5_refs</strong> (<em>H5 object reference</em><em> or </em><em>List of H5 object references</em>) – list containing the target reference</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>found_objects</strong> – Corresponding references</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">List of HDF5 dataset references</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.get_indices_for_region_ref">
+<code class="descname">get_indices_for_region_ref</code><span class="sig-paren">(</span><em>h5_main</em>, <em>ref</em>, <em>return_method='slices'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#get_indices_for_region_ref"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.get_indices_for_region_ref" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an hdf5 region reference and the dataset it refers to,
+return an array of indices within that dataset that
+correspond to the reference.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_main</strong> (<em>HDF5 Dataset</em>) – dataset that the reference can be returned from</li>
+<li><strong>ref</strong> (<em>HDF5 Region Reference</em>) – Region reference object</li>
+<li><strong>return_method</strong> (<em>{'slices'</em><em>, </em><em>'corners'</em><em>, </em><em>'points'}</em>) – <p>slices : the reference is return as pairs of slices</p>
+<p>corners : the reference is returned as pairs of corners representing
+the starting and ending indices of each block</p>
+<p>points : the reference is returns as a list of tuples of points</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ref_inds</strong> – array of indices in the source dataset that ref accesses</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Numpy Array</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.get_dimensionality">
+<code class="descname">get_dimensionality</code><span class="sig-paren">(</span><em>ds_index</em>, <em>index_sort=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#get_dimensionality"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.get_dimensionality" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the size of each index dimension in a specified sort order</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ds_index</strong> (<em>2D HDF5 Dataset</em><em> or </em><em>numpy array</em>) – Row matrix of indices</li>
+<li><strong>index_sort</strong> (<em>Iterable of unsigned integers</em><em> (</em><em>Optional</em><em>)</em>) – Sort that can be applied to dimensionality.
+For example - Order of rows sorted from fastest to slowest</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>sorted_dims</strong> – Dimensionality of each row in ds_index.  If index_sort is supplied, it will be in the sorted order</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of unsigned integers</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.get_sort_order">
+<code class="descname">get_sort_order</code><span class="sig-paren">(</span><em>ds_spec</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#get_sort_order"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.get_sort_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find how quickly the spectroscopic values are changing in each row
+and the order of rows from fastest changing to slowest.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ds_spec</strong> (<em>2D HDF5 dataset</em><em> or </em><em>numpy array</em>) – Rows of indices to be sorted from fastest changing to slowest</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>change_sort</strong> – Order of rows sorted from fastest changing to slowest</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">List of unsigned integers</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.get_auxiliary_datasets">
+<code class="descname">get_auxiliary_datasets</code><span class="sig-paren">(</span><em>h5_object</em>, <em>aux_dset_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#get_auxiliary_datasets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.get_auxiliary_datasets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns auxiliary dataset objects associated with some DataSet through its attributes.
+Note - region references will be ignored.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_object</strong> (<em>h5py.Dataset</em><em>, </em><em>h5py.Group</em><em> or </em><em>h5py.File object</em>) – Dataset object reference.</li>
+<li><strong>aux_dset_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><em>list of strings</em><em>, </em><em>optional</em><em>, </em><em>default = all</em><em> (</em><em>DataSet.attrs</em><em>)</em><em></em>) – Name of auxiliary Dataset objects to return.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of h5py.Reference of auxiliary dataset objects.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.get_attributes">
+<code class="descname">get_attributes</code><span class="sig-paren">(</span><em>h5_object</em>, <em>attr_names=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#get_attributes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.get_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns attribute associated with some DataSet.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_object</strong> (<em>h5py.Dataset</em>) – Dataset object reference.</li>
+<li><strong>attr_names</strong> (<em>string</em><em> or </em><em>list of strings</em><em>, </em><em>optional</em><em>, </em><em>default = all</em><em> (</em><em>DataSet.attrs</em><em>)</em><em></em>) – Name of attribute object to return.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Dictionary containing (name,value) pairs of attributes</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.get_group_refs">
+<code class="descname">get_group_refs</code><span class="sig-paren">(</span><em>group_name</em>, <em>h5_refs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#get_group_refs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.get_group_refs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of H5 references and a group name,
+this method returns H5 Datagroup object corresponding to the names.
+This function is especially useful when the suffix of the written group
+is unknown (due to the autoindexing in HDFwriter)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>group_name</strong> (<em>unicode / string</em>) – Name of the datagroup. If the index suffix is left out, all groups matching the basename will be returned
+Example - provide ‘SourceDataset_ProcessName’
+if a specific group is required, provide - ‘SourceDataset_ProcessName_017’</li>
+<li><strong>h5_refs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – List of h5 object references</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>group_list</strong> – A list of h5py.Group objects whose name matched with the provided group_name</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)">list</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.check_if_main">
+<code class="descname">check_if_main</code><span class="sig-paren">(</span><em>h5_main</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#check_if_main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.check_if_main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks the input dataset to see if it has all the neccessary
+features to be considered a Main dataset.  This means it is
+2D and has the following attributes
+Position_Indices
+Position_Values
+Spectroscopic_Indices
+Spectroscopic_Values</p>
+<p>In addition the shapes of the ancillary matricies should match with that of h5_main</p>
+<p>In addition, it should have the ‘quantity’ and ‘units’ attributes</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_main</strong> (<em>HDF5 Dataset</em>) – Dataset of interest</li>
+<li><strong>verbose</strong> (<em>Boolean</em><em> (</em><em>Optional. Default = False</em><em>)</em>) – Whether or not to print statements</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>success</strong> – True if all tests pass</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Boolean</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.check_and_link_ancillary">
+<code class="descname">check_and_link_ancillary</code><span class="sig-paren">(</span><em>h5_dset</em>, <em>anc_names</em>, <em>h5_main=None</em>, <em>anc_refs=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#check_and_link_ancillary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.check_and_link_ancillary" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function will add references to auxilliary datasets as attributes
+of an input dataset.
+If the entries in anc_refs are valid references, they will be added
+as attributes with the name taken from the corresponding entry in
+anc_names.
+If an entry in anc_refs is not a valid reference, the function will
+attempt to get the attribute with the same name from the h5_main
+dataset</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_dset</strong> (<em>HDF5 Dataset</em>) – dataset to which the attributes will be written</li>
+<li><strong>anc_names</strong> (<em>list of str</em>) – the attribute names to be used</li>
+<li><strong>h5_main</strong> (<em>HDF5 Dataset</em><em>, </em><em>optional</em>) – dataset from which attributes will be copied if <cite>anc_refs</cite> is None</li>
+<li><strong>anc_refs</strong> (<em>list of HDF5 Object References</em><em>, </em><em>optional</em>) – references that correspond to the strings in <cite>anc_names</cite></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)">None</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Either <cite>h5_main</cite> or <cite>anc_refs</cite> MUST be provided and <cite>anc_refs</cite> has the
+higher priority if both are present.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.copy_region_refs">
+<code class="descname">copy_region_refs</code><span class="sig-paren">(</span><em>h5_source</em>, <em>h5_target</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#copy_region_refs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.copy_region_refs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check the input dataset for plot groups, copy them if they exist
+Also make references in the Spectroscopic Values and Indices tables</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>h5_source</strong> (<em>HDF5 Dataset</em>) – source dataset to copy references from</li>
+<li><strong>h5_target</strong> (<em>HDF5 Dataset</em>) – target dataset the references from h5_source are copied to</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.get_all_main">
+<code class="descname">get_all_main</code><span class="sig-paren">(</span><em>parent</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#get_all_main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.get_all_main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple function to recursively print the contents of an hdf5 group</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>parent</strong> (<em>h5py.Group</em>) – HDF5 Group to search within</li>
+<li><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – If true, extra print statements are enabled</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>main_list</strong> – The datasets found in the file that meet the ‘Main Data’ criteria.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of h5py.Dataset</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.get_unit_values">
+<code class="descname">get_unit_values</code><span class="sig-paren">(</span><em>h5_inds</em>, <em>h5_vals</em>, <em>dim_names=None</em>, <em>all_dim_names=None</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#get_unit_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.get_unit_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the unit arrays of values that describe the spectroscopic dimensions</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_inds</strong> (<em>h5py.Dataset</em><em> or </em><a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.15)"><em>numpy.ndarray</em></a>) – Spectroscopic or Position Indices dataset</li>
+<li><strong>h5_vals</strong> (<em>h5py.Dataset</em><em> or </em><a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.15)"><em>numpy.ndarray</em></a>) – Spectroscopic or Position Values dataset</li>
+<li><strong>dim_names</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, or </em><em>list of str</em><em>, </em><em>Optional</em>) – Names of the dimensions of interest. Default = all</li>
+<li><strong>all_dim_names</strong> (<em>list of str</em><em>, </em><em>Optional</em>) – Names of all the dimensions in these datasets. Use this if supplying numpy arrays instead of h5py.Dataset
+objects for h5_inds, h5_vals since there is no other way of getting the dimension names.</li>
+<li><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether or not to print debugging statements. Default - off</li>
+<li><strong>- this function can be extended / modified for ancillary position dimensions as well</strong> (<em>Note</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>unit_values</strong> – Dictionary containing the unit array for each dimension. The name of the dimensions are the keys.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.get_data_descriptor">
+<code class="descname">get_data_descriptor</code><span class="sig-paren">(</span><em>h5_dset</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#get_data_descriptor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.get_data_descriptor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string of the form ‘quantity (unit)’</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>h5_dset</strong> (<em>h5py.Dataset object</em>) – A USID ‘main’ dataset</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>descriptor</strong> – string of the form ‘quantity (unit)’</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">String</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.copy_attributes">
+<code class="descname">copy_attributes</code><span class="sig-paren">(</span><em>source</em>, <em>dest</em>, <em>skip_refs=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#copy_attributes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.copy_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy attributes from one h5object to another</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>source</strong> (<em>h5py.Dataset</em><em>, </em><em>h5py.Group</em><em>, or </em><em>h5py.File object</em>) – Object containing the desired attributes</li>
+<li><strong>dest</strong> (<em>h5py.Dataset</em><em>, </em><em>h5py.Group</em><em>, or </em><em>h5py.File object</em>) – Object to which the attributes need to be copied to</li>
+<li><strong>skip_refs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional. default = True</em>) – Whether or not the references (dataset and region) should be skipped</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.reshape_to_n_dims">
+<code class="descname">reshape_to_n_dims</code><span class="sig-paren">(</span><em>h5_main</em>, <em>h5_pos=None</em>, <em>h5_spec=None</em>, <em>get_labels=False</em>, <em>verbose=False</em>, <em>sort_dims=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#reshape_to_n_dims"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.reshape_to_n_dims" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reshape the input 2D matrix to be N-dimensions based on the
+position and spectroscopic datasets.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_main</strong> (<em>HDF5 Dataset</em>) – 2D data to be reshaped</li>
+<li><strong>h5_pos</strong> (<em>HDF5 Dataset</em><em>, </em><em>optional</em>) – Position indices corresponding to rows in <cite>h5_main</cite></li>
+<li><strong>h5_spec</strong> (<em>HDF5 Dataset</em><em>, </em><em>optional</em>) – Spectroscopic indices corresponding to columns in <cite>h5_main</cite></li>
+<li><strong>get_labels</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether or not to return the dimension labels.  Default False</li>
+<li><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether or not to print debugging statements</li>
+<li><strong>sort_dims</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – If True, the data is sorted so that the dimensions are in order from fastest to slowest
+If False, the data is kept in the original order
+If <cite>get_labels</cite> is also True, the labels are sorted as well.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul>
+<li><p class="first"><strong>ds_Nd</strong> (<em>N-D numpy array</em>) – N dimensional numpy array arranged as [positions slowest to fastest, spectroscopic slowest to fastest]</p>
+</li>
+<li><p class="first"><strong>success</strong> (<em>boolean or string</em>) – True if full reshape was successful</p>
+<p>”Positions” if it was only possible to reshape by
+the position dimensions</p>
+<p>False if no reshape was possible</p>
+</li>
+<li><p class="first"><strong>ds_labels</strong> (<em>list of str</em>) – List of the labels of each dimension of <cite>ds_Nd</cite></p>
+</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>If either <cite>h5_pos</cite> or <cite>h5_spec</cite> are not provided, the function will first
+attempt to find them as attributes of <cite>h5_main</cite>.  If that fails, it will
+generate dummy values for them.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.link_h5_objects_as_attrs">
+<code class="descname">link_h5_objects_as_attrs</code><span class="sig-paren">(</span><em>src</em>, <em>h5_objects</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#link_h5_objects_as_attrs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.link_h5_objects_as_attrs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates Dataset attributes that contain references to other Dataset Objects.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>src</strong> (<em>Reference to h5.object</em>) – Reference to the the object to which attributes will be added</li>
+<li><strong>h5_objects</strong> (<em>list of references to h5.objects</em>) – objects whose references that can be accessed from src.attrs</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)">None</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.link_h5_obj_as_alias">
+<code class="descname">link_h5_obj_as_alias</code><span class="sig-paren">(</span><em>h5_main</em>, <em>h5_ancillary</em>, <em>alias_name</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#link_h5_obj_as_alias"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.link_h5_obj_as_alias" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates Dataset attributes that contain references to other Dataset Objects.
+This function is useful when the reference attribute must have a reserved name.
+Such as linking ‘SHO_Indices’ as ‘Spectroscopic_Indices’</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>h5_main</strong> (<em>h5py.Dataset</em>) – Reference to the the object to which attributes will be added</li>
+<li><strong>h5_ancillary</strong> (<em>h5py.Dataset</em>) – object whose reference that can be accessed from src.attrs</li>
+<li><strong>alias_name</strong> (<em>String</em>) – Alias / alternate name for trg</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.find_results_groups">
+<code class="descname">find_results_groups</code><span class="sig-paren">(</span><em>h5_main</em>, <em>tool_name</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#find_results_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.find_results_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds a list of all groups containing results of the process of name tool_name being applied to the dataset</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_main</strong> (<em>h5 dataset reference</em>) – Reference to the target dataset to which the tool was applied</li>
+<li><strong>tool_name</strong> (<em>String / unicode</em>) – Name of the tool applied to the target dataset</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>groups</strong> – groups whose name contains the tool name and the dataset name</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of references to h5 group objects</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.get_formatted_labels">
+<code class="descname">get_formatted_labels</code><span class="sig-paren">(</span><em>h5_dset</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#get_formatted_labels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.get_formatted_labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes any dataset which has the labels and units attributes and returns a list of strings
+formatted as ‘label k (unit k)’</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>h5_dset</strong> (<em>h5py.Dataset object</em>) – dataset which has labels and units attributes</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>labels</strong> – list of strings formatted as ‘label k (unit k)’</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)">list</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.reshape_from_n_dims">
+<code class="descname">reshape_from_n_dims</code><span class="sig-paren">(</span><em>data_n_dim</em>, <em>h5_pos=None</em>, <em>h5_spec=None</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#reshape_from_n_dims"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.reshape_from_n_dims" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reshape the input 2D matrix to be N-dimensions based on the
+position and spectroscopic datasets.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>data_n_dim</strong> (<em>numpy.array</em>) – N dimensional numpy array arranged as [positions dimensions…, spectroscopic dimensions]
+If h5_pos and h5_spec are not provided, this function will have to assume that the dimensions
+are arranged as [positions slowest to fastest, spectroscopic slowest to fastest].
+This restriction is removed if h5_pos and h5_spec are provided</li>
+<li><strong>h5_pos</strong> (<em>HDF5 Dataset</em><em>, </em><em>numpy.array</em>) – Position indices corresponding to rows in the final 2d array
+The dimensions should be arranged in terms of rate of change corresponding to data_n_dim.
+In other words if data_n_dim had two position dimensions arranged as [pos_fast, pos_slow, spec_dim_1….],
+h5_pos should be arranged as [pos_fast, pos_slow]</li>
+<li><strong>h5_spec</strong> (<em>HDF5 Dataset</em><em>, </em><em>numpy. array</em>) – Spectroscopic indices corresponding to columns in the final 2d array
+The dimensions should be arranged in terms of rate of change corresponding to data_n_dim.
+In other words if data_n_dim had two spectral dimensions arranged as [pos_dim_1,…, spec_fast, spec_slow],
+h5_spec should be arranged as [pos_slow, pos_fast]</li>
+<li><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional. Default = False</em>) – Whether or not to print log statements</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul>
+<li><p class="first"><strong>ds_2d</strong> (<em>numpy.array</em>) – 2 dimensional numpy array arranged as [positions, spectroscopic]</p>
+</li>
+<li><p class="first"><strong>success</strong> (<em>boolean or string</em>) – True if full reshape was successful</p>
+<p>”Positions” if it was only possible to reshape by
+the position dimensions</p>
+<p>False if no reshape was possible</p>
+</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>If either <cite>h5_pos</cite> or <cite>h5_spec</cite> are not provided, the function will
+assume the first dimension is position and the remaining are spectroscopic already
+in order from fastest to slowest.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.find_dataset">
+<code class="descname">find_dataset</code><span class="sig-paren">(</span><em>h5_group</em>, <em>dset_name</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#find_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.find_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uses visit() to find all datasets with the desired name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_group</strong> (<em>h5py.Group</em>) – Group to search within for the Dataset</li>
+<li><strong>dset_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Name of the dataset to search for</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>datasets</strong> – List of [Name, object] pairs corresponding to datasets that match <cite>ds_name</cite>.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)">list</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.print_tree">
+<code class="descname">print_tree</code><span class="sig-paren">(</span><em>parent</em>, <em>rel_paths=False</em>, <em>main_dsets_only=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#print_tree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.print_tree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple function to recursively print the contents of an hdf5 group</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>parent</strong> (<em>h5py.Group</em>) – HDF5 tree to print</li>
+<li><strong>rel_paths</strong> (<em>(</em><em>Optional</em><em>) </em><em>bool. Default = False</em>) – True - prints the relative paths for all elements.
+False - prints a tree-like structure with only the element names</li>
+<li><strong>main_dsets_only</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional. default=False</em>) – True - prints only groups and Main datasets
+False - prints all dataset and group objects</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)">None</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.copy_main_attributes">
+<code class="descname">copy_main_attributes</code><span class="sig-paren">(</span><em>h5_main</em>, <em>h5_new</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#copy_main_attributes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.copy_main_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copies the units and quantity name from one dataset to another</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>h5_main</strong> (<em>h5py.Dataset</em>) – Dataset containing the target attributes</li>
+<li><strong>h5_new</strong> (<em>h5py.Dataset</em>) – Dataset to which the target attributes are to be copied</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.create_empty_dataset">
+<code class="descname">create_empty_dataset</code><span class="sig-paren">(</span><em>source_dset</em>, <em>dtype</em>, <em>dset_name</em>, <em>h5_group=None</em>, <em>new_attrs=None</em>, <em>skip_refs=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#create_empty_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.create_empty_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an empty dataset in the h5 file based on the provided dataset in the same or specified group</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>source_dset</strong> (<em>h5py.Dataset object</em>) – Source object that provides information on the group and shape of the dataset</li>
+<li><strong>dtype</strong> (<em>dtype</em>) – Data type of the fit / guess datasets</li>
+<li><strong>dset_name</strong> (<em>String / Unicode</em>) – Name of the dataset</li>
+<li><strong>h5_group</strong> (<em>h5py.Group object</em><em>, </em><em>optional. Default = None</em>) – Group within which this dataset will be created</li>
+<li><strong>new_attrs</strong> (<em>dictionary</em><em> (</em><em>Optional</em><em>)</em>) – Any new attributes that need to be written to the dataset</li>
+<li><strong>skip_refs</strong> (<em>boolean</em><em>, </em><em>optional</em>) – Should ObjectReferences and RegionReferences be skipped when copying attributes from the
+<cite>source_dset</cite></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>h5_new_dset</strong> – Newly created dataset</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">h5py.Dataset object</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.check_for_old">
+<code class="descname">check_for_old</code><span class="sig-paren">(</span><em>h5_base</em>, <em>tool_name</em>, <em>new_parms=None</em>, <em>target_dset=None</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#check_for_old"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.check_for_old" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check to see if the results of a tool already exist and if they
+were performed with the same parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_base</strong> (<em>h5py.Dataset object</em>) – Dataset on which the tool is being applied to</li>
+<li><strong>tool_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – process or analysis name</li>
+<li><strong>new_parms</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a><em>, </em><em>optional</em>) – Parameters with which this tool will be performed.</li>
+<li><strong>target_dset</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em><em>, </em><em>default = None</em>) – Name of the dataset whose attributes will be compared against new_parms.
+Default - checking against the group</li>
+<li><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em><em>, </em><em>default = False</em>) – Whether or not to print debugging statements</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>group</strong> – List of all groups with parameters matching those in <cite>new_parms</cite></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)">list</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.get_source_dataset">
+<code class="descname">get_source_dataset</code><span class="sig-paren">(</span><em>h5_group</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#get_source_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.get_source_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the name of the source dataset used to create the input <cite>h5_group</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>h5_group</strong> (<em>h5py.Datagroup</em>) – Child group whose source dataset will be returned</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>h5_source</strong> – Main dataset from which this group was generated</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Pycrodataset object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.link_as_main">
+<code class="descname">link_as_main</code><span class="sig-paren">(</span><em>h5_main</em>, <em>h5_pos_inds</em>, <em>h5_pos_vals</em>, <em>h5_spec_inds</em>, <em>h5_spec_vals</em>, <em>anc_dsets=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#link_as_main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.link_as_main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Links the object references to the four position and spectrosocpic datasets as
+attributes of <cite>h5_main</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>h5_main</strong> (<em>h5py.Dataset</em>) – 2D Dataset which will have the references added as attributes</li>
+<li><strong>h5_pos_inds</strong> (<em>h5py.Dataset</em>) – Dataset that will be linked with the name ‘Position_Indices’</li>
+<li><strong>h5_pos_vals</strong> (<em>h5py.Dataset</em>) – Dataset that will be linked with the name ‘Position_Values’</li>
+<li><strong>h5_spec_inds</strong> (<em>h5py.Dataset</em>) – Dataset that will be linked with the name ‘Spectroscopic_Indices’</li>
+<li><strong>h5_spec_vals</strong> (<em>h5py.Dataset</em>) – Dataset that will be linked with the name ‘Spectroscopic_Values’</li>
+<li><strong>anc_dsets</strong> (<em>(</em><em>Optional</em><em>) </em><em>list of h5py.Dataset objects</em>) – Datasets that will be linked with their own names</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.copy_reg_ref_reduced_dim">
+<code class="descname">copy_reg_ref_reduced_dim</code><span class="sig-paren">(</span><em>h5_source</em>, <em>h5_target</em>, <em>h5_source_inds</em>, <em>h5_target_inds</em>, <em>key</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#copy_reg_ref_reduced_dim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.copy_reg_ref_reduced_dim" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copies a region reference from one dataset to another taking into account that a dimension
+has been lost from source to target</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_source</strong> (<em>HDF5 Dataset</em>) – source dataset for region reference copy</li>
+<li><strong>h5_target</strong> (<em>HDF5 Dataset</em>) – target dataset for region reference copy</li>
+<li><strong>h5_source_inds</strong> (<em>HDF5 Dataset</em>) – indices of each dimension of the h5_source dataset</li>
+<li><strong>h5_target_inds</strong> (<em>HDF5 Dataset</em>) – indices of each dimension of the h5_target dataset</li>
+<li><strong>key</strong> (<em>String</em>) – Name of attribute in h5_source that contains
+the Region Reference to copy</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ref_inds</strong> – Array containing pairs of points that define
+the corners of each hyperslab in the region
+reference</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Nx2x2 array of unsigned integers</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.simple_region_ref_copy">
+<code class="descname">simple_region_ref_copy</code><span class="sig-paren">(</span><em>h5_source</em>, <em>h5_target</em>, <em>key</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#simple_region_ref_copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.simple_region_ref_copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copies a region reference from one dataset to another
+without alteration</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_source</strong> (<em>HDF5 Dataset</em>) – source dataset for region reference copy</li>
+<li><strong>h5_target</strong> (<em>HDF5 Dataset</em>) – target dataset for region reference copy</li>
+<li><strong>key</strong> (<em>String</em>) – Name of attribute in h5_source that contains
+the Region Reference to copy</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ref_inds</strong> – Array containing pairs of points that define
+the corners of each hyperslab in the region
+reference</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Nx2x2 array of unsigned integers</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.write_book_keeping_attrs">
+<code class="descname">write_book_keeping_attrs</code><span class="sig-paren">(</span><em>h5_obj</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#write_book_keeping_attrs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.write_book_keeping_attrs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes basic book-keeping and posterity related attributes to groups created in pyUSID such as machine id,
+pyUSID version, timestamp.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>h5_obj</strong> (<em>h5py.Object</em>) – Object to which basic book-keeping attributes need to be written</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.is_editable_h5">
+<code class="descname">is_editable_h5</code><span class="sig-paren">(</span><em>h5_obj</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#is_editable_h5"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.is_editable_h5" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if the file containing the provided h5 object is in w or r+ modes</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>h5_obj</strong> (<em>h5py.File</em><em>, </em><em>h5py.Group</em><em>, or </em><em>h5py.Dataset object</em>) – h5py object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>mode</strong> – True if the file containing the provided h5 object is in w or r+ modes</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)">bool</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.write_ind_val_dsets">
+<code class="descname">write_ind_val_dsets</code><span class="sig-paren">(</span><em>h5_parent_group</em>, <em>dimensions</em>, <em>is_spectral=True</em>, <em>verbose=False</em>, <em>base_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#write_ind_val_dsets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.write_ind_val_dsets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates h5py.Datasets for the position OR spectroscopic indices and values of the data.
+Remember that the contents of the dataset can be changed if need be after the creation of the datasets.
+For example if one of the spectroscopic dimensions (e.g. - Bias) was sinusoidal and not linear, The specific
+dimension in the Spectroscopic_Values dataset can be manually overwritten.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_parent_group</strong> (<em>h5py.Group</em><em> or </em><em>h5py.File</em>) – Group under which the indices and values datasets will be created</li>
+<li><strong>dimensions</strong> (<em>Dimension</em><em> or </em><em>array-like of Dimension objects</em>) – Sequence of Dimension objects that provides all necessary instructions for constructing the indices and values
+datasets</li>
+<li><strong>is_spectral</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional. default = True</em>) – Spectroscopic (True) or Position (False)</li>
+<li><strong>verbose</strong> (<em>Boolean</em><em>, </em><em>optional</em>) – Whether or not to print statements for debugging purposes</li>
+<li><strong>base_name</strong> (<em>str / unicode</em><em>, </em><em>optional</em>) – Prefix for the datasets. Default: ‘<a href="#id1"><span class="problematic" id="id2">Position_</span></a>’ when is_spectral is False, ‘<a href="#id3"><span class="problematic" id="id4">Spectroscopic_</span></a>’ otherwise</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>h5_spec_inds</strong> (<em>h5py.Dataset</em>) – Dataset containing the position indices</li>
+<li><strong>h5_spec_vals</strong> (<em>h5py.Dataset</em>) – Dataset containing the value at each position</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p><cite>steps</cite>, <cite>initial_values</cite>, <cite>labels</cite>, and ‘units’ must be the same length as
+<cite>dimensions</cite> when they are specified.</p>
+<p>Dimensions should be in the order from fastest varying to slowest.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.write_reduced_spec_dsets">
+<code class="descname">write_reduced_spec_dsets</code><span class="sig-paren">(</span><em>h5_parent_group</em>, <em>h5_spec_inds</em>, <em>h5_spec_vals</em>, <em>dim_name</em>, <em>basename='Spectroscopic'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#write_reduced_spec_dsets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.write_reduced_spec_dsets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates new Spectroscopic Indices and Values datasets from the input datasets
+and keeps the dimensions specified in keep_dim</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_parent_group</strong> (<em>h5py.Group</em><em> or </em><em>h5py.File</em>) – Group under which the indices and values datasets will be created</li>
+<li><strong>h5_spec_inds</strong> (<em>HDF5 Dataset</em>) – Spectroscopic indices dataset</li>
+<li><strong>h5_spec_vals</strong> (<em>HDF5 Dataset</em>) – Spectroscopic values dataset</li>
+<li><strong>dim_name</strong> (<em>str / unicode</em>) – Name of the dimension to remove</li>
+<li><strong>basename</strong> (<em>str / unicode</em><em>, </em><em>Optional</em>) – String to which ‘_Indices’ and ‘_Values’ will be appended to get the names
+of the new datasets</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>h5_inds</strong> (<em>h5py.Dataset</em>) – Reduced Spectroscopic indices dataset</li>
+<li><strong>h5_vals</strong> (<em>h5py.Dataset</em>) – Reduces Spectroscopic values dataset</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.write_simple_attrs">
+<code class="descname">write_simple_attrs</code><span class="sig-paren">(</span><em>h5_obj</em>, <em>attrs</em>, <em>obj_type=''</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#write_simple_attrs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.write_simple_attrs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes attributes to a h5py object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>h5_obj</strong> (<em>h5py.File</em><em>, </em><em>h5py.Group</em><em>, or </em><em>h5py.Dataset object</em>) – h5py object to which the attributes will be written to</li>
+<li><strong>attrs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Dictionary containing the attributes as key-value pairs</li>
+<li><strong>obj_type</strong> (<em>str / unicode</em><em>, </em><em>optional. Default = ''</em>) – type of h5py.obj. Examples include ‘group’, ‘file’, ‘dataset</li>
+<li><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional. Default=False</em>) – Whether or not to print debugging statements</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.write_main_dataset">
+<code class="descname">write_main_dataset</code><span class="sig-paren">(</span><em>h5_parent_group</em>, <em>main_data</em>, <em>main_data_name</em>, <em>quantity</em>, <em>units</em>, <em>pos_dims</em>, <em>spec_dims</em>, <em>main_dset_attrs=None</em>, <em>h5_pos_inds=None</em>, <em>h5_pos_vals=None</em>, <em>h5_spec_inds=None</em>, <em>h5_spec_vals=None</em>, <em>aux_spec_prefix='Spectroscopic_'</em>, <em>aux_pos_prefix='Position_'</em>, <em>verbose=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#write_main_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.write_main_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes the provided data as a ‘Main’ dataset with all appropriate linking.
+By default, the instructions for generating the ancillary datasets should be specified using the pos_dims and
+spec_dims arguments as dictionary objects. Alternatively, if both the indices and values datasets are already
+available for either/or the positions / spectroscopic, they can be specified using the keyword arguments. In this
+case, fresh datasets will not be generated.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_parent_group</strong> (<em>h5py.Group</em>) – Parent group under which the datasets will be created</li>
+<li><strong>main_data</strong> (<em>np.ndarray</em><em> or </em><em>list / tuple</em>) – 2D matrix formatted as [position, spectral] or a list / tuple with the shape for an empty dataset.
+If creating an empty dataset - the dtype must be specified via a kwarg.</li>
+<li><strong>main_data_name</strong> (<em>String / Unicode</em>) – Name to give to the main dataset. This cannot contain the ‘-‘ character.</li>
+<li><strong>quantity</strong> (<em>String / Unicode</em>) – Name of the physical quantity stored in the dataset. Example - ‘Current’</li>
+<li><strong>units</strong> (<em>String / Unicode</em>) – Name of units for the quantity stored in the dataset. Example - ‘A’ for amperes</li>
+<li><strong>pos_dims</strong> (<em>Dimension</em><em> or </em><em>array-like of Dimension objects</em>) – Sequence of Dimension objects that provides all necessary instructions for constructing the indices and values
+datasets
+Object specifying the instructions necessary for building the Position indices and values datasets</li>
+<li><strong>spec_dims</strong> (<em>Dimension</em><em> or </em><em>array-like of Dimension objects</em>) – Sequence of Dimension objects that provides all necessary instructions for constructing the indices and values
+datasets
+Object specifying the instructions necessary for building the Spectroscopic indices and values datasets</li>
+<li><strong>main_dset_attrs</strong> (<em>dictionary</em><em>, </em><em>Optional</em>) – Dictionary of parameters that will be written to the main dataset. Do NOT include region references here.</li>
+<li><strong>h5_pos_inds</strong> (<em>h5py.Dataset</em><em>, </em><em>Optional</em>) – Dataset that will be linked with the name ‘Position_Indices’</li>
+<li><strong>h5_pos_vals</strong> (<em>h5py.Dataset</em><em>, </em><em>Optional</em>) – Dataset that will be linked with the name ‘Position_Values’</li>
+<li><strong>h5_spec_inds</strong> (<em>h5py.Dataset</em><em>, </em><em>Optional</em>) – Dataset that will be linked with the name ‘Spectroscopic_Indices’</li>
+<li><strong>h5_spec_vals</strong> (<em>h5py.Dataset</em><em>, </em><em>Optional</em>) – Dataset that will be linked with the name ‘Spectroscopic_Values’</li>
+<li><strong>aux_spec_prefix</strong> (<em>str / unicode</em><em>, </em><em>Optional</em>) – Default prefix for Spectroscopic datasets. Default = ‘<a href="#id5"><span class="problematic" id="id6">Spectroscopic_</span></a>’</li>
+<li><strong>aux_pos_prefix</strong> (<em>str / unicode</em><em>, </em><em>Optional</em>) – Default prefix for Position datasets. Default = ‘<a href="#id7"><span class="problematic" id="id8">Position_</span></a>’</li>
+<li><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>Optional</em><em>, </em><em>default=False</em>) – If set to true - prints debugging logs</li>
+<li><strong>will be passed onto the creation of the dataset. Please pass chunking</strong><strong>, </strong><strong>compression</strong><strong>, </strong><strong>dtype</strong><strong>, </strong><strong>and other</strong> (<em>kwargs</em>) – </li>
+<li><strong>this way</strong> (<em>arguments</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>h5_main</strong> – Reference to the main dataset</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="pyUSID.io.usi_data.html#pyUSID.io.usi_data.USIDataset" title="pyUSID.io.usi_data.USIDataset">USIDataset</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.attempt_reg_ref_build">
+<code class="descname">attempt_reg_ref_build</code><span class="sig-paren">(</span><em>h5_dset</em>, <em>dim_names</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#attempt_reg_ref_build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.attempt_reg_ref_build" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_dset</strong> (<em>h5.Dataset instance</em>) – Dataset to which region references need to be added as attributes</li>
+<li><strong>dim_names</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a>) – List of the names of the region references (typically names of dimensions)</li>
+<li><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional. Default=False</em>) – Whether or not to print debugging statements</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>labels_dict</strong> – The slicing information must be formatted using tuples of slice objects.
+For example {‘region_1’:(slice(None, None), slice (0,1))}</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.write_region_references">
+<code class="descname">write_region_references</code><span class="sig-paren">(</span><em>h5_dset</em>, <em>reg_ref_dict</em>, <em>add_labels_attr=True</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#write_region_references"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.write_region_references" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates attributes of a h5py.Dataset that refer to regions in the dataset</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>h5_dset</strong> (<em>h5.Dataset instance</em>) – Dataset to which region references will be added as attributes</li>
+<li><strong>reg_ref_dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – The slicing information must be formatted using tuples of slice objects.
+For example {‘region_1’:(slice(None, None), slice (0,1))}</li>
+<li><strong>add_labels_attr</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em><em>, </em><em>default = True</em>) – Whether or not to write an attribute named ‘labels’ with the</li>
+<li><strong>verbose</strong> (<em>Boolean</em><em> (</em><em>Optional. Default = False</em><em>)</em>) – Whether or not to print status messages</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.assign_group_index">
+<code class="descname">assign_group_index</code><span class="sig-paren">(</span><em>h5_parent_group</em>, <em>base_name</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#assign_group_index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.assign_group_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches the parent h5 group to find the next available index for the group</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_parent_group</strong> (<em>h5py.Group object</em>) – Parent group under which the new group object will be created</li>
+<li><strong>base_name</strong> (<em>str / unicode</em>) – Base name of the new group without index</li>
+<li><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional. Default=False</em>) – Whether or not to print debugging statements</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>base_name</strong> – Base name of the new group with the next available index as a suffix</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str / unicode</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.clean_reg_ref">
+<code class="descname">clean_reg_ref</code><span class="sig-paren">(</span><em>h5_dset</em>, <em>reg_ref_tuple</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#clean_reg_ref"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.clean_reg_ref" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes sure that the provided instructions for a region reference are indeed valid
+This method has become necessary since h5py allows the writing of region references larger than the maxshape</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_dset</strong> (<em>h5.Dataset instance</em>) – Dataset to which region references will be added as attributes</li>
+<li><strong>reg_ref_tuple</strong> (<em>list / tuple</em>) – The slicing information formatted using tuples of slice objects.</li>
+<li><strong>verbose</strong> (<em>Boolean</em><em> (</em><em>Optional. Default = False</em><em>)</em>) – Whether or not to print status messages</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>is_valid</strong> – Whether or not this</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)">bool</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.create_results_group">
+<code class="descname">create_results_group</code><span class="sig-paren">(</span><em>h5_main</em>, <em>tool_name</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#create_results_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.create_results_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a h5py.Group object autoindexed and named as ‘DatasetName-ToolName_00x’</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_main</strong> (<em>h5py.Dataset object</em>) – Reference to the dataset based on which the process / analysis is being performed</li>
+<li><strong>tool_name</strong> (<em>string / unicode</em>) – Name of the Process / Analysis applied to h5_main</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>h5_group</strong> – Results group which can now house the results datasets</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">h5py.Group object</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.hdf_utils.create_indexed_group">
+<code class="descname">create_indexed_group</code><span class="sig-paren">(</span><em>h5_parent_group</em>, <em>base_name</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/hdf_utils.html#create_indexed_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.hdf_utils.create_indexed_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a group with an indexed name (eg - ‘Measurement_012’) under h5_parent_group using the provided base_name
+as a prefix for the group’s name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>h5_parent_group</strong> (<em>h5py.Group</em><em> or </em><em>h5py.File object</em>) – File or group within which the new group will be created</li>
+<li><strong>base_name</strong> (<em>str / unicode</em>) – Prefix for the group name. This need not end with a ‘_’. It will be added automatically</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pyUSID.io.image.html" class="btn btn-neutral float-right" title="pyUSID.io.image" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../pyUSID.io.html" class="btn btn-neutral" title="pyUSID.io" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Suhas Somnath, Chris R. Smith, Stephen Jesse.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.0.4',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

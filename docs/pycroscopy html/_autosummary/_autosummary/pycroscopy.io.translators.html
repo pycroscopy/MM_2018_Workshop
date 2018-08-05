@@ -1,0 +1,1040 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pycroscopy.io.translators &mdash; pycroscopy 0.60.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pycroscopy.io.write_utils" href="pycroscopy.io.write_utils.html" />
+    <link rel="prev" title="pycroscopy.io" href="../pycroscopy.io.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> pycroscopy
+          
+
+          
+            
+            <img src="../../_static/logo_v01.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.60.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">Pycroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../package_organization.html">Package Organization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../translators.html">Data Translators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../papers_conferences.html">Papers / Conferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whats_new.html">What’s New</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../api.html#package-structure">Package Structure</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.analysis.html">pycroscopy.analysis</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../pycroscopy.io.html">pycroscopy.io</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../pycroscopy.io.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.processing.html">pycroscopy.processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.viz.html">pycroscopy.viz</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pycroscopy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../api.html">API Reference</a> &raquo;</li>
+        
+          <li><a href="../pycroscopy.io.html">pycroscopy.io</a> &raquo;</li>
+        
+      <li>pycroscopy.io.translators</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/_autosummary/_autosummary/pycroscopy.io.translators.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pycroscopy.io.translators">
+<span id="pycroscopy-io-translators"></span><h1>pycroscopy.io.translators<a class="headerlink" href="#module-pycroscopy.io.translators" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pycroscopy.io.translators.BEodfTranslator">
+<em class="property">class </em><code class="descname">BEodfTranslator</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/be_odf.html#BEodfTranslator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.BEodfTranslator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates either the Band Excitation (BE) scan or Band Excitation
+Polarization Switching (BEPS) data format from the old data format(s) to .h5</p>
+<dl class="method">
+<dt id="pycroscopy.io.translators.BEodfTranslator.translate">
+<code class="descname">translate</code><span class="sig-paren">(</span><em>file_path</em>, <em>show_plots=True</em>, <em>save_plots=True</em>, <em>do_histogram=False</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/be_odf.html#BEodfTranslator.translate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.BEodfTranslator.translate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates .dat data file(s) to a single .h5 file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>file_path</strong> (<em>String / Unicode</em>) – Absolute file path for one of the data files.
+It is assumed that this file is of the OLD data format.</li>
+<li><strong>show_plots</strong> (<em>(</em><em>optional</em><em>) </em><em>Boolean</em>) – Whether or not to show intermediate plots</li>
+<li><strong>save_plots</strong> (<em>(</em><em>optional</em><em>) </em><em>Boolean</em>) – Whether or not to save plots to disk</li>
+<li><strong>do_histogram</strong> (<em>(</em><em>optional</em><em>) </em><em>Boolean</em>) – Whether or not to construct histograms to visualize data quality. Note - this takes a fair amount of time</li>
+<li><strong>verbose</strong> (<em>(</em><em>optional</em><em>) </em><em>Boolean</em>) – Whether or not to print statements</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>h5_path</strong> – Absolute path of the resultant .h5 file</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">String / Unicode</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pycroscopy.io.translators.BEPSndfTranslator">
+<em class="property">class </em><code class="descname">BEPSndfTranslator</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/beps_ndf.html#BEPSndfTranslator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.BEPSndfTranslator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates Band Excitation Polarization Switching (BEPS) datasets from .dat
+files to .h5</p>
+<dl class="method">
+<dt id="pycroscopy.io.translators.BEPSndfTranslator.translate">
+<code class="descname">translate</code><span class="sig-paren">(</span><em>data_filepath</em>, <em>show_plots=True</em>, <em>save_plots=True</em>, <em>do_histogram=False</em>, <em>debug=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/beps_ndf.html#BEPSndfTranslator.translate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.BEPSndfTranslator.translate" title="Permalink to this definition">¶</a></dt>
+<dd><p>The main function that translates the provided file into a .h5 file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>data_filepath</strong> (<em>String / unicode</em>) – Absolute path of the data file (.dat)</li>
+<li><strong>show_plots</strong> (<em>Boolean</em><em> (</em><em>Optional. Default is True</em><em>)</em>) – Whether or not to show plots</li>
+<li><strong>save_plots</strong> (<em>Boolean</em><em> (</em><em>Optional. Default is True</em><em>)</em>) – Whether or not to save the generated plots</li>
+<li><strong>do_histogram</strong> (<em>Boolean</em><em> (</em><em>Optional. Default is False</em><em>)</em>) – Whether or not to generate and save 2D histograms of the raw data</li>
+<li><strong>debug</strong> (<em>Boolean</em><em> (</em><em>Optional. default is false</em><em>)</em>) – Whether or not to print log statements</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>h5_path</strong> – Absolute path of the generated .h5 file</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">String / unicode</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pycroscopy.io.translators.BEodfRelaxationTranslator">
+<em class="property">class </em><code class="descname">BEodfRelaxationTranslator</code><span class="sig-paren">(</span><em>max_mem_mb=1024</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/be_odf_relaxation.html#BEodfRelaxationTranslator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.BEodfRelaxationTranslator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates old Relaxation data into the new H5 format. This is for the files generated from
+the old BEPSDAQ program utilizing two cards simultaneously.
+At present, this version of the translator only works for Out of field measurements
+It will not work for in-field. This should be fixed at a later date.</p>
+<dl class="method">
+<dt id="pycroscopy.io.translators.BEodfRelaxationTranslator.translate">
+<code class="descname">translate</code><span class="sig-paren">(</span><em>file_path</em>, <em>show_plots=True</em>, <em>save_plots=True</em>, <em>do_histogram=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/be_odf_relaxation.html#BEodfRelaxationTranslator.translate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.BEodfRelaxationTranslator.translate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Basic method that translates .dat data file(s) to a single .h5 file</p>
+<dl class="docutils">
+<dt>Inputs:</dt>
+<dd>file_path – Absolute file path for one of the data files.
+It is assumed that this file is of the OLD data format.</dd>
+<dt>Outputs:</dt>
+<dd>Nothing</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pycroscopy.io.translators.GIVTranslator">
+<em class="property">class </em><code class="descname">GIVTranslator</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/gmode_iv.html#GIVTranslator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.GIVTranslator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates G-mode Fast IV datasets from .mat files to .h5</p>
+<dl class="method">
+<dt id="pycroscopy.io.translators.GIVTranslator.translate">
+<code class="descname">translate</code><span class="sig-paren">(</span><em>parm_path</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/gmode_iv.html#GIVTranslator.translate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.GIVTranslator.translate" title="Permalink to this definition">¶</a></dt>
+<dd><p>The main function that translates the provided file into a .h5 file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parm_path</strong> (<em>string / unicode</em>) – Absolute file path of the parameters .mat file.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>h5_path</strong> – Absolute path of the translated h5 file</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">string / unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pycroscopy.io.translators.GLineTranslator">
+<em class="property">class </em><code class="descname">GLineTranslator</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/gmode_line.html#GLineTranslator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.GLineTranslator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translated G-mode line (bigtimedata.dat) files from actual BE line experiments to HDF5</p>
+<dl class="method">
+<dt id="pycroscopy.io.translators.GLineTranslator.translate">
+<code class="descname">translate</code><span class="sig-paren">(</span><em>file_path</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/gmode_line.html#GLineTranslator.translate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.GLineTranslator.translate" title="Permalink to this definition">¶</a></dt>
+<dd><p>The main function that translates the provided file into a .h5 file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_path</strong> (<em>String / unicode</em>) – Absolute path of any file in the directory</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>h5_path</strong> – Absolute path of the h5 file</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">String / unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pycroscopy.io.translators.GTuneTranslator">
+<em class="property">class </em><code class="descname">GTuneTranslator</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/gmode_tune.html#GTuneTranslator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.GTuneTranslator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates G-mode Tune (bigtimedata.dat) files from actual BE line experiments to HDF5</p>
+<dl class="method">
+<dt id="pycroscopy.io.translators.GTuneTranslator.translate">
+<code class="descname">translate</code><span class="sig-paren">(</span><em>file_path</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/gmode_tune.html#GTuneTranslator.translate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.GTuneTranslator.translate" title="Permalink to this definition">¶</a></dt>
+<dd><p>The main function that translates the provided file into a .h5 file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_path</strong> (<em>String / unicode</em>) – Absolute path of any file in the directory</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>h5_path</strong> – Absolute path of the h5 file</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">String / unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pycroscopy.io.translators.GDMTranslator">
+<em class="property">class </em><code class="descname">GDMTranslator</code><span class="sig-paren">(</span><em>max_mem_mb=1024</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/general_dynamic_mode.html#GDMTranslator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.GDMTranslator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates G-mode w^2 datasets from .mat files to .h5</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>max_mem_mb</strong> (<em>unsigned integer</em><em> (</em><em>Optional. Default = 1024</em><em>)</em>) – Maximum system memory (in megabytes) that the translator can use</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Translator object</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pycroscopy.io.translators.GDMTranslator.translate">
+<code class="descname">translate</code><span class="sig-paren">(</span><em>parm_path</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/general_dynamic_mode.html#GDMTranslator.translate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.GDMTranslator.translate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Basic method that translates .mat data files to a single .h5 file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parm_path</strong> (<em>string / unicode</em>) – Absolute file path of the parameters .mat file.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>h5_path</strong> – Absolute path of the translated h5 file</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">string / unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pycroscopy.io.translators.PtychographyTranslator">
+<em class="property">class </em><code class="descname">PtychographyTranslator</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/ptychography.html#PtychographyTranslator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.PtychographyTranslator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translate Pytchography data from a set of images to an HDF5 file</p>
+<dl class="method">
+<dt id="pycroscopy.io.translators.PtychographyTranslator.translate">
+<code class="descname">translate</code><span class="sig-paren">(</span><em>h5_path</em>, <em>image_path</em>, <em>bin_factor=None</em>, <em>bin_func=&lt;function mean&gt;</em>, <em>start_image=0</em>, <em>scan_size_x=None</em>, <em>scan_size_y=None</em>, <em>image_type='.tif'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/ptychography.html#PtychographyTranslator.translate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.PtychographyTranslator.translate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Basic method that adds Ptychography data to existing hdf5 thisfile
+You must have already done the basic translation with BEodfTranslator</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Absolute path to where the HDF5 file should be located</li>
+<li><strong>image_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Absolute path to folder holding the image files</li>
+<li><strong>bin_factor</strong> (<em>array_like of uint</em><em>, </em><em>optional</em>) – Downsampling factor for each dimension.  Default is None.</li>
+<li><strong>bin_func</strong> (<em>callable</em><em>, </em><em>optional</em>) – Function which will be called to calculate the return value
+of each block.  Function must implement an axis parameter,
+i.e. numpy.mean.  Ignored if bin_factor is None.  Default is
+numpy.mean.</li>
+<li><strong>start_image</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – Integer denoting which image in the file path should be considered the starting
+point.  Default is 0, start with the first image on the list.</li>
+<li><strong>scan_size_x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – Number of Ronchigrams in the x direction.  Default is None, value will be determined
+from the number of images and <cite>scan_size_y</cite> if it is given.</li>
+<li><strong>scan_size_y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – Number of Ronchigrams in the y direction.  Default is None, value will be determined
+from the number of images and <cite>scan_size_x</cite> if it is given.</li>
+<li><strong>image_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File extension of images to be read.  Default ‘.tif’</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>h5_main</strong> – HDF5 Dataset object that contains the flattened images</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">h5py.Dataset</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pycroscopy.io.translators.SporcTranslator">
+<em class="property">class </em><code class="descname">SporcTranslator</code><span class="sig-paren">(</span><em>max_mem_mb=1024</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/sporc.html#SporcTranslator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.SporcTranslator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates G-mode SPORC datasets from .mat files to .h5</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>max_mem_mb</strong> (<em>unsigned integer</em><em> (</em><em>Optional. Default = 1024</em><em>)</em>) – Maximum system memory (in megabytes) that the translator can use</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Translator object</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pycroscopy.io.translators.SporcTranslator.translate">
+<code class="descname">translate</code><span class="sig-paren">(</span><em>parm_path</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/sporc.html#SporcTranslator.translate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.SporcTranslator.translate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Basic method that translates .mat data files to a single .h5 file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parm_path</strong> (<em>string / unicode</em>) – Absolute file path of the parameters .mat file.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>h5_path</strong> – Absolute path of the translated h5 file</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">string / unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pycroscopy.io.translators.MovieTranslator">
+<em class="property">class </em><code class="descname">MovieTranslator</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/time_series.html#MovieTranslator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.MovieTranslator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translate Pytchography data from a set of images to an HDF5 file</p>
+<dl class="staticmethod">
+<dt id="pycroscopy.io.translators.MovieTranslator.downSampRoncVec">
+<em class="property">static </em><code class="descname">downSampRoncVec</code><span class="sig-paren">(</span><em>ronch_vec</em>, <em>binning_factor</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/time_series.html#MovieTranslator.downSampRoncVec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.MovieTranslator.downSampRoncVec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downsample the image by taking the mean over nearby values</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ronch_vec</strong> (<em>ndarray</em>) – Image data</li>
+<li><strong>binning_factor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – factor to reduce the size of the image by</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ronc_mat3_mean</strong> – Flattened downsampled image</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">ndarray</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.io.translators.MovieTranslator.translate">
+<code class="descname">translate</code><span class="sig-paren">(</span><em>h5_path</em>, <em>image_path</em>, <em>bin_factor=None</em>, <em>bin_func=&lt;function mean&gt;</em>, <em>start_image=0</em>, <em>image_type='.tif'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/time_series.html#MovieTranslator.translate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.MovieTranslator.translate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Basic method that adds Movie data to existing hdf5 file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Absolute path to where the HDF5 file should be located</li>
+<li><strong>image_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Absolute path to folder holding the image files</li>
+<li><strong>bin_factor</strong> (<em>array_like of uint</em><em>, </em><em>optional</em>) – Downsampling factor for each dimension.  Default is None.</li>
+<li><strong>bin_func</strong> (<em>callable</em><em>, </em><em>optional</em>) – Function which will be called to calculate the return value
+of each block.  Function must implement an axis parameter,
+i.e. numpy.mean.  Ignored if bin_factor is None.  Default is
+numpy.mean.</li>
+<li><strong>start_image</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – Integer denoting which image in the file path should be considered the starting
+point.  Default is 0, start with the first image on the list.</li>
+<li><strong>image_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – File extension of images to load.  Used to filter out other files in the same
+directory.  Default .tif</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>h5_main</strong> – HDF5 Dataset object that contains the flattened images</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">h5py.Dataset</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pycroscopy.io.translators.IgorIBWTranslator">
+<em class="property">class </em><code class="descname">IgorIBWTranslator</code><span class="sig-paren">(</span><em>max_mem_mb=1024</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/igor_ibw.html#IgorIBWTranslator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.IgorIBWTranslator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates Igor Binary Wave (.ibw) files containing images or force curves to .h5</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>max_mem_mb</strong> (<em>unsigned integer</em><em> (</em><em>Optional. Default = 1024</em><em>)</em>) – Maximum system memory (in megabytes) that the translator can use</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Translator object</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pycroscopy.io.translators.IgorIBWTranslator.translate">
+<code class="descname">translate</code><span class="sig-paren">(</span><em>file_path</em>, <em>verbose=False</em>, <em>parm_encoding='utf-8'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/igor_ibw.html#IgorIBWTranslator.translate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.IgorIBWTranslator.translate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates the provided file to .h5</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>file_path</strong> (<em>String / unicode</em>) – Absolute path of the .ibw file</li>
+<li><strong>verbose</strong> (<em>Boolean</em><em> (</em><em>Optional</em><em>)</em>) – Whether or not to show  print statements for debugging</li>
+<li><strong>parm_encoding</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Codec to be used to decode the bytestrings into Python strings if needed.
+Default ‘utf-8’</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>h5_path</strong> – Absolute path of the .h5 file</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">String / unicode</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pycroscopy.io.translators.OneViewTranslator">
+<em class="property">class </em><code class="descname">OneViewTranslator</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/oneview.html#OneViewTranslator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.OneViewTranslator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translate Pytchography data from a set of images to an HDF5 file</p>
+<dl class="method">
+<dt id="pycroscopy.io.translators.OneViewTranslator.crop_ronc">
+<code class="descname">crop_ronc</code><span class="sig-paren">(</span><em>ronc</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/oneview.html#OneViewTranslator.crop_ronc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.OneViewTranslator.crop_ronc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Crop the input Ronchigram by the specified ammount using the specified method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ronc</strong> (<em>numpy.array</em>) – Input image to be cropped.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>cropped_ronc</strong> – Cropped image</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">numpy.array</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="pycroscopy.io.translators.OneViewTranslator.downSampRoncVec">
+<em class="property">static </em><code class="descname">downSampRoncVec</code><span class="sig-paren">(</span><em>ronch_vec</em>, <em>binning_factor</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/oneview.html#OneViewTranslator.downSampRoncVec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.OneViewTranslator.downSampRoncVec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downsample the image by taking the mean over nearby values</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ronch_vec</strong> (<em>ndarray</em>) – Image data</li>
+<li><strong>binning_factor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – factor to reduce the size of the image by</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ronc_mat3_mean</strong> – Flattened downsampled image</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">ndarray</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.io.translators.OneViewTranslator.translate">
+<code class="descname">translate</code><span class="sig-paren">(</span><em>h5_path</em>, <em>image_path</em>, <em>bin_factor=None</em>, <em>bin_func=&lt;function mean&gt;</em>, <em>start_image=0</em>, <em>scan_size_x=None</em>, <em>scan_size_y=None</em>, <em>crop_ammount=None</em>, <em>crop_method='percent'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/oneview.html#OneViewTranslator.translate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.OneViewTranslator.translate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Basic method that adds Ptychography data to existing hdf5 thisfile
+You must have already done the basic translation with BEodfTranslator</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Absolute path to where the HDF5 file should be located</li>
+<li><strong>image_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Absolute path to folder holding the image files</li>
+<li><strong>bin_factor</strong> (<em>array_like of uint</em><em>, </em><em>optional</em>) – Downsampling factor for each dimension.  Default is None.</li>
+<li><strong>bin_func</strong> (<em>callable</em><em>, </em><em>optional</em>) – Function which will be called to calculate the return value
+of each block.  Function must implement an axis parameter,
+i.e. numpy.mean.  Ignored if bin_factor is None.  Default is
+numpy.mean.</li>
+<li><strong>start_image</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – Integer denoting which image in the file path should be considered the starting
+point.  Default is 0, start with the first image on the list.</li>
+<li><strong>scan_size_x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – Number of Ronchigrams in the x direction.  Default is None, value will be determined
+from the number of images and <cite>scan_size_y</cite> if it is given.</li>
+<li><strong>scan_size_y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – Number of Ronchigrams in the y direction.  Default is None, value will be determined
+from the number of images and <cite>scan_size_x</cite> if it is given.</li>
+<li><strong>crop_ammount</strong> (<em>uint</em><em> or </em><em>list of uints</em><em>, </em><em>optional</em>) – How much should be cropped from the original image.  Can be a single unsigned
+integer or a list of unsigned integers.  A single integer will crop the same
+ammount from all edges.  A list of two integers will crop the x-dimension by
+the first integer and the y-dimension by the second integer.  A list of 4
+integers will crop the image as [left, right, top, bottom].</li>
+<li><strong>crop_method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Which cropping method should be used.  How much of the image is removed is
+determined by the value of <cite>crop_ammount</cite>.
+‘percent’ - A percentage of the image is removed.
+‘absolute’ - The specific number of pixel is removed.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>h5_main</strong> – HDF5 Dataset object that contains the flattened images</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">h5py.Dataset</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pycroscopy.io.translators.NDataTranslator">
+<em class="property">class </em><code class="descname">NDataTranslator</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/ndata.html#NDataTranslator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.NDataTranslator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translate Pytchography data from a set of images to an HDF5 file</p>
+<dl class="method">
+<dt id="pycroscopy.io.translators.NDataTranslator.crop_ronc">
+<code class="descname">crop_ronc</code><span class="sig-paren">(</span><em>ronc</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/ndata.html#NDataTranslator.crop_ronc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.NDataTranslator.crop_ronc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Crop the input Ronchigram by the specified ammount using the specified method.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ronc</strong> (<em>numpy.array</em>) – Input image to be cropped.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>cropped_ronc</strong> – Cropped image</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">numpy.array</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="pycroscopy.io.translators.NDataTranslator.downSampRoncVec">
+<em class="property">static </em><code class="descname">downSampRoncVec</code><span class="sig-paren">(</span><em>ronch_vec</em>, <em>binning_factor</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/ndata.html#NDataTranslator.downSampRoncVec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.NDataTranslator.downSampRoncVec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downsample the image by taking the mean over nearby values</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ronch_vec</strong> (<em>ndarray</em>) – Image data</li>
+<li><strong>binning_factor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – factor to reduce the size of the image by</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ronc_mat3_mean</strong> – Flattened downsampled image</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">ndarray</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.io.translators.NDataTranslator.translate">
+<code class="descname">translate</code><span class="sig-paren">(</span><em>h5_path</em>, <em>image_path</em>, <em>bin_factor=None</em>, <em>bin_func=&lt;function mean&gt;</em>, <em>start_image=0</em>, <em>scan_size_x=None</em>, <em>scan_size_y=None</em>, <em>crop_ammount=None</em>, <em>crop_method='percent'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/ndata.html#NDataTranslator.translate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.NDataTranslator.translate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Basic method that adds Ptychography data to existing hdf5 thisfile
+You must have already done the basic translation with BEodfTranslator</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Absolute path to where the HDF5 file should be located</li>
+<li><strong>image_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Absolute path to folder holding the image files or the path to a specific file</li>
+<li><strong>bin_factor</strong> (<em>array_like of uint</em><em>, </em><em>optional</em>) – Downsampling factor for each dimension.  Default is None.</li>
+<li><strong>bin_func</strong> (<em>callable</em><em>, </em><em>optional</em>) – Function which will be called to calculate the return value
+of each block.  Function must implement an axis parameter,
+i.e. numpy.mean.  Ignored if bin_factor is None.  Default is
+numpy.mean.</li>
+<li><strong>start_image</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – Integer denoting which image in the file path should be considered the starting
+point.  Default is 0, start with the first image on the list.</li>
+<li><strong>scan_size_x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – Number of Ronchigrams in the x direction.  Default is None, value will be determined
+from the number of images and <cite>scan_size_y</cite> if it is given.</li>
+<li><strong>scan_size_y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – Number of Ronchigrams in the y direction.  Default is None, value will be determined
+from the number of images and <cite>scan_size_x</cite> if it is given.</li>
+<li><strong>crop_ammount</strong> (<em>uint</em><em> or </em><em>list of uints</em><em>, </em><em>optional</em>) – How much should be cropped from the original image.  Can be a single unsigned
+integer or a list of unsigned integers.  A single integer will crop the same
+ammount from all edges.  A list of two integers will crop the x-dimension by
+the first integer and the y-dimension by the second integer.  A list of 4
+integers will crop the image as [left, right, top, bottom].</li>
+<li><strong>crop_method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Which cropping method should be used.  How much of the image is removed is
+determined by the value of <cite>crop_ammount</cite>.
+‘percent’ - A percentage of the image is removed.
+‘absolute’ - The specific number of pixel is removed.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>h5_main</strong> – HDF5 Dataset object that contains the flattened images</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">h5py.Dataset</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pycroscopy.io.translators.FakeBEPSGenerator">
+<em class="property">class </em><code class="descname">FakeBEPSGenerator</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/beps_data_generator.html#FakeBEPSGenerator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.FakeBEPSGenerator" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="pycroscopy.io.translators.FakeBEPSGenerator.calc_loop_coef_mat">
+<code class="descname">calc_loop_coef_mat</code><span class="sig-paren">(</span><em>image_list</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/beps_data_generator.html#FakeBEPSGenerator.calc_loop_coef_mat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.FakeBEPSGenerator.calc_loop_coef_mat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build the loop coefficient matrix</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>image_list</strong> (<em>list of numpy.ndarray</em>) – Images that will be used to generate the coefficients</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>coef_mat</strong> – Array of loop coefficients</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.15)">numpy.ndarray</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.io.translators.FakeBEPSGenerator.translate">
+<code class="descname">translate</code><span class="sig-paren">(</span><em>h5_path</em>, <em>n_steps=32</em>, <em>n_bins=37</em>, <em>start_freq=300000.0</em>, <em>end_freq=350000.0</em>, <em>data_type='BEPSData'</em>, <em>mode='DC modulation mode'</em>, <em>field_mode='in and out-of-field'</em>, <em>n_cycles=1</em>, <em>FORC_cycles=1</em>, <em>FORC_repeats=1</em>, <em>loop_a=1</em>, <em>loop_b=4</em>, <em>cycle_frac='full'</em>, <em>image_folder='/home/challtdow/workspace/pycroscopy/pycroscopy/io/translators/df_utils/beps_data_gen_images'</em>, <em>bin_factor=None</em>, <em>bin_func=&lt;function mean&gt;</em>, <em>image_type='.tif'</em>, <em>simple_coefs=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/beps_data_generator.html#FakeBEPSGenerator.translate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.FakeBEPSGenerator.translate" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>h5_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Desired path to write the new HDF5 file</li>
+<li><strong>n_steps</strong> (<em>uint</em><em>, </em><em>optional</em>) – Number of voltage steps
+Default - 32</li>
+<li><strong>n_bins</strong> (<em>uint</em><em>, </em><em>optional</em>) – Number of frequency bins
+Default - 37</li>
+<li><strong>start_freq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – Starting frequency in Hz
+Default - 300E+3</li>
+<li><strong>end_freq</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – Final freqency in Hz
+Default - 350E+3</li>
+<li><strong>data_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Type of data to generate
+Options -  ‘BEPSData’, ‘BELineData’
+Default - ‘BEPSData’</li>
+<li><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Modulation mode to use when generating the data.
+Options - ‘DC modulation mode’, ‘AC modulation mode’
+Default - ‘DC modulation mode’</li>
+<li><strong>field_mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Field mode
+Options - ‘in-field’, ‘out-of-field’, ‘in and out-of-field’
+Default - ‘in and out-of-field’</li>
+<li><strong>n_cycles</strong> (<em>uint</em><em>, </em><em>optional</em>) – Number of cycles
+Default - 1</li>
+<li><strong>FORC_cycles</strong> (<em>uint</em><em>, </em><em>optional</em>) – Number of FORC cycles
+Default - 1</li>
+<li><strong>FORC_repeats</strong> (<em>uint</em><em>, </em><em>optional</em>) – Number of FORC repeats
+Default - 1</li>
+<li><strong>loop_a</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – Loop coefficient a
+Default - 1</li>
+<li><strong>loop_b</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em>, </em><em>optional</em>) – Loop coefficient b</li>
+<li><strong>cycle_frac</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Cycle fraction parameter.
+Default - ‘full’</li>
+<li><strong>image_folder</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path to the images that will be used to generate the loop coefficients.  There must be 11 images named
+‘1.tif’, ‘2.tif’, …, ‘11.tif’
+Default - pycroscopy.io.translators.df_utils.beps_gen_utils.beps_image_folder</li>
+<li><strong>bin_factor</strong> (<em>array_like of uint</em><em>, </em><em>optional</em>) – Downsampling factor for each dimension.  Default is None.</li>
+<li><strong>bin_func</strong> (<em>callable</em><em>, </em><em>optional</em>) – Function which will be called to calculate the return value
+of each block.  Function must implement an axis parameter,
+i.e. numpy.mean.  Ignored if bin_factor is None.  Default is
+numpy.mean.</li>
+<li><strong>image_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File extension of images to be read.  Default ‘.tif’</li>
+<li><strong>simple_coefs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Should a simpler coefficient generation be used.  Ensures loops, but all loops are identical.
+Default False</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pycroscopy.io.translators.LabViewH5Patcher">
+<em class="property">class </em><code class="descname">LabViewH5Patcher</code><a class="reference internal" href="../../_modules/pycroscopy/io/translators/labview_h5_patcher.html#LabViewH5Patcher"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.LabViewH5Patcher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Patches the hdf5 files from the LabView V3 data aquisition software to meet the
+standards of the Pycroscopy data format.</p>
+<dl class="method">
+<dt id="pycroscopy.io.translators.LabViewH5Patcher.translate">
+<code class="descname">translate</code><span class="sig-paren">(</span><em>h5_path</em>, <em>force_patch=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/labview_h5_patcher.html#LabViewH5Patcher.translate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.LabViewH5Patcher.translate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add the needed references and attributes to the h5 file that are not created by the
+LabView data aquisition program.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – path to the h5 file</li>
+<li><strong>force_patch</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – Should the check to see if the file has already been patched be ignored.
+Default False.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>h5_file</strong> – patched hdf5 file</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">h5py.File</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pycroscopy.io.translators.TRKPFMTranslator">
+<em class="property">class </em><code class="descname">TRKPFMTranslator</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/tr_kpfm.html#TRKPFMTranslator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.TRKPFMTranslator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates  trKPFM datasets from .mat and .dat files to .h5</p>
+<dl class="method">
+<dt id="pycroscopy.io.translators.TRKPFMTranslator.translate">
+<code class="descname">translate</code><span class="sig-paren">(</span><em>parm_path</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/tr_kpfm.html#TRKPFMTranslator.translate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.TRKPFMTranslator.translate" title="Permalink to this definition">¶</a></dt>
+<dd><p>The main function that translates the provided file into a .h5 file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>parm_path</strong> (<em>string / unicode</em>) – Absolute file path of the parameters .mat file.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>h5_path</strong> – Absolute path of the translated h5 file</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">string / unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pycroscopy.io.translators.BrukerAFMTranslator">
+<em class="property">class </em><code class="descname">BrukerAFMTranslator</code><span class="sig-paren">(</span><em>max_mem_mb=1024</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/bruker_afm.html#BrukerAFMTranslator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.BrukerAFMTranslator" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>max_mem_mb</strong> (<em>unsigned integer</em><em> (</em><em>Optional. Default = 1024</em><em>)</em>) – Maximum system memory (in megabytes) that the translator can use</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Translator object</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pycroscopy.io.translators.BrukerAFMTranslator.translate">
+<code class="descname">translate</code><span class="sig-paren">(</span><em>file_path</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/bruker_afm.html#BrukerAFMTranslator.translate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.BrukerAFMTranslator.translate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates a given Bruker / Veeco / Nanoscope AFM derived file to HDF5. Currently handles scans, force curves,
+and force-distance maps</p>
+<p>Note that this translator was written with a single example file for each modality and may be buggy.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_path</strong> (<em>str / unicode</em>) – path to data file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>h5_path</strong> – path to translated HDF5 file</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str / unicode</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pycroscopy.io.translators.ImageTranslator">
+<em class="property">class </em><code class="descname">ImageTranslator</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/image.html#ImageTranslator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.ImageTranslator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates data from a set of image files to an HDF5 file.  This version has been extended to
+support dm3 and dm4 files</p>
+<dl class="method">
+<dt id="pycroscopy.io.translators.ImageTranslator.translate">
+<code class="descname">translate</code><span class="sig-paren">(</span><em>image_path</em>, <em>h5_path=None</em>, <em>bin_factor=None</em>, <em>bin_func=&lt;function mean&gt;</em>, <em>normalize=False</em>, <em>**image_args</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/translators/image.html#ImageTranslator.translate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.translators.ImageTranslator.translate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Basic method that adds Ptychography data to existing hdf5 thisfile
+You must have already done the basic translation with BEodfTranslator</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>image_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Absolute path to folder holding the image files</li>
+<li><strong>h5_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Absolute path to where the HDF5 file should be located.
+Default is None</li>
+<li><strong>bin_factor</strong> (<em>array_like of uint</em><em>, </em><em>optional</em>) – Downsampling factor for each dimension.  Default is None.</li>
+<li><strong>bin_func</strong> (<em>callable</em><em>, </em><em>optional</em>) – Function which will be called to calculate the return value
+of each block.  Function must implement an axis parameter,
+i.e. numpy.mean.  Ignored if bin_factor is None.  Default is
+numpy.mean.</li>
+<li><strong>normalize</strong> (<em>boolean</em><em>, </em><em>optional</em>) – Should the raw image be normalized when read in
+Default False</li>
+<li><strong>image_args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Arguments to be passed to read_image.  Arguments depend on the type of image.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>h5_main</strong> – HDF5 Dataset object that contains the flattened images</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">h5py.Dataset</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pycroscopy.io.write_utils.html" class="btn btn-neutral float-right" title="pycroscopy.io.write_utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../pycroscopy.io.html" class="btn btn-neutral" title="pycroscopy.io" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Suhas Somnath, Chris Smith, Stephen Jesse, Numan Laanait.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.60.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

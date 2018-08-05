@@ -1,0 +1,33 @@
+pyUSID.io.write\_utils
+======================
+
+.. automodule:: pyUSID.io.write_utils
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      build_ind_val_matrices
+      calc_chunks
+      clean_string_att
+      create_spec_inds_from_vals
+      get_aux_dset_slicing
+      make_indices_matrix
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      Dimension
+   
+   
+
+   
+   
+   

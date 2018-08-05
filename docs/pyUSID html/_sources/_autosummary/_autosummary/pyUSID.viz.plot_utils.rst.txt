@@ -1,0 +1,41 @@
+pyUSID.viz.plot\_utils
+======================
+
+.. automodule:: pyUSID.viz.plot_utils
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      cbar_for_line_plot
+      cmap_from_rgba
+      cmap_hot_desaturated
+      cmap_jet_white_center
+      discrete_cmap
+      export_fig_data
+      get_cmap_object
+      get_plot_grid_size
+      make_linear_alpha_cmap
+      make_scalar_mappable
+      plot_complex_spectra
+      plot_curves
+      plot_line_family
+      plot_map
+      plot_map_stack
+      plot_scree
+      rainbow_plot
+      reset_plot_params
+      set_tick_font_size
+      use_nice_plot_params
+   
+   
+
+   
+   
+   
+
+   
+   
+   

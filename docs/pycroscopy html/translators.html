@@ -1,0 +1,328 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Data Translators &mdash; pycroscopy 0.60.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Papers / Conferences" href="papers_conferences.html" />
+    <link rel="prev" title="Spectral Unmixing" href="auto_examples/plot_spectral_unmixing.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> pycroscopy
+          
+
+          
+            
+            <img src="_static/logo_v01.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.60.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">Pycroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="package_organization.html">Package Organization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Translators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#generic-file-formats">Generic File Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#scanning-transmission-electron-microscopy-stem">Scanning Transmission Electron Microscopy (STEM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#scanning-tunnelling-microscopy-stm">Scanning Tunnelling Microscopy (STM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atomic-force-microscopy-afm">Atomic Force Microscopy (AFM)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#common-formats">Common formats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ifim-specific">IFIM specific</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="papers_conferences.html">Papers / Conferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whats_new.html">What’s New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pycroscopy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Data Translators</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/translators.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="data-translators">
+<h1>Data Translators<a class="headerlink" href="#data-translators" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>Pycroscopy uses <code class="docutils literal notranslate"><span class="pre">Translators</span></code> to extract data and metadata from files (often measurement data stored in instrument-generated proprietary file formats) and write them into <a class="reference external" href="../../pyUSID/data_format.html">Universal Spectroscopy and Imaging Data (USID) HDF5 files</a>.</li>
+<li>You can write your own <code class="docutils literal notranslate"><span class="pre">Translator</span></code> easily by following <a class="reference external" href="https://pycroscopy.github.io/pyUSID/auto_examples/beginner/plot_numpy_translator.html">this example</a> on our sister project’s documentation.</li>
+<li>Below is a list of <code class="docutils literal notranslate"><span class="pre">Translators</span></code> already available in pycroscopy to translate data.</li>
+<li>These translators can be accessed via <code class="docutils literal notranslate"><span class="pre">pycroscopy.io.translators</span></code> or <code class="docutils literal notranslate"><span class="pre">pycroscopy.translators</span></code></li>
+<li>We tend to add new <code class="docutils literal notranslate"><span class="pre">Translators</span></code> to this list frequently.<ul>
+<li>We understand that this list does not (yet) comprehensively cover all modalities and instrument manufacturers, but we are working towards a comprehensive set of translators.</li>
+<li>We only have access to a small subset of all available instruments and data which limits our ability to add more translators.</li>
+<li>Given that this is a <strong>community-driven effort</strong>, you can help by providing:<ul>
+<li>Example datasets (scans, force curves, spectra, force-maps, spectra acquired on grids of locations, etc.)</li>
+<li>Links to existing packages that have figured out how to extract this data. (More often than not, there are researchers who have put up their code)</li>
+<li>Your own code for extracting data. We invite you to come onboard and add your tools to the package.</li>
+<li>Guidance in correctly extracting the metadata (parameters) and data</li>
+<li>Your time. We are interested in collaborating with you to develop translators.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>We are also interested in collaborating with instrument manufacturers to integrate pycroscopy into instrumentation or analysis software.</li>
+<li>We are working on writing translators to popular open-source software / formats such as <code class="docutils literal notranslate"><span class="pre">WSxM</span></code>, <code class="docutils literal notranslate"><span class="pre">Gwyddion</span></code>, and <code class="docutils literal notranslate"><span class="pre">ImageJ</span></code>.</li>
+</ul>
+<div class="section" id="generic-file-formats">
+<h2>Generic File Formats<a class="headerlink" href="#generic-file-formats" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>PNG, TIFF images - <code class="docutils literal notranslate"><span class="pre">ImageTranslator</span></code></li>
+<li>Movie (frames of) represented by a stack of images - <code class="docutils literal notranslate"><span class="pre">MovieTranslator</span></code></li>
+<li>numpy data in memory - <code class="docutils literal notranslate"><span class="pre">NumpyTranslator</span></code></li>
+<li>Gwyddion - <code class="docutils literal notranslate"><span class="pre">GwyddionTranslator</span></code> - work in progress</li>
+</ul>
+</div>
+<div class="section" id="scanning-transmission-electron-microscopy-stem">
+<h2>Scanning Transmission Electron Microscopy (STEM)<a class="headerlink" href="#scanning-transmission-electron-microscopy-stem" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Nion Company - NData - <code class="docutils literal notranslate"><span class="pre">NDataTranslator</span></code></li>
+<li>One View - <code class="docutils literal notranslate"><span class="pre">OneViewTranslator</span></code></li>
+<li>Digital Micrograph DM3 and DM4 files - <code class="docutils literal notranslate"><span class="pre">PtychographyTranslator</span></code></li>
+<li>TIFF image stack for 4D STEM - <code class="docutils literal notranslate"><span class="pre">PtychographyTranslator</span></code></li>
+</ul>
+</div>
+<div class="section" id="scanning-tunnelling-microscopy-stm">
+<h2>Scanning Tunnelling Microscopy (STM)<a class="headerlink" href="#scanning-tunnelling-microscopy-stm" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Omicron STMs - Scanning Tunnelling Spectroscopy - <code class="docutils literal notranslate"><span class="pre">AscTranslator</span></code></li>
+<li>Nanonis Controllers - <code class="docutils literal notranslate"><span class="pre">NanonisTranslator</span></code></li>
+</ul>
+</div>
+<div class="section" id="atomic-force-microscopy-afm">
+<h2>Atomic Force Microscopy (AFM)<a class="headerlink" href="#atomic-force-microscopy-afm" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="common-formats">
+<h3>Common formats<a class="headerlink" href="#common-formats" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Asylum Research - Igor IBWs for images and force curves - <code class="docutils literal notranslate"><span class="pre">IgorIBWTranslator</span></code></li>
+<li>Bruker / Veeco / Digital Instruments - images, force curves, force maps - <code class="docutils literal notranslate"><span class="pre">BrukerAFMTranslator</span></code></li>
+<li>Nanonis Controllers - <code class="docutils literal notranslate"><span class="pre">NanonisTranslator</span></code></li>
+</ul>
+</div>
+<div class="section" id="ifim-specific">
+<h3>IFIM specific<a class="headerlink" href="#ifim-specific" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Band Excitation (BE):<ul>
+<li>BE-Line and BEPS (Pre 2013) - <code class="docutils literal notranslate"><span class="pre">BEodfTranslator</span></code></li>
+<li>BEPS (Post 2013) - <code class="docutils literal notranslate"><span class="pre">BEPSndfTranslator</span></code></li>
+<li>BE Relaxation - <code class="docutils literal notranslate"><span class="pre">BEodfRelaxationTranslator</span></code></li>
+<li>Time Resolved Kelvin Probe Force Microscopy (trKPFM) - <code class="docutils literal notranslate"><span class="pre">TRKPFMTranslator</span></code></li>
+<li>Synthetic BEPS data generator - <code class="docutils literal notranslate"><span class="pre">FakeBEPSGenerator</span></code></li>
+<li>Post 2016 Band Excitation data patcher - <code class="docutils literal notranslate"><span class="pre">LabViewH5Patcher</span></code></li>
+</ul>
+</li>
+<li>General Mode (G-mode):<ul>
+<li>G-Mode Line - <code class="docutils literal notranslate"><span class="pre">GLineTranslator</span></code></li>
+<li>G-Mode Current-Voltage (G-IV) - <code class="docutils literal notranslate"><span class="pre">GIVTranslator</span></code></li>
+<li>G-Mode Frequency Tune - <code class="docutils literal notranslate"><span class="pre">GTuneTranslator</span></code></li>
+<li>General Dynamic Mode (GDM) - <code class="docutils literal notranslate"><span class="pre">GDMTranslator</span></code></li>
+<li>Speedy First Order Reversal Curve (SPORC) - <code class="docutils literal notranslate"><span class="pre">SporcTranslator</span></code></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="papers_conferences.html" class="btn btn-neutral float-right" title="Papers / Conferences" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="auto_examples/plot_spectral_unmixing.html" class="btn btn-neutral" title="Spectral Unmixing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Suhas Somnath, Chris Smith, Stephen Jesse, Numan Laanait.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.60.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

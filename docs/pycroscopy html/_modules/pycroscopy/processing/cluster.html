@@ -1,0 +1,582 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pycroscopy.processing.cluster &mdash; pycroscopy 0.60.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> pycroscopy
+          
+
+          
+            
+            <img src="../../../_static/logo_v01.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.60.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">Pycroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../package_organization.html">Package Organization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../translators.html">Data Translators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../papers_conferences.html">Papers / Conferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../credits.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../whats_new.html">What’s New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pycroscopy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pycroscopy.processing.cluster</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pycroscopy.processing.cluster</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on Tue Jan 05 07:55:56 2016</span>
+
+<span class="sd">@author: Suhas Somnath, Chris Smith</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">sklearn.cluster</span> <span class="k">as</span> <span class="nn">cls</span>
+<span class="kn">from</span> <span class="nn">scipy.cluster.hierarchy</span> <span class="k">import</span> <span class="n">linkage</span>
+<span class="kn">from</span> <span class="nn">scipy.spatial.distance</span> <span class="k">import</span> <span class="n">pdist</span>
+<span class="kn">from</span> <span class="nn">.proc_utils</span> <span class="k">import</span> <span class="n">get_component_slice</span>
+<span class="kn">from</span> <span class="nn">pyUSID.processing.process</span> <span class="k">import</span> <span class="n">Process</span><span class="p">,</span> <span class="n">parallel_compute</span>
+<span class="kn">from</span> <span class="nn">pyUSID.io.hdf_utils</span> <span class="k">import</span> <span class="n">reshape_to_n_dims</span><span class="p">,</span> <span class="n">create_results_group</span><span class="p">,</span> <span class="n">write_main_dataset</span><span class="p">,</span> <span class="n">get_attr</span><span class="p">,</span> \
+    <span class="n">write_simple_attrs</span><span class="p">,</span> <span class="n">link_h5_obj_as_alias</span><span class="p">,</span> <span class="n">write_ind_val_dsets</span>
+<span class="kn">from</span> <span class="nn">pyUSID</span> <span class="k">import</span> <span class="n">USIDataset</span>
+<span class="kn">from</span> <span class="nn">pyUSID.io.io_utils</span> <span class="k">import</span> <span class="n">format_time</span>
+<span class="kn">from</span> <span class="nn">pyUSID.io.write_utils</span> <span class="k">import</span> <span class="n">Dimension</span>
+<span class="kn">from</span> <span class="nn">pyUSID.io.dtype_utils</span> <span class="k">import</span> <span class="n">check_dtype</span><span class="p">,</span> <span class="n">stack_real_to_target_dtype</span>
+
+
+<div class="viewcode-block" id="Cluster"><a class="viewcode-back" href="../../../_autosummary/pycroscopy.processing.html#pycroscopy.processing.cluster.Cluster">[docs]</a><span class="k">class</span> <span class="nc">Cluster</span><span class="p">(</span><span class="n">Process</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Pycroscopy wrapper around the sklearn.cluster classes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h5_main</span><span class="p">,</span> <span class="n">estimator</span><span class="p">,</span> <span class="n">num_comps</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructs the Cluster object</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        h5_main : HDF5 dataset object</span>
+<span class="sd">            Main dataset with ancillary spectroscopic, position indices and values datasets</span>
+<span class="sd">        estimator : sklearn.cluster estimator</span>
+<span class="sd">            configured clustering algorithm to be applied to the data</span>
+<span class="sd">        num_comps : (optional) unsigned int</span>
+<span class="sd">            Number of features / spectroscopic indices to be used to cluster the data. Default = all</span>
+<span class="sd">        args and kwargs : arguments to be passed to the estimator</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">allowed_methods</span> <span class="o">=</span> <span class="p">[</span><span class="bp">cls</span><span class="o">.</span><span class="n">AgglomerativeClustering</span><span class="p">,</span>
+                           <span class="bp">cls</span><span class="o">.</span><span class="n">Birch</span><span class="p">,</span>
+                           <span class="bp">cls</span><span class="o">.</span><span class="n">KMeans</span><span class="p">,</span>
+                           <span class="bp">cls</span><span class="o">.</span><span class="n">MiniBatchKMeans</span><span class="p">,</span>
+                           <span class="bp">cls</span><span class="o">.</span><span class="n">SpectralClustering</span><span class="p">]</span>
+
+        <span class="c1"># could not find a nicer way to extract the method name yet</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">method_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">estimator</span><span class="p">)[:</span><span class="nb">str</span><span class="p">(</span><span class="n">estimator</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">)]</span>
+
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">estimator</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">allowed_methods</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Cannot work with </span><span class="si">{}</span><span class="s1"> just yet&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">method_name</span><span class="p">))</span>
+
+        <span class="c1"># Done with decomposition-related checks, now call super init</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Cluster</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">h5_main</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># Store the decomposition object</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">estimator</span> <span class="o">=</span> <span class="n">estimator</span>
+
+        <span class="k">if</span> <span class="n">num_comps</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">comp_attr</span> <span class="o">=</span> <span class="s1">&#39;all&#39;</span>
+
+        <span class="n">comp_slice</span><span class="p">,</span> <span class="n">num_comps</span> <span class="o">=</span> <span class="n">get_component_slice</span><span class="p">(</span><span class="n">num_comps</span><span class="p">,</span> <span class="n">total_components</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_comps</span> <span class="o">=</span> <span class="n">num_comps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_slice</span> <span class="o">=</span> <span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span> <span class="n">comp_slice</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">comp_slice</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+            <span class="c1"># cannot store slice as an attribute in hdf5</span>
+            <span class="c1"># convert to list of integers!</span>
+            <span class="n">inds</span> <span class="o">=</span> <span class="n">comp_slice</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="c1"># much like range, inds are arranged as (start, stop, step)</span>
+            <span class="k">if</span> <span class="n">inds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">inds</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># starting from 0 with step of 1 = upto N components</span>
+                <span class="k">if</span> <span class="n">inds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">comp_attr</span> <span class="o">=</span> <span class="s1">&#39;all&#39;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">comp_attr</span> <span class="o">=</span> <span class="n">inds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">comp_attr</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="o">*</span><span class="n">inds</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">comp_attr</span> <span class="o">==</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># subset of spectral components specified as an array</span>
+            <span class="n">comp_attr</span> <span class="o">=</span> <span class="n">comp_slice</span>
+
+        <span class="c1"># set up parameters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parms_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cluster_algorithm&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">method_name</span><span class="p">,</span>
+                           <span class="s1">&#39;spectral_components&#39;</span><span class="p">:</span> <span class="n">comp_attr</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parms_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">get_params</span><span class="p">())</span>
+
+        <span class="c1"># update n_jobs according to the cores argument</span>
+        <span class="c1"># print(&#39;cores reset to&#39;, self._cores)</span>
+        <span class="c1"># different number of cores should not* be a reason for different results</span>
+        <span class="c1"># so we update this flag only after checking for duplicates</span>
+        <span class="n">estimator</span><span class="o">.</span><span class="n">n_jobs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cores</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parms_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;n_jobs&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cores</span><span class="p">})</span>
+
+        <span class="c1"># check for existing datagroups with same results</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">process_name</span> <span class="o">=</span> <span class="s1">&#39;Cluster&#39;</span>
+        <span class="c1"># Partial groups don&#39;t make any sense for statistical learning algorithms....</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">duplicate_h5_groups</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">partial_h5_groups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_for_duplicates</span><span class="p">()</span>
+
+        <span class="c1"># figure out the operation that needs need to be performed to convert to real scalar</span>
+        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_transform_func</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_is_complex</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_is_compound</span><span class="p">,</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">data_n_features</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_type_mult</span><span class="p">)</span> <span class="o">=</span> <span class="n">check_dtype</span><span class="p">(</span><span class="n">h5_main</span><span class="p">)</span>
+
+        <span class="c1"># supercharge h5_main!</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span> <span class="o">=</span> <span class="n">USIDataset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__labels</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__mean_resp</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="Cluster.test"><a class="viewcode-back" href="../../../_autosummary/pycroscopy.processing.html#pycroscopy.processing.cluster.Cluster.test">[docs]</a>    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rearrange_clusters</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">override</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clusters the hdf5 dataset and calculates mean response for each cluster. This function does NOT write results to</span>
+<span class="sd">        the hdf5 file. Call compute() to  write to the file. Handles complex, compound datasets such that the</span>
+<span class="sd">        mean response vector for each cluster matrix is of the same data-type as the input matrix.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        rearrange_clusters : bool, optional. Default = True</span>
+<span class="sd">            Whether or not the clusters should be re-ordered by relative distances between the mean response</span>
+<span class="sd">        override : bool, optional. default = False</span>
+<span class="sd">            Set to true to recompute results if prior results are available. Else, returns existing results</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        labels : 1D unsigned int array</span>
+<span class="sd">            Array of cluster labels as obtained from the fit</span>
+<span class="sd">        mean_response : 2D numpy array</span>
+<span class="sd">            Array of the mean response for each cluster arranged as [cluster number, response]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">override</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">duplicate_h5_groups</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">duplicate_h5_groups</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">h5_results_grp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">duplicate_h5_groups</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Returning previously computed results from: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_results_grp</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;set the &quot;override&quot; flag to True to recompute results&#39;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">reshape_to_n_dims</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_results_grp</span><span class="p">[</span><span class="s1">&#39;Labels&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]),</span> \
+                       <span class="n">reshape_to_n_dims</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_results_grp</span><span class="p">[</span><span class="s1">&#39;Mean_Response&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">h5_results_grp</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Performing clustering on </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+        <span class="c1"># perform fit on the real dataset</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_transform_func</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data_slice</span><span class="p">]))</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Took </span><span class="si">{}</span><span class="s1"> to compute </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">format_time</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">method_name</span><span class="p">))</span>
+
+        <span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__mean_resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_mean_response</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">labels_</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Took </span><span class="si">{}</span><span class="s1"> to calculate mean response per cluster&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">format_time</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t1</span><span class="p">)))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__labels</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">labels_</span>
+        <span class="k">if</span> <span class="n">rearrange_clusters</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__labels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__mean_resp</span> <span class="o">=</span> <span class="n">reorder_clusters</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">labels_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__mean_resp</span><span class="p">,</span>
+                                                               <span class="bp">self</span><span class="o">.</span><span class="n">data_transform_func</span><span class="p">)</span>
+
+        <span class="c1"># TODO: What if test() is called repeatedly?</span>
+        <span class="n">labels_mat</span><span class="p">,</span> <span class="n">success</span> <span class="o">=</span> <span class="n">reshape_to_n_dims</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__labels</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+                                                <span class="n">h5_pos</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">h5_pos_inds</span><span class="p">,</span> <span class="n">h5_spec</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">success</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Could not reshape labels to N-Dimensional dataset! Error:&#39;</span> <span class="o">+</span> <span class="n">success</span><span class="p">)</span>
+
+        <span class="n">centroid_mat</span><span class="p">,</span> <span class="n">success</span> <span class="o">=</span> <span class="n">reshape_to_n_dims</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__mean_resp</span><span class="p">,</span>
+                                                  <span class="n">h5_spec</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">h5_spec_inds</span><span class="p">[:,</span> <span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">num_comps</span><span class="p">],</span>
+                                                  <span class="n">h5_pos</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__mean_resp</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">success</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Could not reshape mean response to N-Dimensional dataset! Error:&#39;</span> <span class="o">+</span> <span class="n">success</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">labels_mat</span><span class="p">),</span> <span class="n">centroid_mat</span></div>
+
+<div class="viewcode-block" id="Cluster.delete_results"><a class="viewcode-back" href="../../../_autosummary/pycroscopy.processing.html#pycroscopy.processing.cluster.Cluster.delete_results">[docs]</a>    <span class="k">def</span> <span class="nf">delete_results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Deletes results from memory.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">__labels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__mean_resp</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__labels</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__mean_resp</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">h5_results_grp</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="Cluster.compute"><a class="viewcode-back" href="../../../_autosummary/pycroscopy.processing.html#pycroscopy.processing.cluster.Cluster.compute">[docs]</a>    <span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rearrange_clusters</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">override</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clusters the hdf5 dataset and calculates mean response for each cluster (by calling test() if it has</span>
+<span class="sd">        not already been called), and writes the labels and mean response back to the h5 file.</span>
+
+<span class="sd">        Consider calling test_on_subset() to check results before writing to file. Results are deleted from memory</span>
+<span class="sd">        upon writing to the HDF5 file</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        rearrange_clusters : bool, optional. Default = True</span>
+<span class="sd">            Whether or not the clusters should be re-ordered by relative distances between the mean response</span>
+<span class="sd">        override : bool, optional. default = False</span>
+<span class="sd">            Set to true to recompute results if prior results are available. Else, returns existing results</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        --------</span>
+<span class="sd">        h5_group : HDF5 Group reference</span>
+<span class="sd">            Reference to the group that contains the clustering results</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__labels</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__mean_resp</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">rearrange_clusters</span><span class="o">=</span><span class="n">rearrange_clusters</span><span class="p">,</span> <span class="n">override</span><span class="o">=</span><span class="n">override</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_results_grp</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">h5_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_write_results_chunk</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">delete_results</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">h5_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_results_grp</span>
+
+        <span class="k">return</span> <span class="n">h5_group</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_mean_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the mean response for each cluster</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        -------------</span>
+<span class="sd">        labels : 1D unsigned int array</span>
+<span class="sd">            Array of cluster labels as obtained from the fit</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        ---------</span>
+<span class="sd">        mean_resp : 2D numpy array</span>
+<span class="sd">            Array of the mean response for each cluster arranged as [cluster number, response]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Calculated the Mean Response of each cluster.&#39;</span><span class="p">)</span>
+        <span class="n">num_clusts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">labels</span><span class="p">))</span>
+
+        <span class="k">def</span> <span class="nf">__mean_resp_for_cluster</span><span class="p">(</span><span class="n">clust_ind</span><span class="p">,</span> <span class="n">h5_raw</span><span class="p">,</span> <span class="n">labels_vec</span><span class="p">,</span> <span class="n">data_slice</span><span class="p">,</span> <span class="n">xform_func</span><span class="p">):</span>
+            <span class="c1"># get all pixels with this label</span>
+            <span class="n">targ_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">labels_vec</span> <span class="o">==</span> <span class="n">clust_ind</span><span class="p">)</span>
+            <span class="c1"># slice to get the responses for all these pixels, ensure that it&#39;s 2d</span>
+            <span class="n">data_chunk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">h5_raw</span><span class="p">[:,</span> <span class="n">data_slice</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="n">targ_pos</span><span class="p">,</span> <span class="p">:])</span>
+            <span class="c1"># transform to real from whatever type it was</span>
+            <span class="n">avg_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">xform_func</span><span class="p">(</span><span class="n">data_chunk</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="c1"># transform back to the source data type and insert into the mean response</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">stack_real_to_target_dtype</span><span class="p">(</span><span class="n">avg_data</span><span class="p">,</span> <span class="n">h5_raw</span><span class="o">.</span><span class="n">dtype</span><span class="p">))</span>
+
+        <span class="c1"># TODO: Force usage of multiple threads. This should not take 3 cores</span>
+        <span class="n">mean_resp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">parallel_compute</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_clusts</span><span class="p">),</span> <span class="n">__mean_resp_for_cluster</span><span class="p">,</span>
+                                              <span class="n">func_args</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_slice</span><span class="p">,</span>
+                                                         <span class="bp">self</span><span class="o">.</span><span class="n">data_transform_func</span><span class="p">],</span> <span class="n">lengthy_computation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                              <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">mean_resp</span>
+
+    <span class="k">def</span> <span class="nf">_write_results_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Writes the labels and mean response to the h5 file</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        ---------</span>
+<span class="sd">        h5_group : HDF5 Group reference</span>
+<span class="sd">            Reference to the group that contains the clustering results</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Writing clustering results to file.&#39;</span><span class="p">)</span>
+        <span class="n">num_clusters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__mean_resp</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">h5_cluster_group</span> <span class="o">=</span> <span class="n">create_results_group</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_name</span><span class="p">)</span>
+
+        <span class="n">write_simple_attrs</span><span class="p">(</span><span class="n">h5_cluster_group</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parms_dict</span><span class="p">)</span>
+        <span class="n">h5_cluster_group</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;last_pixel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">h5_labels</span> <span class="o">=</span> <span class="n">write_main_dataset</span><span class="p">(</span><span class="n">h5_cluster_group</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__labels</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])),</span> <span class="s1">&#39;Labels&#39;</span><span class="p">,</span>
+                                       <span class="s1">&#39;Cluster ID&#39;</span><span class="p">,</span> <span class="s1">&#39;a. u.&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">Dimension</span><span class="p">(</span><span class="s1">&#39;Cluster&#39;</span><span class="p">,</span> <span class="s1">&#39;ID&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                                       <span class="n">h5_pos_inds</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">h5_pos_inds</span><span class="p">,</span> <span class="n">h5_pos_vals</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">h5_pos_vals</span><span class="p">,</span>
+                                       <span class="n">aux_spec_prefix</span><span class="o">=</span><span class="s1">&#39;Cluster_&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_comps</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Setup the Spectroscopic Indices and Values for the Mean Response if we didn&#39;t use all components</span>
+<span class="sd">            Note that a sliced spectroscopic matrix may not be contiguous. Let&#39;s just lose the spectroscopic data</span>
+<span class="sd">            for now until a better method is figured out</span>
+<span class="sd">            &#39;&#39;&#39;</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            if isinstance(self.data_slice[1], np.ndarray):</span>
+<span class="sd">                centroid_vals_mat = h5_centroids.h5_spec_vals[self.data_slice[1].tolist()]</span>
+
+<span class="sd">            else:</span>
+<span class="sd">                centroid_vals_mat = h5_centroids.h5_spec_vals[self.data_slice[1]]</span>
+
+<span class="sd">            ds_centroid_values.data[0, :] = centroid_vals_mat</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_slice</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+                <span class="n">vals_slice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_slice</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">vals_slice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_slice</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">vals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">h5_spec_vals</span><span class="p">[:,</span> <span class="n">vals_slice</span><span class="p">]</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+            <span class="n">new_spec</span> <span class="o">=</span> <span class="n">Dimension</span><span class="p">(</span><span class="s1">&#39;Original_Spectral_Index&#39;</span><span class="p">,</span> <span class="s1">&#39;a.u.&#39;</span><span class="p">,</span> <span class="n">vals</span><span class="p">)</span>
+            <span class="n">h5_inds</span><span class="p">,</span> <span class="n">h5_vals</span> <span class="o">=</span> <span class="n">write_ind_val_dsets</span><span class="p">(</span><span class="n">h5_cluster_group</span><span class="p">,</span> <span class="n">new_spec</span><span class="p">,</span> <span class="n">is_spectral</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">h5_inds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">h5_spec_inds</span>
+            <span class="n">h5_vals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">h5_spec_vals</span>
+
+        <span class="c1"># For now, link centroids with default spectroscopic indices and values.</span>
+        <span class="n">h5_centroids</span> <span class="o">=</span> <span class="n">write_main_dataset</span><span class="p">(</span><span class="n">h5_cluster_group</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__mean_resp</span><span class="p">,</span> <span class="s1">&#39;Mean_Response&#39;</span><span class="p">,</span>
+                                          <span class="n">get_attr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="p">,</span> <span class="s1">&#39;quantity&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">get_attr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="p">,</span> <span class="s1">&#39;units&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
+                                          <span class="n">Dimension</span><span class="p">(</span><span class="s1">&#39;Cluster&#39;</span><span class="p">,</span> <span class="s1">&#39;a. u.&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_clusters</span><span class="p">)),</span> <span class="kc">None</span><span class="p">,</span>
+                                          <span class="n">h5_spec_inds</span><span class="o">=</span><span class="n">h5_inds</span><span class="p">,</span> <span class="n">aux_pos_prefix</span><span class="o">=</span><span class="s1">&#39;Mean_Resp_Pos_&#39;</span><span class="p">,</span>
+                                          <span class="n">h5_spec_vals</span><span class="o">=</span><span class="n">h5_vals</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">h5_cluster_group</span></div>
+
+
+<div class="viewcode-block" id="reorder_clusters"><a class="viewcode-back" href="../../../_autosummary/_autosummary/pycroscopy.processing.cluster.html#pycroscopy.processing.cluster.reorder_clusters">[docs]</a><span class="k">def</span> <span class="nf">reorder_clusters</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">mean_response</span><span class="p">,</span> <span class="n">transform_function</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reorders clusters by the distances between the clusters</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    labels : 1D unsigned int numpy array</span>
+<span class="sd">        Labels for the clusters</span>
+<span class="sd">    mean_response : 2D numpy array</span>
+<span class="sd">        Mean response of each cluster arranged as [cluster , features]</span>
+<span class="sd">    transform_function : callable, optional</span>
+<span class="sd">        Function that will convert the mean_response into real values</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    new_labels : 1D unsigned int numpy array</span>
+<span class="sd">        Labels for the clusters arranged by distances</span>
+<span class="sd">    new_mean_response : 2D numpy array</span>
+<span class="sd">        Mean response of each cluster arranged as [cluster , features]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">num_clusters</span> <span class="o">=</span> <span class="n">mean_response</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># Get the distance between cluster means</span>
+    <span class="k">if</span> <span class="n">transform_function</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">distance_mat</span> <span class="o">=</span> <span class="n">pdist</span><span class="p">(</span><span class="n">transform_function</span><span class="p">(</span><span class="n">mean_response</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">distance_mat</span> <span class="o">=</span> <span class="n">pdist</span><span class="p">(</span><span class="n">mean_response</span><span class="p">)</span>
+
+    <span class="c1"># get hierarchical pairings of clusters</span>
+    <span class="n">linkage_pairing</span> <span class="o">=</span> <span class="n">linkage</span><span class="p">(</span><span class="n">distance_mat</span><span class="p">,</span> <span class="s1">&#39;weighted&#39;</span><span class="p">)</span>
+
+    <span class="c1"># get the new order - this has been checked to be OK</span>
+    <span class="n">new_cluster_order</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">linkage_pairing</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">linkage_pairing</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">num_clusters</span><span class="p">:</span>
+                <span class="n">new_cluster_order</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">linkage_pairing</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]))</span>
+
+    <span class="c1"># Now that we know the order, rearrange the clusters and labels:</span>
+    <span class="n">new_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">labels</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">labels</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">new_mean_response</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">mean_response</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">mean_response</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+    <span class="c1"># Reorder clusters</span>
+    <span class="k">for</span> <span class="n">old_clust_ind</span><span class="p">,</span> <span class="n">new_clust_ind</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">new_cluster_order</span><span class="p">):</span>
+        <span class="n">new_labels</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">labels</span> <span class="o">==</span> <span class="n">new_clust_ind</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">old_clust_ind</span>
+        <span class="n">new_mean_response</span><span class="p">[</span><span class="n">old_clust_ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean_response</span><span class="p">[</span><span class="n">new_clust_ind</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">new_labels</span><span class="p">,</span> <span class="n">new_mean_response</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Suhas Somnath, Chris Smith, Stephen Jesse, Numan Laanait.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.60.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

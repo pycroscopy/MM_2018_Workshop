@@ -1,0 +1,459 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyUSID.io.io_utils &mdash; pyUSID 0.0.4 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pyUSID.io.numpy_translator" href="pyUSID.io.numpy_translator.html" />
+    <link rel="prev" title="pyUSID.io.image" href="pyUSID.io.image.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> pyUSID
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">pyUSID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../package_organization.html">Package Organization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_format.html">Data Model and File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribution_guidelines.html">Guidelines for Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whats_new.html">What’s New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../matlab_to_python.html">Upgrading from Matlab</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#submodules">Submodules</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../pyUSID.io.html">pyUSID.io</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../pyUSID.io.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="pyUSID.io.hdf_utils.html">pyUSID.io.hdf_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyUSID.io.image.html">pyUSID.io.image</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">pyUSID.io.io_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyUSID.io.numpy_translator.html">pyUSID.io.numpy_translator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyUSID.io.usi_data.html">pyUSID.io.usi_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyUSID.io.translator.html">pyUSID.io.translator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyUSID.io.write_utils.html">pyUSID.io.write_utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../pyUSID.processing.html">pyUSID.processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pyUSID.viz.html">pyUSID.viz</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pyUSID</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../api.html">API Reference</a> &raquo;</li>
+        
+          <li><a href="../pyUSID.io.html">pyUSID.io</a> &raquo;</li>
+        
+      <li>pyUSID.io.io_utils</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/_autosummary/_autosummary/pyUSID.io.io_utils.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pyUSID.io.io_utils">
+<span id="pyusid-io-io-utils"></span><h1>pyUSID.io.io_utils<a class="headerlink" href="#module-pyUSID.io.io_utils" title="Permalink to this headline">¶</a></h1>
+<p>Created on Tue Nov  3 21:14:25 2015</p>
+<p>&#64;author: Suhas Somnath, Chris Smith</p>
+<p class="rubric">Functions</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_ssh</span></code>()</td>
+<td>Checks whether or not the python kernel is running locally (False) or remotely (True)</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyUSID.io.io_utils.file_dialog" title="pyUSID.io.io_utils.file_dialog"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file_dialog</span></code></a>([file_filter,&nbsp;caption])</td>
+<td>Presents a File dialog used for selecting the .mat file and returns the absolute filepath of the selecte file</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyUSID.io.io_utils.format_quantity" title="pyUSID.io.io_utils.format_quantity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_quantity</span></code></a>(value,&nbsp;unit_names,&nbsp;factors)</td>
+<td>Formats the provided quantity such as time or size to appropriate strings</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyUSID.io.io_utils.format_size" title="pyUSID.io.io_utils.format_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_size</span></code></a>(size_in_bytes[,&nbsp;decimals])</td>
+<td>Formats the provided size in bytes to kB, MB, GB, TB etc.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyUSID.io.io_utils.format_time" title="pyUSID.io.io_utils.format_time"><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_time</span></code></a>(time_in_seconds[,&nbsp;decimals])</td>
+<td>Formats the provided time in seconds to seconds, minutes, or hours</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">formatted_str_to_number</span></code>(str_val,&nbsp;…[,&nbsp;…])</td>
+<td>Takes a formatted string like ‘4.32 MHz’ to 4.32 E+6</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyUSID.io.io_utils.get_available_memory" title="pyUSID.io.io_utils.get_available_memory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_available_memory</span></code></a>()</td>
+<td>Returns the available memory</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyUSID.io.io_utils.get_time_stamp" title="pyUSID.io.io_utils.get_time_stamp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_time_stamp</span></code></a>()</td>
+<td>Teturns the current date and time as a string formatted as: Year_Month_Dat-Hour_Minute_Second</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pyUSID.io.io_utils.recommend_cpu_cores" title="pyUSID.io.io_utils.recommend_cpu_cores"><code class="xref py py-obj docutils literal notranslate"><span class="pre">recommend_cpu_cores</span></code></a>(num_jobs[,&nbsp;…])</td>
+<td>Decides the number of cores to use for parallel computing</td>
+</tr>
+</tbody>
+</table>
+<dl class="function">
+<dt id="pyUSID.io.io_utils.get_available_memory">
+<code class="descname">get_available_memory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/io_utils.html#get_available_memory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.io_utils.get_available_memory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the available memory</p>
+<p>Chris Smith – <a class="reference external" href="mailto:csmith55&#37;&#52;&#48;utk&#46;edu">csmith55<span>&#64;</span>utk<span>&#46;</span>edu</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>mem</strong> – Memory in bytes</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">unsigned int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.io_utils.get_time_stamp">
+<code class="descname">get_time_stamp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/io_utils.html#get_time_stamp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.io_utils.get_time_stamp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Teturns the current date and time as a string formatted as:
+Year_Month_Dat-Hour_Minute_Second</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">String</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.io_utils.recommend_cpu_cores">
+<code class="descname">recommend_cpu_cores</code><span class="sig-paren">(</span><em>num_jobs</em>, <em>requested_cores=None</em>, <em>lengthy_computation=False</em>, <em>min_free_cores=None</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/io_utils.html#recommend_cpu_cores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.io_utils.recommend_cpu_cores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decides the number of cores to use for parallel computing</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>num_jobs</strong> (<em>unsigned int</em>) – Number of times a parallel operation needs to be performed</li>
+<li><strong>requested_cores</strong> (<em>unsigned int</em><em> (</em><em>Optional. Default = None</em><em>)</em>) – Number of logical cores to use for computation</li>
+<li><strong>lengthy_computation</strong> (<em>Boolean</em><em> (</em><em>Optional. Default = False</em><em>)</em>) – Whether or not each computation takes a long time. If each computation is quick, it may not make sense to take
+a hit in terms of starting and using a larger number of cores, so use fewer cores instead.
+Eg- BE SHO fitting is fast (&lt;1 sec) so set this value to False,
+Eg- Bayesian Inference is very slow (~ 10-20 sec)so set this to True</li>
+<li><strong>min_free_cores</strong> (<em>uint</em><em> (</em><em>Optional</em><em>, </em><em>default = 1 if number of logical cores &lt; 5 and 2 otherwise</em><em>)</em>) – Number of CPU cores that should not be used)</li>
+<li><strong>verbose</strong> (<em>Boolean</em><em> (</em><em>Optional.  Default = False</em><em>)</em>) – Whether or not to print statements that aid in debugging</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>requested_cores</strong> – Number of logical cores to use for computation</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">unsigned int</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.io_utils.file_dialog">
+<code class="descname">file_dialog</code><span class="sig-paren">(</span><em>file_filter='H5 file (*.h5)'</em>, <em>caption='Select File'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/io_utils.html#file_dialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.io_utils.file_dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Presents a File dialog used for selecting the .mat file
+and returns the absolute filepath of the selecte file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>file_filter</strong> (<em>String</em><em> or </em><em>list of strings</em>) – file extensions to look for</li>
+<li><strong>caption</strong> (<em>(</em><em>Optional</em><em>) </em><em>String</em>) – Title for the file browser window</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>file_path</strong> – Absolute path of the chosen file</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">String</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.io_utils.format_quantity">
+<code class="descname">format_quantity</code><span class="sig-paren">(</span><em>value</em>, <em>unit_names</em>, <em>factors</em>, <em>decimals=2</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/io_utils.html#format_quantity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.io_utils.format_quantity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats the provided quantity such as time or size to appropriate strings</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>value</strong> (<em>number</em>) – value in some base units. For example - time in seconds</li>
+<li><strong>unit_names</strong> (<em>array-like</em>) – List of names of units for each scale of the value</li>
+<li><strong>factors</strong> (<em>array-like</em>) – List of scaling factors for each scale of the value</li>
+<li><strong>decimals</strong> (<em>uint</em><em>, </em><em>optional. default = 2</em>) – Number of decimal places to which the value needs to be formatted</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">String with value formatted correctly</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.io_utils.format_time">
+<code class="descname">format_time</code><span class="sig-paren">(</span><em>time_in_seconds</em>, <em>decimals=2</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/io_utils.html#format_time"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.io_utils.format_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats the provided time in seconds to seconds, minutes, or hours</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>time_in_seconds</strong> (<em>number</em>) – Time in seconds</li>
+<li><strong>decimals</strong> (<em>uint</em><em>, </em><em>optional. default = 2</em>) – Number of decimal places to which the time needs to be formatted</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">String with time formatted correctly</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.io.io_utils.format_size">
+<code class="descname">format_size</code><span class="sig-paren">(</span><em>size_in_bytes</em>, <em>decimals=2</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/io/io_utils.html#format_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.io.io_utils.format_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats the provided size in bytes to kB, MB, GB, TB etc.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>size_in_bytes</strong> (<em>number</em>) – size in bytes</li>
+<li><strong>decimals</strong> (<em>uint</em><em>, </em><em>optional. default = 2</em>) – Number of decimal places to which the size needs to be formatted</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">String with size formatted correctly</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pyUSID.io.numpy_translator.html" class="btn btn-neutral float-right" title="pyUSID.io.numpy_translator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pyUSID.io.image.html" class="btn btn-neutral" title="pyUSID.io.image" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Suhas Somnath, Chris R. Smith, Stephen Jesse.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.0.4',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

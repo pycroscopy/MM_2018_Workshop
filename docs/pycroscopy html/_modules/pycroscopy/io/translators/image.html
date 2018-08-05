@@ -1,0 +1,349 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pycroscopy.io.translators.image &mdash; pycroscopy 0.60.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../../../../about.html" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> pycroscopy
+          
+
+          
+            
+            <img src="../../../../_static/logo_v01.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.60.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../about.html">Pycroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../package_organization.html">Package Organization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../translators.html">Data Translators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../papers_conferences.html">Papers / Conferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../credits.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../whats_new.html">What’s New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">pycroscopy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pycroscopy.io.translators.image</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pycroscopy.io.translators.image</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created by Christopher Smith on 7/11/2018</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">h5py</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">skimage.io</span> <span class="k">import</span> <span class="n">imread</span>
+<span class="kn">from</span> <span class="nn">skimage.measure</span> <span class="k">import</span> <span class="n">block_reduce</span>
+
+<span class="kn">from</span> <span class="nn">pyUSID.io.image</span> <span class="k">import</span> <span class="n">ImageTranslator</span>
+<span class="kn">from</span> <span class="nn">.df_utils.dm_utils</span> <span class="k">import</span> <span class="n">read_dm3</span><span class="p">,</span> <span class="n">read_dm4</span>
+
+
+<div class="viewcode-block" id="ImageTranslator"><a class="viewcode-back" href="../../../../_autosummary/pycroscopy.io.html#pycroscopy.io.translators.ImageTranslator">[docs]</a><span class="k">class</span> <span class="nc">ImageTranslator</span><span class="p">(</span><span class="n">ImageTranslator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Translates data from a set of image files to an HDF5 file.  This version has been extended to</span>
+<span class="sd">    support dm3 and dm4 files</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ImageTranslator.translate"><a class="viewcode-back" href="../../../../_autosummary/pycroscopy.io.html#pycroscopy.io.translators.ImageTranslator.translate">[docs]</a>    <span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_path</span><span class="p">,</span> <span class="n">h5_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bin_factor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bin_func</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">image_args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Basic method that adds Ptychography data to existing hdf5 thisfile</span>
+<span class="sd">        You must have already done the basic translation with BEodfTranslator</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------------</span>
+<span class="sd">        image_path : str</span>
+<span class="sd">            Absolute path to folder holding the image files</span>
+<span class="sd">        h5_path : str, optional</span>
+<span class="sd">            Absolute path to where the HDF5 file should be located.</span>
+<span class="sd">            Default is None</span>
+<span class="sd">        bin_factor : array_like of uint, optional</span>
+<span class="sd">            Downsampling factor for each dimension.  Default is None.</span>
+<span class="sd">        bin_func : callable, optional</span>
+<span class="sd">            Function which will be called to calculate the return value</span>
+<span class="sd">            of each block.  Function must implement an axis parameter,</span>
+<span class="sd">            i.e. numpy.mean.  Ignored if bin_factor is None.  Default is</span>
+<span class="sd">            numpy.mean.</span>
+<span class="sd">        normalize : boolean, optional</span>
+<span class="sd">            Should the raw image be normalized when read in</span>
+<span class="sd">            Default False</span>
+<span class="sd">        image_args : dict</span>
+<span class="sd">            Arguments to be passed to read_image.  Arguments depend on the type of image.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        ----------</span>
+<span class="sd">        h5_main : h5py.Dataset</span>
+<span class="sd">            HDF5 Dataset object that contains the flattened images</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">image_path</span><span class="p">,</span> <span class="n">h5_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_file_path</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span>
+
+        <span class="n">image</span><span class="p">,</span> <span class="n">image_parms</span> <span class="o">=</span> <span class="n">read_image</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="o">**</span><span class="n">image_args</span><span class="p">)</span>
+        <span class="n">usize</span><span class="p">,</span> <span class="n">vsize</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_path</span> <span class="o">=</span> <span class="n">image_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">h5_path</span> <span class="o">=</span> <span class="n">h5_path</span>
+
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Check if a bin_factor is given.  Set up binning objects if it is.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">bin_factor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rebin</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bin_factor</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">bin_factor</span> <span class="o">=</span> <span class="p">(</span><span class="n">bin_factor</span><span class="p">,</span> <span class="n">bin_factor</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">bin_factor</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">bin_factor</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">bin_factor</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Input parameter `bin_factor` must be a length 2 array_like or an integer.</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span>
+                                 <span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> was given.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bin_factor</span><span class="p">))</span>
+            <span class="n">usize</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">usize</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">bin_factor</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">vsize</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">vsize</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">bin_factor</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">binning_func</span> <span class="o">=</span> <span class="n">block_reduce</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bin_func</span> <span class="o">=</span> <span class="n">bin_func</span>
+
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">binning_func</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bin_factor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bin_func</span><span class="p">)</span>
+
+        <span class="n">image_parms</span><span class="p">[</span><span class="s1">&#39;normalized&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">normalize</span>
+        <span class="n">image_parms</span><span class="p">[</span><span class="s1">&#39;image_min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="n">image_parms</span><span class="p">[</span><span class="s1">&#39;image_max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Normalize Raw Image</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">normalize</span><span class="p">:</span>
+            <span class="n">image</span> <span class="o">-=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">image</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">image</span><span class="p">))</span>
+
+        <span class="n">h5_main</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_setup_h5</span><span class="p">(</span><span class="n">usize</span><span class="p">,</span> <span class="n">vsize</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">image_parms</span><span class="p">)</span>
+
+        <span class="n">h5_main</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_data</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">h5_main</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">h5_main</span></div></div>
+
+
+<span class="k">def</span> <span class="nf">read_image</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read the image file at `image_path` into a numpy array</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    image_path : str</span>
+<span class="sd">        Path to the image file</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    image : numpy.ndarray</span>
+<span class="sd">        Array containing the image from the file `image_path`</span>
+<span class="sd">    image_parms : dict</span>
+<span class="sd">        Dictionary containing image parameters.  If image type does not have</span>
+<span class="sd">        parameters then an empty dictionary is returned.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">image_path</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s1">&#39;.dm3&#39;</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;as_grey&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">read_dm3</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">ext</span> <span class="o">==</span> <span class="s1">&#39;.dm4&#39;</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;as_grey&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">read_dm4</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">ext</span> <span class="o">==</span> <span class="s1">&#39;.txt&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Set the as_grey argument to True is not already provided.</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;as_grey&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;as_grey&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">imread</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span> <span class="nb">dict</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Suhas Somnath, Chris Smith, Stephen Jesse, Numan Laanait.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.60.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+pyUSID.io.usi\_data
+===================
+
+.. automodule:: pyUSID.io.usi_data
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      write_dset_to_txt
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      USIDataset
+   
+   
+
+   
+   
+   

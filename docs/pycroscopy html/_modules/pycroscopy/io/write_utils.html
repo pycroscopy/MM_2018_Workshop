@@ -1,0 +1,407 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pycroscopy.io.write_utils &mdash; pycroscopy 0.60.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> pycroscopy
+          
+
+          
+            
+            <img src="../../../_static/logo_v01.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.60.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">Pycroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../package_organization.html">Package Organization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../translators.html">Data Translators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../papers_conferences.html">Papers / Conferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../credits.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../whats_new.html">What’s New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pycroscopy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pycroscopy.io.write_utils</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pycroscopy.io.write_utils</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on Tue Nov  3 21:14:25 2015</span>
+
+<span class="sd">@author: Chris Smith</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="k">import</span> <span class="n">warn</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">h5py</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">.virtual_data</span> <span class="k">import</span> <span class="n">VirtualDataset</span>
+<span class="kn">from</span> <span class="nn">pyUSID.io.write_utils</span> <span class="k">import</span> <span class="n">INDICES_DTYPE</span><span class="p">,</span> <span class="n">VALUES_DTYPE</span><span class="p">,</span> <span class="n">Dimension</span><span class="p">,</span> <span class="n">build_ind_val_matrices</span><span class="p">,</span> <span class="n">get_aux_dset_slicing</span>
+
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="n">unicode</span> <span class="o">=</span> <span class="nb">str</span>
+
+
+<div class="viewcode-block" id="build_reduced_spec_dsets"><a class="viewcode-back" href="../../../_autosummary/_autosummary/pycroscopy.io.write_utils.html#pycroscopy.io.write_utils.build_reduced_spec_dsets">[docs]</a><span class="k">def</span> <span class="nf">build_reduced_spec_dsets</span><span class="p">(</span><span class="n">h5_parent_group</span><span class="p">,</span> <span class="n">h5_spec_inds</span><span class="p">,</span> <span class="n">h5_spec_vals</span><span class="p">,</span> <span class="n">keep_dim</span><span class="p">,</span> <span class="n">step_starts</span><span class="p">,</span>
+                             <span class="n">basename</span><span class="o">=</span><span class="s1">&#39;Spectroscopic&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates new Spectroscopic Indices and Values datasets from the input datasets</span>
+<span class="sd">    and keeps the dimensions specified in keep_dim</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    h5_parent_group : h5py.Group or h5py.File</span>
+<span class="sd">        Group under which the indices and values datasets will be created</span>
+<span class="sd">    h5_spec_inds : HDF5 Dataset</span>
+<span class="sd">            Spectroscopic indices dataset</span>
+<span class="sd">    h5_spec_vals : HDF5 Dataset</span>
+<span class="sd">            Spectroscopic values dataset</span>
+<span class="sd">    keep_dim : Numpy Array, Boolean</span>
+<span class="sd">            Array designating which rows of the input spectroscopic datasets to keep</span>
+<span class="sd">    step_starts : Numpy Array, Unsigned Integers</span>
+<span class="sd">            Array specifying the start of each step in the reduced datasets</span>
+<span class="sd">    basename : str / unicode</span>
+<span class="sd">            String to which &#39;_Indices&#39; and &#39;_Values&#39; will be appended to get the names</span>
+<span class="sd">            of the new datasets</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ds_inds : VirtualDataset</span>
+<span class="sd">            Reduced Spectroscopic indices dataset</span>
+<span class="sd">    ds_vals : VirtualDataset</span>
+<span class="sd">            Reduces Spectroscopic values dataset</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;build_reduced_spec_dsets is available only for legacy purposes and will be REMOVED in a future release.</span><span class="se">\n</span><span class="s1">&#39;</span>
+         <span class="s1">&#39;Please consider using write_reduced_spec_dsets instead&#39;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">h5_parent_group</span><span class="p">,</span> <span class="p">(</span><span class="n">h5py</span><span class="o">.</span><span class="n">Group</span><span class="p">,</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">)):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;h5_parent_group should be a h5py.File or h5py.Group object&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">basename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">basename</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">unicode</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;basename should be a string&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">sub_name</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;_Indices&#39;</span><span class="p">,</span> <span class="s1">&#39;_Values&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">basename</span> <span class="o">+</span> <span class="n">sub_name</span> <span class="ow">in</span> <span class="n">h5_parent_group</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s1">&#39;Dataset: </span><span class="si">{}</span><span class="s1"> already exists in provided group: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">basename</span> <span class="o">+</span> <span class="n">sub_name</span><span class="p">,</span>
+                                                                                     <span class="n">h5_parent_group</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">param</span><span class="p">,</span> <span class="n">param_name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="n">h5_spec_inds</span><span class="p">,</span> <span class="n">h5_spec_vals</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;h5_spec_inds&#39;</span><span class="p">,</span> <span class="s1">&#39;h5_spec_vals&#39;</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">h5py</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">param_name</span> <span class="o">+</span> <span class="s1">&#39; should be a h5py.Dataset object&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">keep_dim</span><span class="p">,</span> <span class="p">(</span><span class="nb">bool</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;keep_dim should be a bool, np.ndarray, list, or tuple&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">step_starts</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;step_starts should be a list, np.ndarray, list, or tuple&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">h5_spec_inds</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Extract all rows that we want to keep from input indices and values</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># TODO: handle TypeError: Indexing elements must be in increasing order</span>
+        <span class="n">ind_mat</span> <span class="o">=</span> <span class="n">h5_spec_inds</span><span class="p">[</span><span class="n">keep_dim</span><span class="p">,</span> <span class="p">:][:,</span> <span class="n">step_starts</span><span class="p">]</span>
+        <span class="n">val_mat</span> <span class="o">=</span> <span class="n">h5_spec_vals</span><span class="p">[</span><span class="n">keep_dim</span><span class="p">,</span> <span class="p">:][:,</span> <span class="n">step_starts</span><span class="p">]</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Create new Datasets to hold the data</span>
+<span class="sd">        Name them based on basename</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">ds_inds</span> <span class="o">=</span> <span class="n">VirtualDataset</span><span class="p">(</span><span class="n">basename</span> <span class="o">+</span> <span class="s1">&#39;_Indices&#39;</span><span class="p">,</span> <span class="n">ind_mat</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">h5_spec_inds</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="n">ds_vals</span> <span class="o">=</span> <span class="n">VirtualDataset</span><span class="p">(</span><span class="n">basename</span> <span class="o">+</span> <span class="s1">&#39;_Values&#39;</span><span class="p">,</span> <span class="n">val_mat</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">h5_spec_vals</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+        <span class="c1"># Extracting the labels from the original spectroscopic data sets</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">h5_spec_inds</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">][</span><span class="n">keep_dim</span><span class="p">]</span>
+        <span class="c1"># Creating the dimension slices for the new spectroscopic data sets</span>
+        <span class="n">reg_ref_slices</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">row_ind</span><span class="p">,</span> <span class="n">row_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
+            <span class="n">reg_ref_slices</span><span class="p">[</span><span class="n">row_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="n">row_ind</span><span class="p">,</span> <span class="n">row_ind</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">))</span>
+
+        <span class="c1"># Adding the labels and units to the new spectroscopic data sets</span>
+        <span class="k">for</span> <span class="n">dset</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ds_inds</span><span class="p">,</span> <span class="n">ds_vals</span><span class="p">]:</span>
+            <span class="n">dset</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">reg_ref_slices</span>
+            <span class="n">dset</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">h5_spec_inds</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">][</span><span class="n">keep_dim</span><span class="p">]</span>
+
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># Single spectroscopic dimension:</span>
+        <span class="n">ds_inds</span> <span class="o">=</span> <span class="n">VirtualDataset</span><span class="p">(</span><span class="n">basename</span> <span class="o">+</span> <span class="s1">&#39;_Indices&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">INDICES_DTYPE</span><span class="p">))</span>
+        <span class="n">ds_vals</span> <span class="o">=</span> <span class="n">VirtualDataset</span><span class="p">(</span><span class="n">basename</span> <span class="o">+</span> <span class="s1">&#39;_Values&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">VALUES_DTYPE</span><span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">dset</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ds_inds</span><span class="p">,</span> <span class="n">ds_vals</span><span class="p">]:</span>
+            <span class="n">dset</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Single_Step&#39;</span><span class="p">:</span> <span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">))}</span>
+            <span class="n">dset</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="k">return</span> <span class="n">ds_inds</span><span class="p">,</span> <span class="n">ds_vals</span></div>
+
+
+<div class="viewcode-block" id="build_ind_val_dsets"><a class="viewcode-back" href="../../../_autosummary/_autosummary/pycroscopy.io.write_utils.html#pycroscopy.io.write_utils.build_ind_val_dsets">[docs]</a><span class="k">def</span> <span class="nf">build_ind_val_dsets</span><span class="p">(</span><span class="n">dimensions</span><span class="p">,</span> <span class="n">is_spectral</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">base_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates VirtualDatasets for the position or spectroscopic indices and values of the data.</span>
+<span class="sd">    Remember that the contents of the dataset can be changed if need be after the creation of the datasets.</span>
+<span class="sd">    For example if one of the spectroscopic dimensions (e.g. - Bias) was sinusoidal and not linear, The specific</span>
+<span class="sd">    dimension in the Spectroscopic_Values dataset can be manually overwritten.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dimensions : Dimension or array-like of Dimension objects</span>
+<span class="sd">        Sequence of Dimension objects that provides all necessary instructions for constructing the indices and values</span>
+<span class="sd">        datasets</span>
+<span class="sd">    is_spectral : bool, optional. default = True</span>
+<span class="sd">        Spectroscopic (True) or Position (False)</span>
+<span class="sd">    verbose : Boolean, optional</span>
+<span class="sd">        Whether or not to print statements for debugging purposes</span>
+<span class="sd">    base_name : str / unicode, optional</span>
+<span class="sd">        Prefix for the datasets. Default: &#39;Position\_&#39; when is_spectral is False, &#39;Spectroscopic\_&#39; otherwise</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ds_inds : VirtualDataset</span>
+<span class="sd">            Reduced Spectroscopic indices dataset</span>
+<span class="sd">    ds_vals : VirtualDataset</span>
+<span class="sd">            Reduces Spectroscopic values dataset</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    `steps`, `initial_values`, `labels`, and &#39;units&#39; must be the same length as</span>
+<span class="sd">    `dimensions` when they are specified.</span>
+
+<span class="sd">    Dimensions should be in the order from fastest varying to slowest.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;build_ind_val_dsets is available only for legacy purposes and will be REMOVED in a future release.</span><span class="se">\n</span><span class="s1">&#39;</span>
+         <span class="s1">&#39;Please consider using write_ind_val_dsets in hdf_utils instead&#39;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dimensions</span><span class="p">,</span> <span class="n">Dimension</span><span class="p">):</span>
+        <span class="n">dimensions</span> <span class="o">=</span> <span class="p">[</span><span class="n">dimensions</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dimensions</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;dimensions should be array-like &#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Dimension</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">dimensions</span><span class="p">]):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;dimensions should be a sequence of Dimension objects&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">base_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">base_name</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">unicode</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;base_name should be a string&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">base_name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">):</span>
+            <span class="n">base_name</span> <span class="o">+=</span> <span class="s1">&#39;_&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">base_name</span> <span class="o">=</span> <span class="s1">&#39;Position_&#39;</span>
+        <span class="k">if</span> <span class="n">is_spectral</span><span class="p">:</span>
+            <span class="n">base_name</span> <span class="o">=</span> <span class="s1">&#39;Spectroscopic_&#39;</span>
+
+    <span class="n">unit_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">values</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">dimensions</span><span class="p">]</span>
+
+    <span class="n">indices</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="n">build_ind_val_matrices</span><span class="p">(</span><span class="n">unit_values</span><span class="p">,</span> <span class="n">is_spectral</span><span class="o">=</span><span class="n">is_spectral</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Indices:&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Values:&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+
+    <span class="c1"># Create the slices that will define the labels</span>
+    <span class="n">region_slices</span> <span class="o">=</span> <span class="n">get_aux_dset_slicing</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">dimensions</span><span class="p">],</span> <span class="n">is_spectroscopic</span><span class="o">=</span><span class="n">is_spectral</span><span class="p">)</span>
+
+    <span class="c1"># Create the VirtualDataset for both Indices and Values</span>
+    <span class="n">ds_indices</span> <span class="o">=</span> <span class="n">VirtualDataset</span><span class="p">(</span><span class="n">base_name</span> <span class="o">+</span> <span class="s1">&#39;Indices&#39;</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">INDICES_DTYPE</span><span class="p">)</span>
+    <span class="n">ds_values</span> <span class="o">=</span> <span class="n">VirtualDataset</span><span class="p">(</span><span class="n">base_name</span> <span class="o">+</span> <span class="s1">&#39;Values&#39;</span><span class="p">,</span> <span class="n">VALUES_DTYPE</span><span class="p">(</span><span class="n">values</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">VALUES_DTYPE</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">dset</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ds_indices</span><span class="p">,</span> <span class="n">ds_values</span><span class="p">]:</span>
+        <span class="n">dset</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">region_slices</span>
+        <span class="n">dset</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">units</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">dimensions</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">ds_indices</span><span class="p">,</span> <span class="n">ds_values</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Suhas Somnath, Chris Smith, Stephen Jesse, Numan Laanait.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.60.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

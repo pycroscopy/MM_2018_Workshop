@@ -1,0 +1,66 @@
+pyUSID.io.hdf\_utils
+====================
+
+.. automodule:: pyUSID.io.hdf_utils
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      assign_group_index
+      attempt_reg_ref_build
+      check_and_link_ancillary
+      check_for_matching_attrs
+      check_for_old
+      check_if_main
+      clean_reg_ref
+      copy_attributes
+      copy_main_attributes
+      copy_reg_ref_reduced_dim
+      copy_region_refs
+      create_empty_dataset
+      create_indexed_group
+      create_region_reference
+      create_results_group
+      find_dataset
+      find_results_groups
+      get_all_main
+      get_attr
+      get_attributes
+      get_auxiliary_datasets
+      get_data_descriptor
+      get_dimensionality
+      get_formatted_labels
+      get_group_refs
+      get_h5_obj_refs
+      get_indices_for_region_ref
+      get_region
+      get_sort_order
+      get_source_dataset
+      get_unit_values
+      is_editable_h5
+      link_as_main
+      link_h5_obj_as_alias
+      link_h5_objects_as_attrs
+      print_tree
+      reshape_from_n_dims
+      reshape_to_n_dims
+      simple_region_ref_copy
+      write_book_keeping_attrs
+      write_ind_val_dsets
+      write_main_dataset
+      write_reduced_spec_dsets
+      write_region_references
+      write_simple_attrs
+   
+   
+
+   
+   
+   
+
+   
+   
+   

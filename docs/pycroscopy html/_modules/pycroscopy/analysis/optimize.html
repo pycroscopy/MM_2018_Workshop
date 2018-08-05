@@ -1,0 +1,416 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pycroscopy.analysis.optimize &mdash; pycroscopy 0.60.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> pycroscopy
+          
+
+          
+            
+            <img src="../../../_static/logo_v01.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.60.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">Pycroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../package_organization.html">Package Organization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../translators.html">Data Translators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../papers_conferences.html">Papers / Conferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../credits.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../whats_new.html">What’s New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pycroscopy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pycroscopy.analysis.optimize</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pycroscopy.analysis.optimize</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on 12/15/16 10:08 AM</span>
+<span class="sd">@author: Numan Laanait</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="k">import</span> <span class="n">warn</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">joblib</span>
+<span class="kn">from</span> <span class="nn">.guess_methods</span> <span class="k">import</span> <span class="n">GuessMethods</span>
+<span class="kn">from</span> <span class="nn">.fit_methods</span> <span class="k">import</span> <span class="n">Fit_Methods</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+
+
+<div class="viewcode-block" id="targetFuncGuess"><a class="viewcode-back" href="../../../_autosummary/_autosummary/pycroscopy.analysis.optimize.html#pycroscopy.analysis.be_loop_fitter.targetFuncGuess">[docs]</a><span class="k">def</span> <span class="nf">targetFuncGuess</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is just creates mappable function for multiprocessing guess</span>
+<span class="sd">    :param args:</span>
+<span class="sd">    :param kwargs:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">opt</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">func</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">_guessFunc</span><span class="p">()</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">results</span></div>
+
+
+<div class="viewcode-block" id="targetFuncFit"><a class="viewcode-back" href="../../../_autosummary/_autosummary/pycroscopy.analysis.optimize.html#pycroscopy.analysis.be_loop_fitter.targetFuncFit">[docs]</a><span class="k">def</span> <span class="nf">targetFuncFit</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Needed to create mappable function for multiprocessing</span>
+<span class="sd">    :param args:</span>
+<span class="sd">    :param kwargs:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">opt</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">solver</span><span class="p">,</span> <span class="n">solver_options</span><span class="p">,</span> <span class="n">func</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">_initiateSolverAndObjFunc</span><span class="p">()</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">solver</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+    <span class="k">return</span> <span class="n">results</span></div>
+
+
+<div class="viewcode-block" id="Optimize"><a class="viewcode-back" href="../../../_autosummary/pycroscopy.analysis.html#pycroscopy.analysis.be_loop_fitter.Optimize">[docs]</a><span class="k">class</span> <span class="nc">Optimize</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    In charge of all optimization and computation and is used within the Model Class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span> <span class="n">guess</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span> <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param data:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">guess</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">guess</span> <span class="o">=</span> <span class="n">guess</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Error: data and guess must be numpy.ndarray. Exiting...&#39;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parallel</span> <span class="o">=</span> <span class="n">parallel</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">strategy</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solver_type</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solver_options</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_guessFunc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">gm</span> <span class="o">=</span> <span class="n">GuessMethods</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">strategy</span> <span class="ow">in</span> <span class="n">gm</span><span class="o">.</span><span class="n">methods</span><span class="p">:</span>
+            <span class="n">func</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">strategy</span><span class="p">)(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">func</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Error: </span><span class="si">%s</span><span class="s1"> is not implemented in pycroscopy.analysis.GuessMethods to find guesses&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">strategy</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Optimize.computeGuess"><a class="viewcode-back" href="../../../_autosummary/pycroscopy.analysis.html#pycroscopy.analysis.be_loop_fitter.Optimize.computeGuess">[docs]</a>    <span class="k">def</span> <span class="nf">computeGuess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">processors</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;wavelet_peaks&#39;</span><span class="p">,</span>
+                     <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;peak_widths&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">200</span><span class="p">]),</span> <span class="s2">&quot;peak_step&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">},</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the guess function using numerous cores</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        processors : unsigned int</span>
+<span class="sd">            Number of logical cores to use for computing</span>
+<span class="sd">        strategy: string</span>
+<span class="sd">            Default is &#39;Wavelet_Peaks&#39;.</span>
+<span class="sd">            Can be one of [&#39;wavelet_peaks&#39;, &#39;relative_maximum&#39;, &#39;gaussian_processes&#39;]. For updated list,</span>
+<span class="sd">            run GuessMethods.methods</span>
+<span class="sd">        options: dict</span>
+<span class="sd">            Default: Options for wavelet_peaks{&quot;peaks_widths&quot;: np.array([10,200]), &quot;peak_step&quot;:20}.</span>
+<span class="sd">            Dictionary of options passed to strategy. For more info see GuessMethods documentation.</span>
+
+<span class="sd">        kwargs:</span>
+<span class="sd">            processors: int</span>
+<span class="sd">                number of processors to use. Default all processors on the system except for 1.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        results : unknown</span>
+<span class="sd">            unknown</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">strategy</span> <span class="o">=</span> <span class="n">strategy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">options</span>
+        <span class="n">gm</span> <span class="o">=</span> <span class="n">GuessMethods</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">strategy</span> <span class="ow">in</span> <span class="n">gm</span><span class="o">.</span><span class="n">methods</span><span class="p">:</span>
+            <span class="n">func</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="n">strategy</span><span class="p">)</span>  <span class="c1"># (**options)</span>
+            <span class="c1"># start pool of workers</span>
+            <span class="k">if</span> <span class="n">processors</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Computing Jobs In parallel ... launching </span><span class="si">%i</span><span class="s1"> kernels...&#39;</span> <span class="o">%</span> <span class="n">processors</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Computing Guesses In Serial ...&quot;</span><span class="p">)</span>
+
+            <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">joblib</span><span class="o">.</span><span class="n">delayed</span><span class="p">(</span><span class="n">func</span><span class="p">)(</span><span class="n">x</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">]</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="n">processors</span><span class="p">)(</span><span class="n">values</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">results</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Error: </span><span class="si">%s</span><span class="s1"> is not implemented in pycroscopy.analysis.GuessMethods to find guesses&#39;</span> <span class="o">%</span> <span class="n">strategy</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_initiateSolverAndObjFunc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj_func</span><span class="p">):</span>
+        <span class="n">fm</span> <span class="o">=</span> <span class="n">Fit_Methods</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">obj_func</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">obj_func</span> <span class="o">=</span> <span class="n">obj_func</span><span class="p">[</span><span class="s1">&#39;obj_func&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">obj_func_name</span> <span class="o">=</span> <span class="n">obj_func</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;obj_func&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">obj_func</span> <span class="o">=</span> <span class="n">fm</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj_func_name</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">obj_func_class</span> <span class="o">=</span> <span class="n">obj_func</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;class&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">obj_func_args</span> <span class="o">=</span> <span class="n">obj_func</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Optimize.computeFit"><a class="viewcode-back" href="../../../_autosummary/pycroscopy.analysis.html#pycroscopy.analysis.be_loop_fitter.Optimize.computeFit">[docs]</a>    <span class="k">def</span> <span class="nf">computeFit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">processors</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">solver_type</span><span class="o">=</span><span class="s1">&#39;least_squares&#39;</span><span class="p">,</span> <span class="n">solver_options</span><span class="o">=</span><span class="p">{},</span>
+                   <span class="n">obj_func</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;Fit_Methods&#39;</span><span class="p">,</span> <span class="s1">&#39;obj_func&#39;</span><span class="p">:</span> <span class="s1">&#39;SHO&#39;</span><span class="p">,</span> <span class="s1">&#39;xvals&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])}):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        processors : unsigned int</span>
+<span class="sd">            Number of logical cores to use for computing</span>
+<span class="sd">        solver_type : string</span>
+<span class="sd">            Optimization solver to use (minimize,least_sq, etc...). For additional info see scipy.optimize</span>
+<span class="sd">        solver_options: dict()</span>
+<span class="sd">            Default: dict()</span>
+<span class="sd">            Dictionary of options passed to solver. For additional info see scipy.optimize</span>
+<span class="sd">        obj_func: dict()</span>
+<span class="sd">            Default is &#39;SHO&#39;.</span>
+<span class="sd">            Can be one of [&#39;wavelet_peaks&#39;, &#39;relative_maximum&#39;, &#39;gaussian_processes&#39;].</span>
+<span class="sd">            For updated list, run GuessMethods.methods</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        results : unknown</span>
+<span class="sd">            unknown</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solver_type</span> <span class="o">=</span> <span class="n">solver_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solver_options</span> <span class="o">=</span> <span class="n">solver_options</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">solver_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">scipy</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Solver </span><span class="si">%s</span><span class="s1"> does not exist!. For additional info see scipy.optimize&#39;</span> <span class="o">%</span> <span class="n">solver_type</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initiateSolverAndObjFunc</span><span class="p">(</span><span class="n">obj_func</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">processors</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Computing Jobs In parallel ... launching </span><span class="si">%i</span><span class="s1"> kernels...&#39;</span> <span class="o">%</span> <span class="n">processors</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Computing Guesses In Serial ...&quot;</span><span class="p">)</span>
+
+        <span class="n">solver</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">solver_type</span><span class="p">]</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">joblib</span><span class="o">.</span><span class="n">delayed</span><span class="p">(</span><span class="n">solver</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj_func</span><span class="p">,</span> <span class="n">guess</span><span class="p">,</span>
+                                         <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">vector</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj_func_args</span><span class="p">),</span>
+                                         <span class="o">**</span><span class="n">solver_options</span><span class="p">)</span> <span class="k">for</span> <span class="n">vector</span><span class="p">,</span> <span class="n">guess</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">guess</span><span class="p">)]</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="n">processors</span><span class="p">)(</span><span class="n">values</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">results</span></div></div>
+
+        <span class="c1"># if self._parallel:</span>
+        <span class="c1">#     # start pool of workers</span>
+        <span class="c1">#     print(&#39;Computing Jobs In parallel ... launching %i kernels...&#39; % processors)</span>
+        <span class="c1">#     pool = mp.Pool(processors)</span>
+        <span class="c1">#     # Vectorize tasks</span>
+        <span class="c1">#     tasks = [(vector, guess, self) for vector, guess in zip(self.data, self.guess)]</span>
+        <span class="c1">#     chunk = int(self.data.shape[0] / processors)</span>
+        <span class="c1">#     # Map them across processors</span>
+        <span class="c1">#     jobs = pool.imap(targetFuncFit, tasks, chunksize=chunk)</span>
+        <span class="c1">#     # get Results from different processes</span>
+        <span class="c1">#     results = [j for j in jobs]</span>
+        <span class="c1">#     # Finished reading the entire data set</span>
+        <span class="c1">#     print(&#39;closing %i kernels...&#39; % processors)</span>
+        <span class="c1">#     pool.close()</span>
+        <span class="c1">#     return results</span>
+        <span class="c1">#</span>
+        <span class="c1"># else:</span>
+        <span class="c1">#     print(&quot;Computing Fits In Serial ...&quot;)</span>
+        <span class="c1">#     tasks = [(vector, guess, self) for vector, guess in zip(self.data, self.guess)]</span>
+        <span class="c1">#     results = [targetFuncFit(task) for task in tasks]</span>
+        <span class="c1">#     return results</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Suhas Somnath, Chris Smith, Stephen Jesse, Numan Laanait.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.60.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

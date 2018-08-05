@@ -1,0 +1,317 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyUSID.viz.jupyter_utils &mdash; pyUSID 0.0.4 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="pyUSID.viz.plot_utils" href="pyUSID.viz.plot_utils.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> pyUSID
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">pyUSID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../package_organization.html">Package Organization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_format.html">Data Model and File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribution_guidelines.html">Guidelines for Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whats_new.html">What’s New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../matlab_to_python.html">Upgrading from Matlab</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../api.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pyUSID.io.html">pyUSID.io</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pyUSID.processing.html">pyUSID.processing</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../pyUSID.viz.html">pyUSID.viz</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../pyUSID.viz.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="pyUSID.viz.plot_utils.html">pyUSID.viz.plot_utils</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">pyUSID.viz.jupyter_utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pyUSID</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../api.html">API Reference</a> &raquo;</li>
+        
+          <li><a href="../pyUSID.viz.html">pyUSID.viz</a> &raquo;</li>
+        
+      <li>pyUSID.viz.jupyter_utils</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/_autosummary/_autosummary/pyUSID.viz.jupyter_utils.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pyUSID.viz.jupyter_utils">
+<span id="pyusid-viz-jupyter-utils"></span><h1>pyUSID.viz.jupyter_utils<a class="headerlink" href="#module-pyUSID.viz.jupyter_utils" title="Permalink to this headline">¶</a></h1>
+<p>Created on 11/11/16 10:08 AM
+&#64;author: Suhas Somnath, Chris Smith</p>
+<p class="rubric">Functions</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pyUSID.viz.jupyter_utils.save_fig_filebox_button" title="pyUSID.viz.jupyter_utils.save_fig_filebox_button"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_fig_filebox_button</span></code></a>(fig,&nbsp;filename)</td>
+<td>Create ipython widgets to allow the user to save a figure to the specified file.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pyUSID.viz.jupyter_utils.simple_ndim_visualizer" title="pyUSID.viz.jupyter_utils.simple_ndim_visualizer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">simple_ndim_visualizer</span></code></a>(data_mat,&nbsp;pos_dims,&nbsp;…)</td>
+<td>Generates a simple visualizer for visualizing simple datasets (up to 4 dimensions).</td>
+</tr>
+</tbody>
+</table>
+<dl class="function">
+<dt id="pyUSID.viz.jupyter_utils.save_fig_filebox_button">
+<code class="descname">save_fig_filebox_button</code><span class="sig-paren">(</span><em>fig</em>, <em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/viz/jupyter_utils.html#save_fig_filebox_button"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.viz.jupyter_utils.save_fig_filebox_button" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create ipython widgets to allow the user to save a figure to the
+specified file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fig</strong> (<em>matplotlib.Figure</em>) – The figure to be saved.</li>
+<li><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The filename the figure should be saved to</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>widget_box</strong> – Widget box holding the text entry and save button</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">ipywidgets.HBox</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyUSID.viz.jupyter_utils.simple_ndim_visualizer">
+<code class="descname">simple_ndim_visualizer</code><span class="sig-paren">(</span><em>data_mat</em>, <em>pos_dims</em>, <em>spec_dims</em>, <em>spec_xdim=None</em>, <em>pos_xdim=None</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyUSID/viz/jupyter_utils.html#simple_ndim_visualizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyUSID.viz.jupyter_utils.simple_ndim_visualizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a simple visualizer for visualizing simple datasets (up to 4 dimensions). The visualizer will ONLY work
+within the context of a jupyter notebook!</p>
+<p>The visualizer consists of two panels - spatial map and spectrograms. slider widgets will be generated to slice
+dimensions. The data matrix can be real, complex or compound valued</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data_mat</strong> (<em>numpy.array object</em>) – Data to be visualized</li>
+<li><strong>pos_dims</strong> (<em>list / tuple</em>) – List of Dimension objects specifying all position dimensions in the same order as in data_mat</li>
+<li><strong>spec_dims</strong> (<em>list / tuple</em>) – List of Dimension objects specifying all position dimensions in the same order as in data_mat</li>
+<li><strong>spec_xdim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Name of dimension with respect to which the spectral data will be plotted for 1D plots</li>
+<li><strong>pos_xdim</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Name of dimension with respect to which the position data will be plotted for 1D plots</li>
+<li><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether or not to print log statements</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="pyUSID.viz.plot_utils.html" class="btn btn-neutral" title="pyUSID.viz.plot_utils" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Suhas Somnath, Chris R. Smith, Stephen Jesse.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.0.4',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

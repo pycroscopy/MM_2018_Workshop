@@ -1,0 +1,505 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>FFT &amp; Filtering of Atomically Resolved Images &mdash; pycroscopy 0.60.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Image alignment and registration" href="plot_image_registration.html" />
+    <link rel="prev" title="Examples &amp; Tutorials" href="index.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> pycroscopy
+          
+
+          
+            
+            <img src="../_static/logo_v01.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.60.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">Pycroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../package_organization.html">Package Organization</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples &amp; Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#tutorials-on-fundamental-data-tools">Tutorials on fundamental data tools</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#scientific-data-analysis">Scientific Data Analysis</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">FFT &amp; Filtering of Atomically Resolved Images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plot_image_registration.html">Image alignment and registration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plot_spectral_unmixing.html">Spectral Unmixing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../translators.html">Data Translators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../papers_conferences.html">Papers / Conferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whats_new.html">What’s New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pycroscopy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Examples &amp; Tutorials</a> &raquo;</li>
+        
+      <li>FFT &amp; Filtering of Atomically Resolved Images</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/auto_examples/plot_fft_2d_filtering.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Click <a class="reference internal" href="#sphx-glr-download-auto-examples-plot-fft-2d-filtering-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="fft-filtering-of-atomically-resolved-images">
+<span id="sphx-glr-auto-examples-plot-fft-2d-filtering-py"></span><h1>FFT &amp; Filtering of Atomically Resolved Images<a class="headerlink" href="#fft-filtering-of-atomically-resolved-images" title="Permalink to this headline">¶</a></h1>
+<p><strong>Stephen Jesse and Suhas Somnath</strong></p>
+<ul class="simple">
+<li>Institute for Functional Imaging of Materials</li>
+<li>Center for Nanophase Materials Sciences</li>
+</ul>
+<p>Oak Ridge National Laboratory, Oak Ridge TN 37831, USA</p>
+<p>9/28/2015</p>
+<p>Fourier transforms offer a very fast and convenient means to analyze and filter
+multidimensional data including images. The power of the Fast Fourier Transform
+(FFT) is due in part to (as the name suggests) its speed and also to the fact that
+complex operations such as convolution and differentiation/integration are made much
+simpler when performed in the Fourier domain. For instance, convolution in the real
+space domain can be performed using multiplication in the Fourier domain, and
+differentiation/integration in the real space domain can be performed by
+multiplying/dividing by iω in the Fourier domain (where ω is the transformed variable).
+We will take advantage of these properties and demonstrate simple image filtering and
+convolution with example.</p>
+<p>A few properties/uses of FFT’s are worth reviewing.</p>
+<p>In this example we will load an image, Fourier transform it, apply a smoothing filter, and transform it back.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy.fft</span> <span class="kn">as</span> <span class="nn">npf</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="k">def</span> <span class="nf">install</span><span class="p">(</span><span class="n">package</span><span class="p">):</span>
+    <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;pip&quot;</span><span class="p">,</span> <span class="s2">&quot;install&quot;</span><span class="p">,</span> <span class="n">package</span><span class="p">])</span>
+<span class="c1"># for downloading files:</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># This package is not part of anaconda and may need to be installed.</span>
+    <span class="kn">import</span> <span class="nn">wget</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;wget not found.  Will install with pip.&#39;</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">pip</span>
+    <span class="n">install</span><span class="p">(</span><span class="s1">&#39;wget&#39;</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">wget</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">pyUSID</span> <span class="kn">as</span> <span class="nn">usid</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;pyUSID not found.  Will install with pip.&#39;</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">pip</span>
+    <span class="n">install</span><span class="p">(</span><span class="s1">&#39;pyUSID&#39;</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">pyUSID</span> <span class="kn">as</span> <span class="nn">usid</span>
+</pre></div>
+</div>
+<p>We will be using an image available on our GitHub project page by default. You are encouraged
+to download this document as a Jupyter Notebook (button at the bottom of the page) and use your own image instead.
+When using your own image, you can skip this cell and provide the path to your data using the variable -
+data_file_path</p>
+<p>Coming back to our example, lets start by downloading the file from GitHub:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data_file_path</span> <span class="o">=</span> <span class="s1">&#39;temp_STEM_STO.txt&#39;</span>
+<span class="c1"># download the data file from Github:</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/pycroscopy/pycroscopy/master/data/STEM_STO_2_20.txt&#39;</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">wget</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data_file_path</span><span class="p">,</span> <span class="n">bar</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The image is stored as a tab delimited text file. One can load its contents to memory by using the following command:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">image_raw</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.loadtxt.html#numpy.loadtxt" title="View documentation for numpy.loadtxt"><span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span></a><span class="p">(</span><span class="n">data_file_path</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># delete the temporarily downloaded file:</span>
+<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">data_file_path</span><span class="p">)</span>
+
+<span class="c1"># convert the file from a string array to a numpy array of floating point numbers</span>
+<span class="n">image_raw</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.array.html#numpy.array" title="View documentation for numpy.array"><span class="n">np</span><span class="o">.</span><span class="n">array</span></a><span class="p">(</span><span class="n">image_raw</span><span class="p">)</span>
+<span class="n">image_raw</span> <span class="o">=</span> <span class="n">image_raw</span><span class="p">[</span><span class="mi">0</span><span class="p">:,</span> <span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Prior to transforming, it is sometimes convenient to set the image mean to zero,
+because if the mean value of an image is large, the magnitude of the zero-frequency
+bin can dominate over the other signals of interest.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">image_raw</span> <span class="o">=</span> <span class="n">image_raw</span> <span class="o">-</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.mean.html#numpy.mean" title="View documentation for numpy.mean"><span class="n">np</span><span class="o">.</span><span class="n">mean</span></a><span class="p">(</span><span class="n">image_raw</span><span class="p">)</span>  <span class="c1"># subtract out the mean of the image</span>
+</pre></div>
+</div>
+<p>An important aspect of performing Fourier transforms is keeping track of units
+between transformations and also being aware of conventions used with regard to
+the locations of the image centers and extents when transformed. Below is code
+that builds the axes in the space domain of the original image.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x_pixels</span><span class="p">,</span> <span class="n">y_pixels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">image_raw</span><span class="p">)</span>  <span class="c1"># [pixels]</span>
+<span class="n">x_edge_length</span> <span class="o">=</span> <span class="mf">5.0</span>  <span class="c1"># [nm]</span>
+<span class="n">y_edge_length</span> <span class="o">=</span> <span class="mf">5.0</span>  <span class="c1"># [nm]</span>
+<span class="n">x_sampling</span> <span class="o">=</span> <span class="n">x_pixels</span> <span class="o">/</span> <span class="n">x_edge_length</span>  <span class="c1"># [pixels/nm]</span>
+<span class="n">y_sampling</span> <span class="o">=</span> <span class="n">y_pixels</span> <span class="o">/</span> <span class="n">y_edge_length</span>  <span class="c1"># [pixels/nm]</span>
+<span class="n">x_axis_vec</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.linspace.html#numpy.linspace" title="View documentation for numpy.linspace"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="o">-</span><span class="n">x_edge_length</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x_edge_length</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x_pixels</span><span class="p">)</span>  <span class="c1"># vector of locations along x-axis</span>
+<span class="n">y_axis_vec</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.linspace.html#numpy.linspace" title="View documentation for numpy.linspace"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="o">-</span><span class="n">y_edge_length</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y_edge_length</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y_pixels</span><span class="p">)</span>  <span class="c1"># vector of locations along y-axis</span>
+<span class="n">x_mat</span><span class="p">,</span> <span class="n">y_mat</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.meshgrid.html#numpy.meshgrid" title="View documentation for numpy.meshgrid"><span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span></a><span class="p">(</span><span class="n">x_axis_vec</span><span class="p">,</span> <span class="n">y_axis_vec</span><span class="p">)</span>  <span class="c1"># matrices of x-positions and y-positions</span>
+</pre></div>
+</div>
+<p>Similarly, the axes in the Fourier domain are defined below. Note, that since
+the number of pixels along an axis is even, a convention must be followed as to
+which side of the halfway point the zero-frequency bin is located. In Matlab, the
+zero frequency bin is located to the left of the halfway point. Therefore the axis
+extends from -ω_sampling/2 to one frequency bin less than +ω_sampling/2.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">u_max</span> <span class="o">=</span> <span class="n">x_sampling</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">v_max</span> <span class="o">=</span> <span class="n">y_sampling</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">u_axis_vec</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.linspace.html#numpy.linspace" title="View documentation for numpy.linspace"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="o">-</span><span class="n">u_max</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">u_max</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x_pixels</span><span class="p">)</span>
+<span class="n">v_axis_vec</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.linspace.html#numpy.linspace" title="View documentation for numpy.linspace"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="o">-</span><span class="n">v_max</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">v_max</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y_pixels</span><span class="p">)</span>
+<span class="n">u_mat</span><span class="p">,</span> <span class="n">v_mat</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.meshgrid.html#numpy.meshgrid" title="View documentation for numpy.meshgrid"><span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span></a><span class="p">(</span><span class="n">u_axis_vec</span><span class="p">,</span> <span class="n">v_axis_vec</span><span class="p">)</span>  <span class="c1"># matrices of u-positions and v-positions</span>
+</pre></div>
+</div>
+<p>A plot of the data is shown below (STEM image of STO).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="View documentation for matplotlib.pyplot.subplots"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">plot_utils</span><span class="o">.</span><span class="n">plot_map</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">image_raw</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">inferno</span><span class="p">,</span> <span class="n">clim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
+                           <span class="n">x_vec</span><span class="o">=</span><span class="n">x_axis_vec</span><span class="p">,</span> <span class="n">y_vec</span><span class="o">=</span><span class="n">y_axis_vec</span><span class="p">,</span> <span class="n">num_ticks</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">axis</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;original image of STO captured via STEM&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/sphx_glr_plot_fft_2d_filtering_001.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_fft_2d_filtering_001.png" />
+<p>The Fourier transform can be determined with one line of code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fft_image_raw</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.fft.fft2.html#numpy.fft.fft2" title="View documentation for numpy.fft.fft2"><span class="n">npf</span><span class="o">.</span><span class="n">fft2</span></a><span class="p">(</span><span class="n">image_raw</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Plotting the magnitude 2D-FFT on a vertical log scales shows something unexpected:
+there appears to be peaks at the corners and no information at the center.
+This is because the output for the ‘fft2’ function flips the frequency axes so
+that low frequencies are at the ends, and the highest frequency is in the middle.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="View documentation for matplotlib.pyplot.subplots"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">plot_utils</span><span class="o">.</span><span class="n">plot_map</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">fft_image_raw</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">OrRd</span><span class="p">,</span> <span class="n">clim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">3E+3</span><span class="p">])</span>
+<span class="n">axis</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;FFT2 of image&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/sphx_glr_plot_fft_2d_filtering_002.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_fft_2d_filtering_002.png" />
+<p>To correct this, use the ‘fftshift’ command.
+fftshift brings the lowest frequency components of the FFT back to the center of the plot</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fft_image_raw</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.fft.fftshift.html#numpy.fft.fftshift" title="View documentation for numpy.fft.fftshift"><span class="n">npf</span><span class="o">.</span><span class="n">fftshift</span></a><span class="p">(</span><span class="n">fft_image_raw</span><span class="p">)</span>
+<span class="n">fft_abs_image_raw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">fft_image_raw</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">crop_center</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cent_size</span><span class="o">=</span><span class="mi">128</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">image</span><span class="p">[</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">//</span><span class="mi">2</span> <span class="o">-</span> <span class="n">cent_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">:</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">//</span><span class="mi">2</span> <span class="o">+</span> <span class="n">cent_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span>
+                 <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">//</span><span class="mi">2</span> <span class="o">-</span> <span class="n">cent_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">:</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">//</span><span class="mi">2</span> <span class="o">+</span> <span class="n">cent_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">]</span>
+
+
+<span class="c1"># After the fftshift, the FFT looks right</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="View documentation for matplotlib.pyplot.subplots"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">axis</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">title</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="p">[</span><span class="n">fft_abs_image_raw</span><span class="p">,</span> <span class="n">crop_center</span><span class="p">(</span><span class="n">fft_abs_image_raw</span><span class="p">)],</span> <span class="p">[</span><span class="s1">&#39;FFT after fftshift-ing&#39;</span><span class="p">,</span>
+                                                                                        <span class="s1">&#39;Zoomed view around origin&#39;</span><span class="p">]):</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">plot_utils</span><span class="o">.</span><span class="n">plot_map</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">OrRd</span><span class="p">,</span> <span class="n">clim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1E+4</span><span class="p">])</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/sphx_glr_plot_fft_2d_filtering_003.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_fft_2d_filtering_003.png" />
+<p>The first filter we want to make is a 2D, radially symmetric, low-pass Gaussian filter.
+To start with, it is helpful to redefine the Fourier domain in polar coordinates to make
+building the radially symmetric function easier.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.sqrt.html#numpy.sqrt" title="View documentation for numpy.sqrt"><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span></a><span class="p">(</span><span class="n">u_mat</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">v_mat</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># convert cartesian coordinates to polar radius</span>
+</pre></div>
+</div>
+<p>An expression for the filter is given below. Note, the width of the filter is defined in
+terms of the real space dimensions for ease of use.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">filter_width</span> <span class="o">=</span> <span class="o">.</span><span class="mi">15</span>  <span class="c1"># inverse width of gaussian, units same as real space axes</span>
+<span class="n">gauss_filter</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy/reference/constants.html#numpy.e" title="View documentation for numpy.e"><span class="n">np</span><span class="o">.</span><span class="n">e</span></a><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">r</span><span class="o">*</span><span class="n">filter_width</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="View documentation for matplotlib.pyplot.subplots"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">plot_utils</span><span class="o">.</span><span class="n">plot_map</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">gauss_filter</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">OrRd</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Gaussian filter&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gauss_filter</span><span class="p">[</span><span class="n">gauss_filter</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">//</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Cross section of filter&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/sphx_glr_plot_fft_2d_filtering_004.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_fft_2d_filtering_004.png" />
+<p>Application of the filter to the data in the Fourier domain is done simply by
+dot-multiplying the two matrices.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">F_m1_filtered</span> <span class="o">=</span> <span class="n">gauss_filter</span> <span class="o">*</span> <span class="n">fft_image_raw</span>
+</pre></div>
+</div>
+<p>To view the filtered data in the space domain, simply use the inverse fast Fourier transform
+(‘ifft2’). Remember though that python expects low frequency components at the corners, so
+it is necessary to use the inverse of the ‘fftshift’ command (‘ifftshift’) before performing
+the inverse transform. Also, note that even though theoretically there should be no imaginary
+components in the inverse transformed data (because we multiplied two matrices together that
+were both symmetric about 0), some of the numerical manipulations create small round-off
+errors that result in the inverse transformed data being complex (the imaginary component is
+~1X1016  times smaller than the real part). In order to account for this, only the real part
+of the result is kept.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">image_filtered</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.fft.ifft2.html#numpy.fft.ifft2" title="View documentation for numpy.fft.ifft2"><span class="n">npf</span><span class="o">.</span><span class="n">ifft2</span></a><span class="p">(</span><a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.fft.ifftshift.html#numpy.fft.ifftshift" title="View documentation for numpy.fft.ifftshift"><span class="n">npf</span><span class="o">.</span><span class="n">ifftshift</span></a><span class="p">(</span><span class="n">F_m1_filtered</span><span class="p">))</span>
+<span class="n">image_filtered</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.real.html#numpy.real" title="View documentation for numpy.real"><span class="n">np</span><span class="o">.</span><span class="n">real</span></a><span class="p">(</span><span class="n">image_filtered</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="View documentation for matplotlib.pyplot.subplots"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">axis</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">title</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="p">[</span><span class="n">image_raw</span><span class="p">,</span> <span class="n">image_filtered</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;original&#39;</span><span class="p">,</span> <span class="s1">&#39;filtered&#39;</span><span class="p">]):</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">plot_utils</span><span class="o">.</span><span class="n">plot_map</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">inferno</span><span class="p">,</span>
+                               <span class="n">x_vec</span><span class="o">=</span><span class="n">x_axis_vec</span><span class="p">,</span> <span class="n">y_vec</span><span class="o">=</span><span class="n">y_axis_vec</span><span class="p">,</span> <span class="n">num_ticks</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/sphx_glr_plot_fft_2d_filtering_005.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_fft_2d_filtering_005.png" />
+<p>Filtering can also be used to help flatten an image. To demonstrate this, let’s artificially
+add a background to the original image, and later try to remove it.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">background_distortion</span> <span class="o">=</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="p">(</span><span class="n">x_mat</span> <span class="o">+</span> <span class="n">y_mat</span> <span class="o">+</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.sin.html#numpy.sin" title="View documentation for numpy.sin"><span class="n">np</span><span class="o">.</span><span class="n">sin</span></a><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <a href="https://docs.scipy.org/doc/numpy/reference/constants.html#numpy.pi" title="View documentation for numpy.pi"><span class="n">np</span><span class="o">.</span><span class="n">pi</span></a> <span class="o">*</span> <span class="n">x_mat</span> <span class="o">/</span> <span class="n">x_edge_length</span><span class="p">))</span>
+<span class="n">image_w_background</span> <span class="o">=</span> <span class="n">image_raw</span> <span class="o">+</span> <span class="n">background_distortion</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="View documentation for matplotlib.pyplot.subplots"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">axis</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">title</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="p">[</span><span class="n">background_distortion</span><span class="p">,</span> <span class="n">image_w_background</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;background&#39;</span><span class="p">,</span> <span class="s1">&#39;image with background&#39;</span><span class="p">]):</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">plot_utils</span><span class="o">.</span><span class="n">plot_map</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">inferno</span><span class="p">,</span>
+                               <span class="n">x_vec</span><span class="o">=</span><span class="n">x_axis_vec</span><span class="p">,</span> <span class="n">y_vec</span><span class="o">=</span><span class="n">y_axis_vec</span><span class="p">,</span> <span class="n">num_ticks</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/sphx_glr_plot_fft_2d_filtering_006.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_fft_2d_filtering_006.png" />
+<p>Since large scale background distortions (such as tilting and bowing) are primarily low
+frequency information. We can make a filter to get rid of the lowest frequency components.
+Here we again use a radially symmetric 2D Gaussian, however in this case we invert it so
+that it is zero at low frequencies and 1 at higher frequencies.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">filter_width</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># inverse width of gaussian, units same as real space axes</span>
+<span class="n">inverse_gauss_filter</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><a href="https://docs.scipy.org/doc/numpy/reference/constants.html#numpy.e" title="View documentation for numpy.e"><span class="n">np</span><span class="o">.</span><span class="n">e</span></a><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">r</span><span class="o">*</span><span class="n">filter_width</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="View documentation for matplotlib.pyplot.subplots"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">()</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">plot_utils</span><span class="o">.</span><span class="n">plot_map</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">inverse_gauss_filter</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">OrRd</span><span class="p">)</span>
+<span class="n">axis</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;background filter&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/sphx_glr_plot_fft_2d_filtering_007.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_fft_2d_filtering_007.png" />
+<p>Let’s perform the same process of taking the FFT of the image, multiplying with the filter
+and taking the inverse Fourier transform of the image to get the filtered image.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># take the fft of the image</span>
+<span class="n">fft_image_w_background</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.fft.fftshift.html#numpy.fft.fftshift" title="View documentation for numpy.fft.fftshift"><span class="n">npf</span><span class="o">.</span><span class="n">fftshift</span></a><span class="p">(</span><a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.fft.fft2.html#numpy.fft.fft2" title="View documentation for numpy.fft.fft2"><span class="n">npf</span><span class="o">.</span><span class="n">fft2</span></a><span class="p">(</span><span class="n">image_w_background</span><span class="p">))</span>
+<span class="n">fft_abs_image_background</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">fft_image_w_background</span><span class="p">)</span>
+
+<span class="c1"># apply the filter</span>
+<span class="n">fft_image_corrected</span> <span class="o">=</span> <span class="n">fft_image_w_background</span> <span class="o">*</span> <span class="n">inverse_gauss_filter</span>
+
+<span class="c1"># perform the inverse fourier transform on the filtered data</span>
+<span class="n">image_corrected</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.real.html#numpy.real" title="View documentation for numpy.real"><span class="n">np</span><span class="o">.</span><span class="n">real</span></a><span class="p">(</span><a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.fft.ifft2.html#numpy.fft.ifft2" title="View documentation for numpy.fft.ifft2"><span class="n">npf</span><span class="o">.</span><span class="n">ifft2</span></a><span class="p">(</span><a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.fft.ifftshift.html#numpy.fft.ifftshift" title="View documentation for numpy.fft.ifftshift"><span class="n">npf</span><span class="o">.</span><span class="n">ifftshift</span></a><span class="p">(</span><span class="n">fft_image_corrected</span><span class="p">)))</span>
+
+<span class="c1"># find what was removed from the image by filtering</span>
+<span class="n">filtered_background</span> <span class="o">=</span> <span class="n">image_w_background</span> <span class="o">-</span> <span class="n">image_corrected</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="View documentation for matplotlib.pyplot.subplots"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">axis</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">title</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="p">[</span><span class="n">image_corrected</span><span class="p">,</span> <span class="n">filtered_background</span><span class="p">],</span>
+                            <span class="p">[</span><span class="s1">&#39;image with background subtracted&#39;</span><span class="p">,</span>
+                             <span class="s1">&#39;background component that was removed&#39;</span><span class="p">]):</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">plot_utils</span><span class="o">.</span><span class="n">plot_map</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">img</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">inferno</span><span class="p">,</span>
+                               <span class="n">x_vec</span><span class="o">=</span><span class="n">x_axis_vec</span><span class="p">,</span> <span class="n">y_vec</span><span class="o">=</span><span class="n">y_axis_vec</span><span class="p">,</span> <span class="n">num_ticks</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="../_images/sphx_glr_plot_fft_2d_filtering_008.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_fft_2d_filtering_008.png" />
+<p><strong>Total running time of the script:</strong> ( 0 minutes  2.606 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-fft-2d-filtering-py">
+<div class="sphx-glr-download docutils container">
+<a class="reference download internal" href="../_downloads/plot_fft_2d_filtering.py" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_fft_2d_filtering.py</span></code></a></div>
+<div class="sphx-glr-download docutils container">
+<a class="reference download internal" href="../_downloads/plot_fft_2d_filtering.ipynb" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_fft_2d_filtering.ipynb</span></code></a></div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="plot_image_registration.html" class="btn btn-neutral float-right" title="Image alignment and registration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Examples &amp; Tutorials" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Suhas Somnath, Chris Smith, Stephen Jesse, Numan Laanait.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.60.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

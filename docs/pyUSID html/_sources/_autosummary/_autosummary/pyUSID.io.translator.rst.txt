@@ -1,0 +1,28 @@
+pyUSID.io.translator
+====================
+
+.. automodule:: pyUSID.io.translator
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      generate_dummy_main_parms
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      Translator
+   
+   
+
+   
+   
+   

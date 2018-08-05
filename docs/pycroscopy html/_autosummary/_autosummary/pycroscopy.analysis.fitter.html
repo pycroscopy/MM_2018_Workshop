@@ -1,0 +1,355 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pycroscopy.analysis.fitter &mdash; pycroscopy 0.60.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pycroscopy.analysis.giv_bayesian" href="pycroscopy.analysis.giv_bayesian.html" />
+    <link rel="prev" title="pycroscopy.analysis.fit_methods" href="pycroscopy.analysis.fit_methods.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> pycroscopy
+          
+
+          
+            
+            <img src="../../_static/logo_v01.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.60.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">Pycroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../package_organization.html">Package Organization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../translators.html">Data Translators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../papers_conferences.html">Papers / Conferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whats_new.html">What’s New</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../api.html#package-structure">Package Structure</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#submodules">Submodules</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../pycroscopy.analysis.html">pycroscopy.analysis</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../pycroscopy.analysis.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.io.html">pycroscopy.io</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.processing.html">pycroscopy.processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.viz.html">pycroscopy.viz</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pycroscopy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../api.html">API Reference</a> &raquo;</li>
+        
+          <li><a href="../pycroscopy.analysis.html">pycroscopy.analysis</a> &raquo;</li>
+        
+      <li>pycroscopy.analysis.fitter</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/_autosummary/_autosummary/pycroscopy.analysis.fitter.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pycroscopy.analysis.fitter">
+<span id="pycroscopy-analysis-fitter"></span><h1>pycroscopy.analysis.fitter<a class="headerlink" href="#module-pycroscopy.analysis.fitter" title="Permalink to this headline">¶</a></h1>
+<p>Created on 7/17/16 10:08 AM
+&#64;author: Numan Laanait, Suhas Somnath, Chris Smith</p>
+<p class="rubric">Classes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pycroscopy.analysis.fitter.Fitter" title="pycroscopy.analysis.fitter.Fitter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Fitter</span></code></a>(h5_main[,&nbsp;variables,&nbsp;parallel,&nbsp;verbose])</td>
+<td>Encapsulates the typical routines performed during model-dependent analysis of data.</td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="pycroscopy.analysis.fitter.Fitter">
+<em class="property">class </em><code class="descname">Fitter</code><span class="sig-paren">(</span><em>h5_main, variables=['Frequency'], parallel=True, verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/analysis/fitter.html#Fitter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.analysis.fitter.Fitter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encapsulates the typical routines performed during model-dependent analysis of data.
+This abstract class should be extended to cover different types of imaging modalities.</p>
+<p>For now, we assume that the guess dataset has not been generated for this dataset but we will relax this
+requirement after testing the basic components.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>h5_main</strong> (<em>h5py.Dataset instance</em>) – The dataset over which the analysis will be performed. This dataset should be linked to the spectroscopic
+indices and values, and position indices and values datasets.</li>
+<li><strong>variables</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a><em>(</em><em>string</em><em>)</em><em>, </em><em>Default</em><em> [</em><em>'Frequency'</em><em>]</em>) – Lists of attributes that h5_main should possess so that it may be analyzed by Model.</li>
+<li><strong>parallel</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional</em>) – Should the parallel implementation of the fitting be used.  Default True</li>
+<li><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional. default = False</em>) – Whether or not to print statements that aid in debugging</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pycroscopy.analysis.fitter.Fitter.do_fit">
+<code class="descname">do_fit</code><span class="sig-paren">(</span><em>processors=None</em>, <em>solver_type='least_squares'</em>, <em>solver_options=None</em>, <em>obj_func=None</em>, <em>h5_partial_fit=None</em>, <em>h5_guess=None</em>, <em>override=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/analysis/fitter.html#Fitter.do_fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.analysis.fitter.Fitter.do_fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates the fit for the given dataset and writes back to file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>processors</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Number of cpu cores the user wishes to run on.  The minimum of this and self._maxCpus is used.</li>
+<li><strong>solver_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The name of the solver in scipy.optimize to use for the fit</li>
+<li><strong>solver_options</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Dictionary of parameters to pass to the solver specified by <cite>solver_type</cite></li>
+<li><strong>obj_func</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Dictionary defining the class and method containing the function to be fit as well as any
+additional function parameters.</li>
+<li><strong>h5_partial_fit</strong> (<em>h5py.group. optional</em><em>, </em><em>default = None</em>) – Datagroup containing (partially computed) fit results. do_fit will resume computation if provided.</li>
+<li><strong>h5_guess</strong> (<em>h5py.group. optional</em><em>, </em><em>default = None</em>) – Datagroup containing guess results. do_fit will use this if provided.</li>
+<li><strong>override</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional. default = False</em>) – By default, will simply return duplicate results to avoid recomputing or resume computation on a
+group with partial results. Set to True to force fresh computation.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>h5_results</strong> – Dataset with the fit parameters</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">h5py.Dataset object</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.analysis.fitter.Fitter.do_guess">
+<code class="descname">do_guess</code><span class="sig-paren">(</span><em>processors=None</em>, <em>strategy=None</em>, <em>options={}</em>, <em>h5_partial_guess=None</em>, <em>override=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/analysis/fitter.html#Fitter.do_guess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.analysis.fitter.Fitter.do_guess" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>strategy</strong> (<em>string</em><em> (</em><em>optional</em><em>)</em>) – Default is ‘Wavelet_Peaks’.
+Can be one of [‘wavelet_peaks’, ‘relative_maximum’, ‘gaussian_processes’].
+For updated list, run GuessMethods.methods</li>
+<li><strong>processors</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em> (</em><em>optional</em><em>)</em>) – Number of cores to use for computing. Default = all available - 2 cores</li>
+<li><strong>options</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Default, options for wavelet_peaks {“peaks_widths”: np.array([10,200]), “peak_step”:20}.
+Dictionary of options passed to strategy. For more info see GuessMethods documentation.</li>
+<li><strong>h5_partial_guess</strong> (<em>h5py.group. optional</em><em>, </em><em>default = None</em>) – Datagroup containing (partially computed) guess results. do_guess will resume computation if provided.</li>
+<li><strong>override</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional. default = False</em>) – By default, will simply return duplicate results to avoid recomputing or resume computation on a
+group with partial results. Set to True to force fresh computation.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>h5_guess</strong> – Dataset containing guesses that can be passed on to do_fit()</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">h5py.Dataset</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pycroscopy.analysis.giv_bayesian.html" class="btn btn-neutral float-right" title="pycroscopy.analysis.giv_bayesian" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pycroscopy.analysis.fit_methods.html" class="btn btn-neutral" title="pycroscopy.analysis.fit_methods" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Suhas Somnath, Chris Smith, Stephen Jesse, Numan Laanait.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.60.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,655 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pycroscopy.analysis.be_sho_fitter &mdash; pycroscopy 0.60.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> pycroscopy
+          
+
+          
+            
+            <img src="../../../_static/logo_v01.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.60.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">Pycroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../package_organization.html">Package Organization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../translators.html">Data Translators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../papers_conferences.html">Papers / Conferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../credits.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../whats_new.html">What’s New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pycroscopy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pycroscopy.analysis.be_sho_fitter</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pycroscopy.analysis.be_sho_fitter</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on 7/17/16 10:08 AM</span>
+<span class="sd">@author: Suhas Somnath, Chris R. Smith, Numan Laanait</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="k">import</span> <span class="n">warn</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">.fitter</span> <span class="k">import</span> <span class="n">Fitter</span>
+<span class="kn">from</span> <span class="nn">pyUSID</span> <span class="k">import</span> <span class="n">USIDataset</span>
+<span class="kn">from</span> <span class="nn">pyUSID.io.hdf_utils</span> <span class="k">import</span> <span class="n">copy_region_refs</span><span class="p">,</span> <span class="n">write_simple_attrs</span><span class="p">,</span> <span class="n">create_results_group</span><span class="p">,</span> <span class="n">write_reduced_spec_dsets</span><span class="p">,</span> \
+                                <span class="n">create_empty_dataset</span><span class="p">,</span> <span class="n">get_auxiliary_datasets</span><span class="p">,</span> <span class="n">write_main_dataset</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Custom dtype for the datasets created during fitting.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="n">field_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Amplitude [V]&#39;</span><span class="p">,</span> <span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">,</span> <span class="s1">&#39;Quality Factor&#39;</span><span class="p">,</span> <span class="s1">&#39;Phase [rad]&#39;</span><span class="p">,</span> <span class="s1">&#39;R2 Criterion&#39;</span><span class="p">]</span>
+<span class="n">sho32</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">({</span><span class="s1">&#39;names&#39;</span><span class="p">:</span> <span class="n">field_names</span><span class="p">,</span>
+                  <span class="s1">&#39;formats&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">field_names</span><span class="p">]})</span>
+
+
+<div class="viewcode-block" id="BESHOfitter"><a class="viewcode-back" href="../../../_autosummary/pycroscopy.analysis.html#pycroscopy.analysis.be_sho_fitter.BESHOfitter">[docs]</a><span class="k">class</span> <span class="nc">BESHOfitter</span><span class="p">(</span><span class="n">Fitter</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h5_main</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Analysis of Band excitation spectra with harmonic oscillator responses.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        h5_main : h5py.Dataset instance</span>
+<span class="sd">           The dataset over which the analysis will be performed. This dataset should be linked to the spectroscopic</span>
+<span class="sd">           indices and values, and position indices and values datasets.</span>
+<span class="sd">        variables : list(string), Default [&#39;Frequency&#39;]</span>
+<span class="sd">           Lists of attributes that h5_main should possess so that it may be analyzed by Model.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">variables</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">variables</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Frequency&#39;</span><span class="p">]</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">BESHOfitter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">h5_main</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">step_start_inds</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_reshapable</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_udvs_steps</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">freq_vec</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1"># self._maxDataChunk = 1</span>
+        <span class="c1"># self._max_pos_per_read = 1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fitter_name</span> <span class="o">=</span> <span class="s2">&quot;SHO_Fit&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parms_dict</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fit_dim_name</span> <span class="o">=</span> <span class="n">variables</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Extract some basic parameters that are necessary for either the guess or fit</span>
+        <span class="n">freq_dim_ind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">spec_dim_labels</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">variables</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">step_start_inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">h5_spec_inds</span><span class="p">[</span><span class="n">freq_dim_ind</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_udvs_steps</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">step_start_inds</span><span class="p">)</span>
+
+        <span class="c1"># find the frequency vector and hold in memory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_frequency_vector</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_reshapable</span> <span class="o">=</span> <span class="n">is_reshapable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">step_start_inds</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parallel</span><span class="p">:</span>
+            <span class="c1"># accounting for memory copies</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_max_pos_per_read</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_pos_per_read</span> <span class="o">//</span> <span class="mi">2</span>
+
+    <span class="k">def</span> <span class="nf">_create_guess_datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates the h5 group, guess dataset, corresponding spectroscopic datasets and also</span>
+<span class="sd">        links the guess dataset to the spectroscopic datasets.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">h5_group</span> <span class="o">=</span> <span class="n">create_results_group</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="p">,</span> <span class="s1">&#39;SHO_Fit&#39;</span><span class="p">)</span>
+        <span class="n">write_simple_attrs</span><span class="p">(</span><span class="n">h5_group</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;SHO_guess_method&#39;</span><span class="p">:</span> <span class="s2">&quot;pycroscopy BESHO&quot;</span><span class="p">})</span>
+
+        <span class="n">h5_sho_inds</span><span class="p">,</span> <span class="n">h5_sho_vals</span> <span class="o">=</span> <span class="n">write_reduced_spec_dsets</span><span class="p">(</span><span class="n">h5_group</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">h5_spec_inds</span><span class="p">,</span>
+                                                            <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">h5_spec_vals</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fit_dim_name</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">h5_guess</span> <span class="o">=</span> <span class="n">write_main_dataset</span><span class="p">(</span><span class="n">h5_group</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_udvs_steps</span><span class="p">),</span> <span class="s1">&#39;Guess&#39;</span><span class="p">,</span> <span class="s1">&#39;SHO&#39;</span><span class="p">,</span>
+                                           <span class="s1">&#39;compound&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">h5_pos_inds</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">h5_pos_inds</span><span class="p">,</span>
+                                           <span class="n">h5_pos_vals</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">h5_pos_vals</span><span class="p">,</span> <span class="n">h5_spec_inds</span><span class="o">=</span><span class="n">h5_sho_inds</span><span class="p">,</span>
+                                           <span class="n">h5_spec_vals</span><span class="o">=</span><span class="n">h5_sho_vals</span><span class="p">,</span> <span class="n">chunks</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_udvs_steps</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">sho32</span><span class="p">,</span>
+                                           <span class="n">main_dset_attrs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_parms_dict</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">)</span>
+
+        <span class="n">write_simple_attrs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_guess</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;SHO_guess_method&#39;</span><span class="p">:</span> <span class="s2">&quot;pycroscopy BESHO&quot;</span><span class="p">,</span> <span class="s1">&#39;last_pixel&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
+
+        <span class="n">copy_region_refs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_guess</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_create_fit_datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates the HDF5 fit dataset. pycroscopy requires that the h5 group, guess dataset,</span>
+<span class="sd">        corresponding spectroscopic and position datasets be created and populated at this point.</span>
+<span class="sd">        This function will create the HDF5 dataset for the fit and link it to same ancillary datasets as the guess.</span>
+<span class="sd">        The fit dataset will NOT be populated here but will instead be populated using the __setData function</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_guess</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Need to guess before fitting!&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">step_start_inds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">h5_spec_inds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">h5_spec_inds</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">step_start_inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">h5_spec_inds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_udvs_steps</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">num_udvs_steps</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">step_start_inds</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">freq_vec</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_get_frequency_vector</span><span class="p">()</span>
+
+        <span class="n">h5_sho_grp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_guess</span><span class="o">.</span><span class="n">parent</span>
+        <span class="n">write_simple_attrs</span><span class="p">(</span><span class="n">h5_sho_grp</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;SHO_fit_method&#39;</span><span class="p">:</span> <span class="s2">&quot;pycroscopy BESHO&quot;</span><span class="p">})</span>
+
+        <span class="c1"># Create the fit dataset as an empty dataset of the same size and dtype as the guess.</span>
+        <span class="c1"># Also automatically links in the ancillary datasets.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">h5_fit</span> <span class="o">=</span> <span class="n">USIDataset</span><span class="p">(</span><span class="n">create_empty_dataset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_guess</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">sho32</span><span class="p">,</span> <span class="n">dset_name</span><span class="o">=</span><span class="s1">&#39;Fit&#39;</span><span class="p">))</span>
+
+        <span class="c1"># This is necessary comparing against new runs to avoid re-computation + resuming partial computation</span>
+        <span class="n">write_simple_attrs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_fit</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parms_dict</span><span class="p">)</span>
+        <span class="n">write_simple_attrs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_fit</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;SHO_fit_method&#39;</span><span class="p">:</span> <span class="s2">&quot;pycroscopy BESHO&quot;</span><span class="p">,</span> <span class="s1">&#39;last_pixel&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">h5_fit</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_get_frequency_vector</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reads the frequency vector from the Spectroscopic_Values dataset.  </span>
+<span class="sd">        This assumes that the data is reshape-able.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">h5_spec_vals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">h5_spec_vals</span>
+        <span class="n">freq_dim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">spec_dim_labels</span><span class="p">))</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">step_start_inds</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># BE-Line</span>
+            <span class="n">end_ind</span> <span class="o">=</span> <span class="n">h5_spec_vals</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># BEPS</span>
+            <span class="n">end_ind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">step_start_inds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">freq_vec</span> <span class="o">=</span> <span class="n">h5_spec_vals</span><span class="p">[</span><span class="n">freq_dim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">step_start_inds</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">end_ind</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_get_data_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the next chunk of data for the guess or the fit</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># The model class should take care of all the basic reading</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BESHOfitter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_get_data_chunk</span><span class="p">()</span>
+
+        <span class="c1"># At this point the self.data object is the raw data that needs to be reshaped to a single UDVS step:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Got raw data of shape </span><span class="si">{}</span><span class="s1"> from super&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">reshape_to_one_step</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_udvs_steps</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Reshaped raw data to shape </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_get_guess_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the next chunk of the guess dataset corresponding to the main dataset.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># if self.data is None:</span>
+        <span class="c1">#     self._end_pos = int(min(self.h5_main.shape[0], self._start_pos + self._max_pos_per_read))</span>
+        <span class="c1">#     self.guess = self.h5_guess[self._start_pos:self._end_pos, :]</span>
+        <span class="c1"># else:</span>
+        <span class="c1">#     self.guess = self.h5_guess[self._start_pos:self._end_pos, :]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_end_pos</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_pos_per_read</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">guess</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_guess</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">_end_pos</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="c1"># At this point the self.data object is the raw data that needs to be reshaped to a single UDVS step:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">guess</span> <span class="o">=</span> <span class="n">reshape_to_one_step</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">guess</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_udvs_steps</span><span class="p">)</span>
+        <span class="c1"># don&#39;t keep the R^2.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">guess</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">guess</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">guess</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">names</span> <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;R2 Criterion&#39;</span><span class="p">])</span>
+        <span class="c1"># bear in mind that this self.guess is a compound dataset.</span>
+
+    <span class="k">def</span> <span class="nf">_set_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_guess</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Writes the provided chunk of data into the guess or fit datasets. </span>
+<span class="sd">        This method is responsible for any and all book-keeping.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ---------</span>
+<span class="sd">        is_guess : Boolean</span>
+<span class="sd">            Flag that differentiates the guess from the fit</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">is_guess</span><span class="p">:</span>
+            <span class="c1"># prepare to reshape:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">guess</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">guess</span><span class="p">))</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Prepared guess of shape </span><span class="si">{}</span><span class="s1"> before reshaping&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">guess</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">guess</span> <span class="o">=</span> <span class="n">reshape_to_n_steps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">guess</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_udvs_steps</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Reshaped guess to shape </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">guess</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fit</span> <span class="o">=</span> <span class="n">reshape_to_n_steps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_udvs_steps</span><span class="p">)</span>
+
+        <span class="c1"># ask super to take care of the rest, which is a standardized operation</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BESHOfitter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_set_results</span><span class="p">(</span><span class="n">is_guess</span><span class="p">)</span>
+
+<div class="viewcode-block" id="BESHOfitter.do_guess"><a class="viewcode-back" href="../../../_autosummary/pycroscopy.analysis.html#pycroscopy.analysis.be_sho_fitter.BESHOfitter.do_guess">[docs]</a>    <span class="k">def</span> <span class="nf">do_guess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_mem</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">processors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;complex_gaussian&#39;</span><span class="p">,</span>
+                 <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;peak_widths&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">200</span><span class="p">]),</span> <span class="s2">&quot;peak_step&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">},</span>
+                 <span class="n">h5_partial_guess</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">override</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        max_mem : uint, optional</span>
+<span class="sd">            Memory in MB to use for computation</span>
+<span class="sd">            Default None, available memory from psutil.virtual_memory is used</span>
+<span class="sd">        processors: int</span>
+<span class="sd">            Number of processors to use during parallel guess</span>
+<span class="sd">            Default None, output of psutil.cpu_count - 2 is used</span>
+<span class="sd">        strategy: string</span>
+<span class="sd">            Default is &#39;Wavelet_Peaks&#39;.</span>
+<span class="sd">            Can be one of [&#39;wavelet_peaks&#39;, &#39;relative_maximum&#39;, &#39;gaussian_processes&#39;]. For updated list, run</span>
+<span class="sd">            GuessMethods.methods</span>
+<span class="sd">        options: dict</span>
+<span class="sd">            Default Options for wavelet_peaks{&quot;peaks_widths&quot;: np.array([10,200]), &quot;peak_step&quot;:20}.</span>
+<span class="sd">            Dictionary of options passed to strategy. For more info see GuessMethods documentation.</span>
+<span class="sd">        h5_partial_guess : h5py.group. optional, default = None</span>
+<span class="sd">            Datagroup containing (partially computed) guess results. do_guess will resume computation if provided.</span>
+<span class="sd">        override : bool, optional. default = False</span>
+<span class="sd">            By default, will simply return duplicate results to avoid recomputing or resume computation on a</span>
+<span class="sd">            group with partial results. Set to True to force fresh computation.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        results : h5py.Dataset object</span>
+<span class="sd">            Dataset with the SHO guess parameters</span>
+<span class="sd">            </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        if self._parallel:</span>
+<span class="sd">            self._max_pos_per_read = int(self._max_pos_per_read / 2)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">strategy</span> <span class="o">==</span> <span class="s1">&#39;complex_gaussian&#39;</span><span class="p">:</span>
+            <span class="n">options</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;frequencies&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">freq_vec</span><span class="p">})</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BESHOfitter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">do_guess</span><span class="p">(</span><span class="n">processors</span><span class="o">=</span><span class="n">processors</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="n">strategy</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span>
+                                          <span class="n">h5_partial_guess</span><span class="o">=</span><span class="n">h5_partial_guess</span><span class="p">,</span> <span class="n">override</span><span class="o">=</span><span class="n">override</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_guess</span></div>
+
+<div class="viewcode-block" id="BESHOfitter.do_fit"><a class="viewcode-back" href="../../../_autosummary/pycroscopy.analysis.html#pycroscopy.analysis.be_sho_fitter.BESHOfitter.do_fit">[docs]</a>    <span class="k">def</span> <span class="nf">do_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_mem</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">processors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">solver_type</span><span class="o">=</span><span class="s1">&#39;least_squares&#39;</span><span class="p">,</span> <span class="n">solver_options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;jac&#39;</span><span class="p">:</span> <span class="s1">&#39;cs&#39;</span><span class="p">},</span>
+               <span class="n">obj_func</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;Fit_Methods&#39;</span><span class="p">,</span> <span class="s1">&#39;obj_func&#39;</span><span class="p">:</span> <span class="s1">&#39;SHO&#39;</span><span class="p">,</span> <span class="s1">&#39;xvals&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])},</span>
+               <span class="n">h5_partial_fit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">h5_guess</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">override</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fits the dataset to the SHO function</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        max_mem : uint, optional</span>
+<span class="sd">            Memory in MB to use for computation</span>
+<span class="sd">            Default None, available memory from psutil.virtual_memory is used</span>
+<span class="sd">        processors : int</span>
+<span class="sd">            Number of processors the user requests.  The minimum of this and self._maxCpus is used.</span>
+<span class="sd">            Default None</span>
+<span class="sd">        solver_type : string</span>
+<span class="sd">            Default is &#39;Wavelet_Peaks&#39;.</span>
+<span class="sd">            Can be one of [&#39;wavelet_peaks&#39;, &#39;relative_maximum&#39;, &#39;gaussian_processes&#39;]. </span>
+<span class="sd">            For updated list, run GuessMethods.methods</span>
+<span class="sd">        solver_options : dict</span>
+<span class="sd">            Dictionary of options passed to strategy. For more info see GuessMethods documentation.</span>
+<span class="sd">            Default {&quot;peaks_widths&quot;: np.array([10,200])}}.</span>
+<span class="sd">        obj_func : dict</span>
+<span class="sd">            Dictionary defining the class and method containing the function to be fit as well as any </span>
+<span class="sd">            additional function parameters.</span>
+<span class="sd">        h5_partial_fit : h5py.group. optional, default = None</span>
+<span class="sd">            Datagroup containing (partially computed) fit results. do_fit will resume computation if provided.</span>
+<span class="sd">        h5_guess : h5py.group. optional, default = None</span>
+<span class="sd">            Datagroup containing guess results. do_fit will use this if provided.</span>
+<span class="sd">        override : bool, optional. default = False</span>
+<span class="sd">            By default, will simply return duplicate results to avoid recomputing or resume computation on a</span>
+<span class="sd">            group with partial results. Set to True to force fresh computation.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        h5_results : h5py.Dataset object</span>
+<span class="sd">            Dataset with the fit parameters</span>
+<span class="sd">            </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">obj_func</span><span class="p">[</span><span class="s1">&#39;xvals&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">freq_vec</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BESHOfitter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">do_fit</span><span class="p">(</span><span class="n">processors</span><span class="o">=</span><span class="n">processors</span><span class="p">,</span> <span class="n">solver_type</span><span class="o">=</span><span class="n">solver_type</span><span class="p">,</span>
+                                        <span class="n">solver_options</span><span class="o">=</span><span class="n">solver_options</span><span class="p">,</span> <span class="n">obj_func</span><span class="o">=</span><span class="n">obj_func</span><span class="p">,</span>
+                                        <span class="n">h5_partial_fit</span><span class="o">=</span><span class="n">h5_partial_fit</span><span class="p">,</span> <span class="n">h5_guess</span><span class="o">=</span><span class="n">h5_guess</span><span class="p">,</span> <span class="n">override</span><span class="o">=</span><span class="n">override</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_fit</span></div>
+
+    <span class="k">def</span> <span class="nf">_reformat_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;wavelet_peaks&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Model specific calculation and or reformatting of the raw guess or fit results</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        results : array-like</span>
+<span class="sd">            Results to be formatted for writing</span>
+<span class="sd">        strategy : str</span>
+<span class="sd">            The strategy used in the fit.  Determines how the results will be reformatted.</span>
+<span class="sd">            Default &#39;wavelet_peaks&#39;</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        sho_vec : numpy.ndarray</span>
+<span class="sd">            The reformatted array of parameters.</span>
+<span class="sd">            </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Strategy to use: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">strategy</span><span class="p">))</span>
+        <span class="c1"># Create an empty array to store the guess parameters</span>
+        <span class="n">sho_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">sho32</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Raw results and compound SHO vector of shape </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)))</span>
+
+        <span class="c1"># Extracting and reshaping the remaining parameters for SHO</span>
+        <span class="k">if</span> <span class="n">strategy</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;wavelet_peaks&#39;</span><span class="p">,</span> <span class="s1">&#39;relative_maximum&#39;</span><span class="p">,</span> <span class="s1">&#39;absolute_maximum&#39;</span><span class="p">]:</span>
+            <span class="c1"># wavelet_peaks sometimes finds 0, 1, 2, or more peaks. Need to handle that:</span>
+            <span class="c1"># peak_inds = np.array([pixel[0] for pixel in results])</span>
+            <span class="n">peak_inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">pix_ind</span><span class="p">,</span> <span class="n">pixel</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">results</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pixel</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># majority of cases - one peak found</span>
+                    <span class="n">peak_inds</span><span class="p">[</span><span class="n">pix_ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">pixel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">pixel</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># no peak found</span>
+                    <span class="n">peak_inds</span><span class="p">[</span><span class="n">pix_ind</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>  <span class="c1"># set to center of band</span>
+                <span class="k">else</span><span class="p">:</span>  <span class="c1"># more than one peak found</span>
+                    <span class="n">dist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pixel</span><span class="p">)</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+                    <span class="n">peak_inds</span><span class="p">[</span><span class="n">pix_ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">pixel</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">dist</span><span class="p">)]</span>  <span class="c1"># set to peak closest to center of band</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Peak positions of shape </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">peak_inds</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+            <span class="c1"># First get the value (from the raw data) at these positions:</span>
+            <span class="n">comp_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">pixel_ind</span><span class="p">,</span> <span class="n">peak_inds</span><span class="p">[</span><span class="n">pixel_ind</span><span class="p">]]</span> <span class="k">for</span> <span class="n">pixel_ind</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">peak_inds</span><span class="o">.</span><span class="n">size</span><span class="p">)])</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Complex values at peak positions of shape </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">comp_vals</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+            <span class="n">sho_vec</span><span class="p">[</span><span class="s1">&#39;Amplitude [V]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">comp_vals</span><span class="p">)</span>  <span class="c1"># Amplitude</span>
+            <span class="n">sho_vec</span><span class="p">[</span><span class="s1">&#39;Phase [rad]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">comp_vals</span><span class="p">)</span>  <span class="c1"># Phase in radians</span>
+            <span class="n">sho_vec</span><span class="p">[</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">freq_vec</span><span class="p">[</span><span class="n">peak_inds</span><span class="p">]</span>  <span class="c1"># Frequency</span>
+            <span class="n">sho_vec</span><span class="p">[</span><span class="s1">&#39;Quality Factor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">comp_vals</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span>  <span class="c1"># Quality factor</span>
+            <span class="c1"># Add something here for the R^2</span>
+            <span class="n">sho_vec</span><span class="p">[</span><span class="s1">&#39;R2 Criterion&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">r_square</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sho_func</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">freq_vec</span><span class="p">,</span> <span class="n">sho_parms</span><span class="p">)</span>
+                                                <span class="k">for</span> <span class="n">sho_parms</span> <span class="ow">in</span> <span class="n">sho_vec</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">strategy</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;complex_gaussian&#39;</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">iresult</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">results</span><span class="p">):</span>
+                <span class="n">sho_vec</span><span class="p">[</span><span class="s1">&#39;Amplitude [V]&#39;</span><span class="p">][</span><span class="n">iresult</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">sho_vec</span><span class="p">[</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">][</span><span class="n">iresult</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">sho_vec</span><span class="p">[</span><span class="s1">&#39;Quality Factor&#39;</span><span class="p">][</span><span class="n">iresult</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+                <span class="n">sho_vec</span><span class="p">[</span><span class="s1">&#39;Phase [rad]&#39;</span><span class="p">][</span><span class="n">iresult</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+                <span class="n">sho_vec</span><span class="p">[</span><span class="s1">&#39;R2 Criterion&#39;</span><span class="p">][</span><span class="n">iresult</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">strategy</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;SHO&#39;</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">iresult</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">results</span><span class="p">):</span>
+                <span class="n">sho_vec</span><span class="p">[</span><span class="s1">&#39;Amplitude [V]&#39;</span><span class="p">][</span><span class="n">iresult</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">sho_vec</span><span class="p">[</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">][</span><span class="n">iresult</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">sho_vec</span><span class="p">[</span><span class="s1">&#39;Quality Factor&#39;</span><span class="p">][</span><span class="n">iresult</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+                <span class="n">sho_vec</span><span class="p">[</span><span class="s1">&#39;Phase [rad]&#39;</span><span class="p">][</span><span class="n">iresult</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+                <span class="n">sho_vec</span><span class="p">[</span><span class="s1">&#39;R2 Criterion&#39;</span><span class="p">][</span><span class="n">iresult</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><span class="n">result</span><span class="o">.</span><span class="n">fun</span>
+
+        <span class="k">return</span> <span class="n">sho_vec</span></div>
+
+
+<div class="viewcode-block" id="reshape_to_one_step"><a class="viewcode-back" href="../../../_autosummary/_autosummary/pycroscopy.analysis.be_sho_fitter.html#pycroscopy.analysis.be_sho_fitter.reshape_to_one_step">[docs]</a><span class="k">def</span> <span class="nf">reshape_to_one_step</span><span class="p">(</span><span class="n">raw_mat</span><span class="p">,</span> <span class="n">num_steps</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reshapes provided data from (pos, step * bin) to (pos * step, bin).</span>
+<span class="sd">    This is useful when unraveling data for parallel processing.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    -------------</span>
+<span class="sd">    raw_mat : 2D numpy array</span>
+<span class="sd">        Data organized as (positions, step * bins)</span>
+<span class="sd">    num_steps : unsigned int</span>
+<span class="sd">        Number of spectroscopic steps per pixel (eg - UDVS steps)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    --------------</span>
+<span class="sd">    two_d : 2D numpy array</span>
+<span class="sd">        Data rearranged as (positions * step, bin)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">num_pos</span> <span class="o">=</span> <span class="n">raw_mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">num_bins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">raw_mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">num_steps</span><span class="p">)</span>
+    <span class="n">one_d</span> <span class="o">=</span> <span class="n">raw_mat</span>
+    <span class="n">one_d</span> <span class="o">=</span> <span class="n">one_d</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">num_bins</span> <span class="o">*</span> <span class="n">num_steps</span> <span class="o">*</span> <span class="n">num_pos</span><span class="p">))</span>
+    <span class="n">two_d</span> <span class="o">=</span> <span class="n">one_d</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">num_steps</span> <span class="o">*</span> <span class="n">num_pos</span><span class="p">,</span> <span class="n">num_bins</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">two_d</span></div>
+
+
+<div class="viewcode-block" id="reshape_to_n_steps"><a class="viewcode-back" href="../../../_autosummary/_autosummary/pycroscopy.analysis.be_sho_fitter.html#pycroscopy.analysis.be_sho_fitter.reshape_to_n_steps">[docs]</a><span class="k">def</span> <span class="nf">reshape_to_n_steps</span><span class="p">(</span><span class="n">raw_mat</span><span class="p">,</span> <span class="n">num_steps</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reshapes provided data from (positions * step, bin) to (positions, step * bin).</span>
+<span class="sd">    Use this to restructure data back to its original form after parallel computing</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    --------------</span>
+<span class="sd">    raw_mat : 2D numpy array</span>
+<span class="sd">        Data organized as (positions * step, bin)</span>
+<span class="sd">    num_steps : unsigned int</span>
+<span class="sd">         Number of spectroscopic steps per pixel (eg - UDVS steps)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ---------------</span>
+<span class="sd">    two_d : 2D numpy array</span>
+<span class="sd">        Data rearranged as (positions, step * bin)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">num_bins</span> <span class="o">=</span> <span class="n">raw_mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">num_pos</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">raw_mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">num_steps</span><span class="p">)</span>
+    <span class="n">one_d</span> <span class="o">=</span> <span class="n">raw_mat</span>
+    <span class="n">one_d</span> <span class="o">=</span> <span class="n">one_d</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">num_bins</span> <span class="o">*</span> <span class="n">num_steps</span> <span class="o">*</span> <span class="n">num_pos</span><span class="p">)</span>
+    <span class="n">two_d</span> <span class="o">=</span> <span class="n">one_d</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">num_pos</span><span class="p">,</span> <span class="n">num_steps</span> <span class="o">*</span> <span class="n">num_bins</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">two_d</span></div>
+
+
+<div class="viewcode-block" id="is_reshapable"><a class="viewcode-back" href="../../../_autosummary/_autosummary/pycroscopy.analysis.be_sho_fitter.html#pycroscopy.analysis.be_sho_fitter.is_reshapable">[docs]</a><span class="k">def</span> <span class="nf">is_reshapable</span><span class="p">(</span><span class="n">h5_main</span><span class="p">,</span> <span class="n">step_start_inds</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A BE dataset is said to be reshape-able if the number of bins per steps is constant. Even if the dataset contains</span>
+<span class="sd">    multiple excitation waveforms (harmonics), We know that the measurement is always at the resonance peak, so the</span>
+<span class="sd">    frequency vector should not change.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    h5_main : h5py.Dataset object</span>
+<span class="sd">        Reference to the main dataset</span>
+<span class="sd">    step_start_inds : list or 1D array</span>
+<span class="sd">        Indices that correspond to the start of each BE pulse / UDVS step</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ---------</span>
+<span class="sd">    reshapable : Boolean</span>
+<span class="sd">        Whether or not the number of bins per step are constant in this dataset</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">step_start_inds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">h5_spec_inds</span> <span class="o">=</span> <span class="n">get_auxiliary_datasets</span><span class="p">(</span><span class="n">h5_main</span><span class="p">,</span> <span class="n">aux_dset_name</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Spectroscopic_Indices&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">step_start_inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">h5_spec_inds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># Adding the size of the main dataset as the last (virtual) step</span>
+    <span class="n">step_start_inds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">step_start_inds</span><span class="p">,</span> <span class="n">h5_main</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">num_bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">step_start_inds</span><span class="p">)</span>
+    <span class="n">step_types</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">num_bins</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">step_types</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Suhas Somnath, Chris Smith, Stephen Jesse, Numan Laanait.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.60.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

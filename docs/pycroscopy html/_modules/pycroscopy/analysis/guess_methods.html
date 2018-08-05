@@ -1,0 +1,388 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pycroscopy.analysis.guess_methods &mdash; pycroscopy 0.60.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> pycroscopy
+          
+
+          
+            
+            <img src="../../../_static/logo_v01.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.60.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">Pycroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../package_organization.html">Package Organization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../translators.html">Data Translators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../papers_conferences.html">Papers / Conferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../credits.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../whats_new.html">What’s New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pycroscopy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pycroscopy.analysis.guess_methods</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pycroscopy.analysis.guess_methods</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on 10/5/16 3:44 PM</span>
+<span class="sd">@author: Numan Laanait -- nlaanait@gmail.com</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="k">import</span> <span class="n">warn</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="k">import</span> <span class="n">find_peaks_cwt</span>
+<span class="kn">from</span> <span class="nn">.utils.be_sho</span> <span class="k">import</span> <span class="n">SHOestimateGuess</span><span class="p">,</span> <span class="n">SHOfunc</span>
+
+
+<div class="viewcode-block" id="GuessMethods"><a class="viewcode-back" href="../../../_autosummary/pycroscopy.analysis.html#pycroscopy.analysis.guess_methods.GuessMethods">[docs]</a><span class="k">class</span> <span class="nc">GuessMethods</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is a container class for the different strategies used to find guesses by which an optimization routine</span>
+<span class="sd">    is initialized.</span>
+<span class="sd">    To implement a new guess generation strategy, add it following exactly how it&#39;s done below.</span>
+
+<span class="sd">    In essence, the guess methods here need to return a callable function that will take a feature vector as the sole</span>
+<span class="sd">    input and return the guess parameters. The guess methods here use the keyword arguments to configure the returned</span>
+<span class="sd">    function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;wavelet_peaks&#39;</span><span class="p">,</span> <span class="s1">&#39;relative_maximum&#39;</span><span class="p">,</span> <span class="s1">&#39;gaussian_processes&#39;</span><span class="p">,</span> <span class="s1">&#39;complex_gaussian&#39;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="GuessMethods.wavelet_peaks"><a class="viewcode-back" href="../../../_autosummary/pycroscopy.analysis.html#pycroscopy.analysis.guess_methods.GuessMethods.wavelet_peaks">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">wavelet_peaks</span><span class="p">(</span><span class="n">vector</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This is the function that will be mapped by multiprocess. This is a wrapper around the scipy function.</span>
+<span class="sd">        It uses a parameter - wavelet_widths that is configured outside this function.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        vector : 1D numpy array</span>
+<span class="sd">            Feature vector containing peaks</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        peak_indices : list</span>
+<span class="sd">            List of indices of peaks within the prescribed peak widths</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">peak_width_bounds</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;peak_widths&#39;</span><span class="p">)</span>
+            <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;peak_widths&#39;</span><span class="p">)</span>
+            <span class="n">peak_width_step</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;peak_step&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+            <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;peak_step&#39;</span><span class="p">)</span>
+            <span class="c1"># The below numpy array is used to configure the returned function wpeaks</span>
+            <span class="n">wavelet_widths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">peak_width_bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">peak_width_bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">peak_width_step</span><span class="p">)</span>
+
+            <span class="n">peak_indices</span> <span class="o">=</span> <span class="n">find_peaks_cwt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">vector</span><span class="p">),</span> <span class="n">wavelet_widths</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">peak_indices</span>
+
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Error: Please specify &quot;peak_widths&quot; kwarg to use this method&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GuessMethods.absolute_maximum"><a class="viewcode-back" href="../../../_autosummary/pycroscopy.analysis.html#pycroscopy.analysis.guess_methods.GuessMethods.absolute_maximum">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">absolute_maximum</span><span class="p">(</span><span class="n">vector</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Finds maximum in 1d-array</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        vector : numpy.ndarray</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        fastpeak: callable function</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">vec_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">vec_max</span></div>
+
+
+<div class="viewcode-block" id="GuessMethods.relative_maximum"><a class="viewcode-back" href="../../../_autosummary/pycroscopy.analysis.html#pycroscopy.analysis.guess_methods.GuessMethods.relative_maximum">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">relative_maximum</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Not yet implemented</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        args</span>
+<span class="sd">        kwargs</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="GuessMethods.gaussian_processes"><a class="viewcode-back" href="../../../_autosummary/pycroscopy.analysis.html#pycroscopy.analysis.guess_methods.GuessMethods.gaussian_processes">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">gaussian_processes</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Not yet implemented</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        args</span>
+<span class="sd">        kwargs</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="GuessMethods.complex_gaussian"><a class="viewcode-back" href="../../../_autosummary/pycroscopy.analysis.html#pycroscopy.analysis.guess_methods.GuessMethods.complex_gaussian">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">complex_gaussian</span><span class="p">(</span><span class="n">resp_vec</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets up the needed parameters for the analytic approximation for the</span>
+<span class="sd">        Gaussian fit of complex data.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        resp_vec : numpy.ndarray</span>
+<span class="sd">            Data vector to be fit.</span>
+<span class="sd">        args: numpy arrays.</span>
+
+<span class="sd">        kwargs: Passed to SHOEstimateFit().</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        sho_guess: callable function.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">w_vec</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;frequencies&#39;</span><span class="p">)</span>
+        <span class="n">num_points</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;num_points&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+        <span class="n">guess</span> <span class="o">=</span> <span class="n">SHOestimateGuess</span><span class="p">(</span><span class="n">resp_vec</span><span class="p">,</span> <span class="n">w_vec</span><span class="p">,</span> <span class="n">num_points</span><span class="p">)</span>
+
+        <span class="n">guess</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">guess</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">r_square</span><span class="p">(</span><span class="n">resp_vec</span><span class="p">,</span> <span class="n">SHOfunc</span><span class="p">,</span> <span class="n">guess</span><span class="p">,</span> <span class="n">w_vec</span><span class="p">))])</span>
+
+        <span class="k">return</span> <span class="n">guess</span></div></div>
+
+
+<div class="viewcode-block" id="r_square"><a class="viewcode-back" href="../../../_autosummary/_autosummary/pycroscopy.analysis.guess_methods.html#pycroscopy.analysis.guess_methods.r_square">[docs]</a><span class="k">def</span> <span class="nf">r_square</span><span class="p">(</span><span class="n">data_vec</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    R-square for estimation of the fitting quality</span>
+<span class="sd">    Typical result is in the range (0,1), where 1 is the best fitting</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data_vec : array_like</span>
+<span class="sd">        Measured data points</span>
+<span class="sd">    func : callable function</span>
+<span class="sd">        Should return a numpy.ndarray of the same shape as data_vec</span>
+<span class="sd">    args :</span>
+<span class="sd">        Parameters to be pased to func</span>
+<span class="sd">    kwargs :</span>
+<span class="sd">        Keyword parameters to be pased to func</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    r_squared : float</span>
+<span class="sd">        The R^2 value for the current data_vec and parameters</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data_vec</span><span class="p">)</span>
+    <span class="n">ss_tot</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">data_vec</span> <span class="o">-</span> <span class="n">data_mean</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">ss_res</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">data_vec</span> <span class="o">-</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">r_squared</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">ss_res</span> <span class="o">/</span> <span class="n">ss_tot</span> <span class="k">if</span> <span class="n">ss_tot</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+
+    <span class="k">return</span> <span class="n">r_squared</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Suhas Somnath, Chris Smith, Stephen Jesse, Numan Laanait.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.60.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

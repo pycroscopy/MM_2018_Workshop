@@ -1,0 +1,424 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pycroscopy.processing.svd_utils &mdash; pycroscopy 0.60.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pycroscopy.viz" href="../pycroscopy.viz.html" />
+    <link rel="prev" title="pycroscopy.processing.signal_filter" href="pycroscopy.processing.signal_filter.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> pycroscopy
+          
+
+          
+            
+            <img src="../../_static/logo_v01.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.60.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">Pycroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../package_organization.html">Package Organization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../translators.html">Data Translators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../papers_conferences.html">Papers / Conferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whats_new.html">What’s New</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../api.html#package-structure">Package Structure</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.analysis.html">pycroscopy.analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.io.html">pycroscopy.io</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../pycroscopy.processing.html">pycroscopy.processing</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../pycroscopy.processing.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.viz.html">pycroscopy.viz</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pycroscopy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../api.html">API Reference</a> &raquo;</li>
+        
+          <li><a href="../pycroscopy.processing.html">pycroscopy.processing</a> &raquo;</li>
+        
+      <li>pycroscopy.processing.svd_utils</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/_autosummary/_autosummary/pycroscopy.processing.svd_utils.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pycroscopy.processing.svd_utils">
+<span id="pycroscopy-processing-svd-utils"></span><h1>pycroscopy.processing.svd_utils<a class="headerlink" href="#module-pycroscopy.processing.svd_utils" title="Permalink to this headline">¶</a></h1>
+<p>Created on Mon Mar 28 09:45:08 2016</p>
+<p>&#64;author: Suhas Somnath, Chris Smith</p>
+<p class="rubric">Functions</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pycroscopy.processing.svd_utils.rebuild_svd" title="pycroscopy.processing.svd_utils.rebuild_svd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rebuild_svd</span></code></a>(h5_main[,&nbsp;components,&nbsp;cores,&nbsp;…])</td>
+<td>Rebuild the Image from the SVD results on the windows Optionally, only use components less than n_comp.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pycroscopy.processing.svd_utils.simplified_kpca" title="pycroscopy.processing.svd_utils.simplified_kpca"><code class="xref py py-obj docutils literal notranslate"><span class="pre">simplified_kpca</span></code></a>(kpca,&nbsp;source_data)</td>
+<td>Performs kernel PCA on the provided dataset and returns the familiar eigenvector, eigenvalue, and scree matrices.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pycroscopy.processing.svd_utils.SVD" title="pycroscopy.processing.svd_utils.SVD"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SVD</span></code></a>(h5_main[,&nbsp;num_components])</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="pycroscopy.processing.svd_utils.SVD">
+<em class="property">class </em><code class="descname">SVD</code><span class="sig-paren">(</span><em>h5_main</em>, <em>num_components=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/processing/svd_utils.html#SVD"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.svd_utils.SVD" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="pycroscopy.processing.svd_utils.SVD.compute">
+<code class="descname">compute</code><span class="sig-paren">(</span><em>override=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/processing/svd_utils.html#SVD.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.svd_utils.SVD.compute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes SVD (by calling test_on_subset() if it has not already been called) and writes results to file.
+Consider calling test() to check results before writing to file. Results are deleted from memory
+upon writing to the HDF5 file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>override</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional. default = False</em>) – Set to true to recompute results if prior results are available. Else, returns existing results</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>h5_results_grp</strong> – Datagroup containing all the results</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">h5py.Datagroup object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.processing.svd_utils.SVD.delete_results">
+<code class="descname">delete_results</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/processing/svd_utils.html#SVD.delete_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.svd_utils.SVD.delete_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes results from memory.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pycroscopy.processing.svd_utils.SVD.process_name">
+<code class="descname">process_name</code><em class="property"> = None</em><a class="headerlink" href="#pycroscopy.processing.svd_utils.SVD.process_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the size of the main data in memory and compare to max_mem
+We use the minimum of the actual dtype’s itemsize and float32 since we
+don’t want to read it in yet and do the proper type conversions.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.processing.svd_utils.SVD.test">
+<code class="descname">test</code><span class="sig-paren">(</span><em>override=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/processing/svd_utils.html#SVD.test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.svd_utils.SVD.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies randomised VD to the dataset. This function does NOT write results to the hdf5 file. Call compute() to
+write to the file. Handles complex, compound datasets such that the V matrix is of the same data-type as the
+input matrix.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>override</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional. default = False</em>) – Set to true to recompute results if prior results are available. Else, returns existing results</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li><strong>U</strong> (<em>numpy.ndarray</em>) – Abundance matrix</li>
+<li><strong>S</strong> (<em>numpy.ndarray</em>) – variance vector</li>
+<li><strong>V</strong> (<em>numpy.ndarray</em>) – eigenvector matrix</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pycroscopy.processing.svd_utils.SVD.use_partial_computation">
+<code class="descname">use_partial_computation</code><span class="sig-paren">(</span><em>h5_partial_group=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pycroscopy.processing.svd_utils.SVD.use_partial_computation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts the necessary parameters from the provided h5 group to resume computation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>h5_partial_group</strong> (<em>h5py.Datagroup object</em>) – Datagroup containing partially computed results</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pycroscopy.processing.svd_utils.rebuild_svd">
+<code class="descname">rebuild_svd</code><span class="sig-paren">(</span><em>h5_main</em>, <em>components=None</em>, <em>cores=None</em>, <em>max_RAM_mb=1024</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/processing/svd_utils.html#rebuild_svd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.svd_utils.rebuild_svd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rebuild the Image from the SVD results on the windows
+Optionally, only use components less than n_comp.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_main</strong> (<em>hdf5 Dataset</em>) – dataset which SVD was performed on</li>
+<li><strong>components</strong> (<em>{int</em><em>, </em><em>iterable of int</em><em>, </em><em>slice} optional</em>) – <p>Defines which components to keep
+Default - None, all components kept</p>
+<p>Input Types
+integer : Components less than the input will be kept
+length 2 iterable of integers : Integers define start and stop of component slice to retain
+other iterable of integers or slice : Selection of component indices to retain</p>
+</li>
+<li><strong>cores</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – How many cores should be used to rebuild
+Default - None, all but 2 cores will be used, min 1</li>
+<li><strong>max_RAM_mb</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a><em>, </em><em>optional</em>) – Maximum ammount of memory to use when rebuilding, in Mb.
+Default - 1024Mb</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>rebuilt_data</strong> – the rebuilt dataset</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">HDF5 Dataset</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pycroscopy.processing.svd_utils.simplified_kpca">
+<code class="descname">simplified_kpca</code><span class="sig-paren">(</span><em>kpca</em>, <em>source_data</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/processing/svd_utils.html#simplified_kpca"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.svd_utils.simplified_kpca" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs kernel PCA on the provided dataset and returns the familiar
+eigenvector, eigenvalue, and scree matrices.</p>
+<p>Note that the positions in the eigenvalues may need to be transposed</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>kpca</strong> (<em>KernelPCA object</em>) – configured Kernel PCA object ready to perform analysis</li>
+<li><strong>source_data</strong> (<em>2D numpy array</em>) – Data arranged as [iteration, features] example - [position, time]</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>eigenvalues</strong> (<em>2D numpy array</em>) – Eigenvalues in the original space arranged as [component,iteration]</li>
+<li><strong>scree</strong> (<em>1D numpy array</em>) – S component</li>
+<li><strong>eigenvector</strong> (<em>2D numpy array</em>) – Eigenvectors in the original space arranged as [component,features]</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../pycroscopy.viz.html" class="btn btn-neutral float-right" title="pycroscopy.viz" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pycroscopy.processing.signal_filter.html" class="btn btn-neutral" title="pycroscopy.processing.signal_filter" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Suhas Somnath, Chris Smith, Stephen Jesse, Numan Laanait.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.60.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

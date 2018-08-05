@@ -1,0 +1,692 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>06. Utilities for handling data types and transformations &mdash; pyUSID 0.0.4 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="07. Speed up computations with parallel_compute()" href="plot_parallel_compute.html" />
+    <link rel="prev" title="05. Utilities for reading h5USID files" href="plot_hdf_utils_read.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> pyUSID
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">pyUSID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../package_organization.html">Package Organization</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples &amp; Tutorials</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#guides-to-pyusid">Guides to pyUSID</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="plot_h5py.html">01. Primer to HDF5 and h5py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plot_usi_dataset.html">02. The USIDataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plot_numpy_translator.html">03. Translation and the NumpyTranslator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plot_plot_utils.html">04. Plotting utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plot_hdf_utils_read.html">05. Utilities for reading h5USID files</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">06. Utilities for handling data types and transformations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#recommended-pre-requisite-reading">Recommended pre-requisite reading</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#import-all-necessary-packages">Import all necessary packages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#contains-integers">contains_integers()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#validate-dtype">validate_dtype()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#get-compound-sub-dtypes">get_compound_sub_dtypes()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#is-complex-dtype">is_complex_dtype()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#flatten-complex-to-real">flatten_complex_to_real()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#flatten-compound-to-real">flatten_compound_to_real()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#flatten-to-real">flatten_to_real()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stack-real-to-complex">stack_real_to_complex()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stack-real-to-compound">stack_real_to_compound()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#stack-real-to-target-dtype">stack_real_to_target_dtype()</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#check-dtype">check_dtype()</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="plot_parallel_compute.html">07. Speed up computations with parallel_compute()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plot_write_utils.html">08. Utilities that assist in writing USID data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plot_hdf_utils_write.html">09. Utilities for writing h5USID files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plot_process.html">10. Formalizing Data Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plot_io_utils.html">11. Input / Output / Computing utilities</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_format.html">Data Model and File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribution_guidelines.html">Guidelines for Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whats_new.html">What’s New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../matlab_to_python.html">Upgrading from Matlab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pyUSID</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Examples &amp; Tutorials</a> &raquo;</li>
+        
+      <li>06. Utilities for handling data types and transformations</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/auto_examples/cookbooks/plot_dtype_utils.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Click <a class="reference internal" href="#sphx-glr-download-auto-examples-cookbooks-plot-dtype-utils-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="utilities-for-handling-data-types-and-transformations">
+<span id="sphx-glr-auto-examples-cookbooks-plot-dtype-utils-py"></span><h1>06. Utilities for handling data types and transformations<a class="headerlink" href="#utilities-for-handling-data-types-and-transformations" title="Permalink to this headline">¶</a></h1>
+<p><strong>Suhas Somnath</strong></p>
+<p>4/18/2018</p>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The general nature of the <strong>Universal Spectroscopy and Imaging Data (USID)</strong> model facilitates the representation of
+any kind of measurement data.
+This includes:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Conventional data represented using floating point numbers such as <code class="docutils literal notranslate"><span class="pre">1.2345</span></code></li>
+<li>Integer data (with or without sign) such as <code class="docutils literal notranslate"><span class="pre">137</span></code></li>
+<li>Complex-valued data such as <code class="docutils literal notranslate"><span class="pre">1.23</span> <span class="pre">+</span> <span class="pre">4.5i</span></code></li>
+<li>Multi-valued or compound valued data cells such as (<code class="docutils literal notranslate"><span class="pre">'Frequency'</span></code>: <code class="docutils literal notranslate"><span class="pre">301.2</span></code>, <code class="docutils literal notranslate"><span class="pre">'Amplitude'</span></code>: <code class="docutils literal notranslate"><span class="pre">1.553E-3</span></code>, <code class="docutils literal notranslate"><span class="pre">'Phase'</span></code>: <code class="docutils literal notranslate"><span class="pre">2.14</span></code>)
+where a single value or measurement is represented by multiple elements, each with their own names, and data types</li>
+</ol>
+</div></blockquote>
+<p>While HDF5 datasets are capable of storing all of these kinds of data, many conventional data analysis techniques
+such as decomposition, clustering, etc. are either unable to handle complicated data types such as complex-valued
+datasets and compound valued datasets, or the results from these techniques do not produce physically meaningful
+results. For example, most singular value decomposition algorithms are capable of processing complex-valued datasets.
+However, while the eigenvectors can have complex values, the resultant complex-valued abundance maps are meaningless.
+These algorithms would not even work if the original data was compound valued!</p>
+<p>To avoid such problems, we need functions that transform the data to and from the necessary type (integer, real-value
+etc.)</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">pyUSID.dtype_utils</span></code> module facilitates comparisons, validations, and most importantly, transformations of one
+data-type to another. We will be going over the many useful functions in this module and explaining how, when and why
+one would use them.</p>
+</div>
+<div class="section" id="recommended-pre-requisite-reading">
+<h2>Recommended pre-requisite reading<a class="headerlink" href="#recommended-pre-requisite-reading" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="/../../data_format.html">USID data model</a></li>
+<li><a class="reference external" href="./plot_h5py.html">Crash course on HDF5 and h5py</a></li>
+</ul>
+</div>
+<div class="section" id="import-all-necessary-packages">
+<h2>Import all necessary packages<a class="headerlink" href="#import-all-necessary-packages" title="Permalink to this headline">¶</a></h2>
+<p>Before we begin demonstrating the numerous functions in <code class="docutils literal notranslate"><span class="pre">pyUSID.dtype_utils</span></code>, we need to import the necessary
+packages. Here are a list of packages besides pyUSID that will be used in this example:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">h5py</span></code> - to manipulate HDF5 files</li>
+<li><code class="docutils literal notranslate"><span class="pre">numpy</span></code> - for numerical operations on arrays in memory</li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="k">def</span> <span class="nf">install</span><span class="p">(</span><span class="n">package</span><span class="p">):</span>
+    <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;pip&quot;</span><span class="p">,</span> <span class="s2">&quot;install&quot;</span><span class="p">,</span> <span class="n">package</span><span class="p">])</span>
+
+<span class="kn">import</span> <span class="nn">h5py</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="c1"># Finally import pyUSID.</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">pyUSID</span> <span class="kn">as</span> <span class="nn">usid</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="c1"># Warning package in case something goes wrong</span>
+    <span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+    <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;pyUSID not found.  Will install with pip.&#39;</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">pip</span>
+    <span class="n">install</span><span class="p">(</span><span class="s1">&#39;pyUSID&#39;</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">pyUSID</span> <span class="kn">as</span> <span class="nn">usid</span>
+</pre></div>
+</div>
+<div class="section" id="utilities-for-validating-data-types">
+<h3>Utilities for validating data types<a class="headerlink" href="#utilities-for-validating-data-types" title="Permalink to this headline">¶</a></h3>
+<p>pyUSID.dtype_utils contains some handy functions that make it easy to write robust and safe code by simplifying
+common data type checking and validation.</p>
+</div>
+</div>
+<div class="section" id="contains-integers">
+<h2>contains_integers()<a class="headerlink" href="#contains-integers" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">contains_integers()</span></code> function checks to make sure that each item in a list is indeed an integer. Additionally, it
+can be configured to ensure that all the values are above a minimum value. This is particularly useful when building
+indices matrices based on the size of dimensions - specified as a list of integers for example.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">item</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;{} : contains integers? : {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">usid</span><span class="o">.</span><span class="n">dtype_utils</span><span class="o">.</span><span class="n">contains_integers</span><span class="p">(</span><span class="n">item</span><span class="p">)))</span>
+<span class="n">item</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;{} : contains integers? : {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">usid</span><span class="o">.</span><span class="n">dtype_utils</span><span class="o">.</span><span class="n">contains_integers</span><span class="p">(</span><span class="n">item</span><span class="p">)))</span>
+
+<span class="n">item</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">min_val</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;{} : contains integers &gt;= {} ? : {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">min_val</span><span class="p">,</span>
+                                                <span class="n">usid</span><span class="o">.</span><span class="n">dtype_utils</span><span class="o">.</span><span class="n">contains_integers</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">min_val</span><span class="o">=</span><span class="n">min_val</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[1, 2, -3, 4] : contains integers? : True
+[1, 4.5, 2.2, -1] : contains integers? : False
+[1, 5, 8, 3] : contains integers &gt;= 2 ? : False
+</pre></div>
+</div>
+</div>
+<div class="section" id="validate-dtype">
+<h2>validate_dtype()<a class="headerlink" href="#validate-dtype" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">validate_dtype()</span></code> function ensure that a provided object is indeed a valid h5py or numpy data type. When writing
+a main dataset along with all ancillary datasets, pyUSID meticulously ensures that all inputs are valid before
+writing data to the file. This comes in very handy when we want to follow the ‘measure twice, cut once’ ethos.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">complex64</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">]:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Is {} a valid dtype? : {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">usid</span><span class="o">.</span><span class="n">dtype_utils</span><span class="o">.</span><span class="n">validate_dtype</span><span class="p">(</span><span class="n">item</span><span class="p">)))</span>
+
+
+<span class="c1"># This function is especially useful on compound or structured data types:</span>
+
+<span class="n">struct_dtype</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.dtype.html#numpy.dtype" title="View documentation for numpy.dtype"><span class="n">np</span><span class="o">.</span><span class="n">dtype</span></a><span class="p">({</span><span class="s1">&#39;names&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">],</span>
+                        <span class="s1">&#39;formats&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint16</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">]})</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Is {} a valid dtype? : {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">struct_dtype</span><span class="p">,</span> <span class="n">usid</span><span class="o">.</span><span class="n">dtype_utils</span><span class="o">.</span><span class="n">validate_dtype</span><span class="p">(</span><span class="n">struct_dtype</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Is &lt;class &#39;numpy.float16&#39;&gt; a valid dtype? : True
+Is &lt;class &#39;numpy.complex64&#39;&gt; a valid dtype? : True
+Is &lt;class &#39;numpy.uint8&#39;&gt; a valid dtype? : True
+Is &lt;class &#39;numpy.int16&#39;&gt; a valid dtype? : True
+Is [(&#39;r&#39;, &#39;&lt;f4&#39;), (&#39;g&#39;, &#39;&lt;u2&#39;), (&#39;b&#39;, &#39;&lt;f8&#39;)] a valid dtype? : True
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-compound-sub-dtypes">
+<h2>get_compound_sub_dtypes()<a class="headerlink" href="#get-compound-sub-dtypes" title="Permalink to this headline">¶</a></h2>
+<p>One common hassle when dealing with compound / structured array dtypes is that it can be a little challenging to
+quickly get the individual datatypes of each field in such a data type. The <code class="docutils literal notranslate"><span class="pre">get_compound_sub_dtypes()</span></code> makes this a
+lot easier:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sub_dtypes</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">dtype_utils</span><span class="o">.</span><span class="n">get_compound_sub_dtypes</span><span class="p">(</span><span class="n">struct_dtype</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">sub_dtypes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{} : {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">))</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>r : float32
+g : uint16
+b : float64
+</pre></div>
+</div>
+</div>
+<div class="section" id="is-complex-dtype">
+<h2>is_complex_dtype()<a class="headerlink" href="#is-complex-dtype" title="Permalink to this headline">¶</a></h2>
+<p>Quite often, we need to treat complex datasets different from compound datasets which themselves need to be treated
+different from real valued datasets. <code class="docutils literal notranslate"><span class="pre">is_complex_dtype()</span></code> makes it easier to check if a numpy or HDF5 dataset has a
+complex data type:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">dtype</span> <span class="ow">in</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">,</span> <span class="n">struct_dtype</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Is {} a complex dtype?: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="p">(</span><span class="n">usid</span><span class="o">.</span><span class="n">dtype_utils</span><span class="o">.</span><span class="n">is_complex_dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">))))</span>
+
+<span class="k">for</span> <span class="n">dtype</span> <span class="ow">in</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">complex</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">complex64</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">complex256</span><span class="p">]:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Is {} a complex dtype?: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="p">(</span><span class="n">usid</span><span class="o">.</span><span class="n">dtype_utils</span><span class="o">.</span><span class="n">is_complex_dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">))))</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Is &lt;class &#39;numpy.float32&#39;&gt; a complex dtype?: False
+Is &lt;class &#39;numpy.float16&#39;&gt; a complex dtype?: False
+Is &lt;class &#39;numpy.uint8&#39;&gt; a complex dtype?: False
+Is &lt;class &#39;numpy.int16&#39;&gt; a complex dtype?: False
+Is [(&#39;r&#39;, &#39;&lt;f4&#39;), (&#39;g&#39;, &#39;&lt;u2&#39;), (&#39;b&#39;, &#39;&lt;f8&#39;)] a complex dtype?: False
+Is &lt;class &#39;bool&#39;&gt; a complex dtype?: False
+Is &lt;class &#39;complex&#39;&gt; a complex dtype?: True
+Is &lt;class &#39;numpy.complex64&#39;&gt; a complex dtype?: True
+Is &lt;class &#39;numpy.complex128&#39;&gt; a complex dtype?: True
+Is &lt;class &#39;numpy.complex256&#39;&gt; a complex dtype?: False
+</pre></div>
+</div>
+<div class="section" id="data-transformation">
+<h3>Data transformation<a class="headerlink" href="#data-transformation" title="Permalink to this headline">¶</a></h3>
+<p>Perhaps the biggest benefit of <code class="docutils literal notranslate"><span class="pre">dtype_utils</span></code> is the ability to flatten complex, compound datasets to real-valued
+datasets and vice versa. As mentioned in the introduction, this is particularly important when attempting to use
+machine learning algorithms on complex or compound-valued datasets. In order to enable such pipelines, we need
+functions to transform:</p>
+<ul class="simple">
+<li>complex / compound valued datasets to real-valued datasets</li>
+<li>real-valued datasets back to complex / compound valued datasets</li>
+</ul>
+</div>
+</div>
+<div class="section" id="flatten-complex-to-real">
+<h2>flatten_complex_to_real()<a class="headerlink" href="#flatten-complex-to-real" title="Permalink to this headline">¶</a></h2>
+<p>As the name suggests, this function stacks the imaginary values of a N-dimensional numpy / HDF5 dataset below its
+real-values. Thus, applying this function to a complex valued dataset of size <code class="docutils literal notranslate"><span class="pre">(a,</span> <span class="pre">b,</span> <span class="pre">c)</span></code> would result in a
+real-valued dataset of shape <code class="docutils literal notranslate"><span class="pre">(a,</span> <span class="pre">b,</span> <span class="pre">2</span> <span class="pre">*</span> <span class="pre">c)</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">length</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">complex_array</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.randint.html#numpy.random.randint" title="View documentation for numpy.random.randint"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span></a><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">length</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1j</span> <span class="o">*</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.randint.html#numpy.random.randint" title="View documentation for numpy.random.randint"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span></a><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">length</span><span class="p">)</span>
+<span class="n">stacked_real_array</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">dtype_utils</span><span class="o">.</span><span class="n">flatten_complex_to_real</span><span class="p">(</span><span class="n">complex_array</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Complex value: {} has shape: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">complex_array</span><span class="p">,</span> <span class="n">complex_array</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Stacked real value: {} has shape: &#39;</span>
+      <span class="s1">&#39;{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stacked_real_array</span><span class="p">,</span> <span class="n">stacked_real_array</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Complex value: [-5.-1.j  1.+0.j -1.-2.j] has shape: (3,)
+Stacked real value: [-5.  1. -1. -1.  0. -2.] has shape: (6,)
+</pre></div>
+</div>
+</div>
+<div class="section" id="flatten-compound-to-real">
+<h2>flatten_compound_to_real()<a class="headerlink" href="#flatten-compound-to-real" title="Permalink to this headline">¶</a></h2>
+<p>This function flattens a compound-valued dataset of shape <code class="docutils literal notranslate"><span class="pre">(a,</span> <span class="pre">b,</span> <span class="pre">c)</span></code> into a real-valued dataset of shape
+<code class="docutils literal notranslate"><span class="pre">(a,</span> <span class="pre">b,</span> <span class="pre">k</span> <span class="pre">*</span> <span class="pre">c)</span></code> where <code class="docutils literal notranslate"><span class="pre">k</span></code> is the number of fields within the structured array / compound dtype. Here we will
+demonstrate this on a 1D array of 5 elements each containing ‘r’, ‘g’, ‘b’ fields:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">num_elems</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">structured_array</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.zeros.html#numpy.zeros" title="View documentation for numpy.zeros"><span class="n">np</span><span class="o">.</span><span class="n">zeros</span></a><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">num_elems</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">struct_dtype</span><span class="p">)</span>
+<span class="n">structured_array</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">]</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.random.html#numpy.random.random" title="View documentation for numpy.random.random"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span></a><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">num_elems</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1024</span>
+<span class="n">structured_array</span><span class="p">[</span><span class="s1">&#39;g&#39;</span><span class="p">]</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.randint.html#numpy.random.randint" title="View documentation for numpy.random.randint"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span></a><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">num_elems</span><span class="p">)</span>
+<span class="n">structured_array</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.random.html#numpy.random.random" title="View documentation for numpy.random.random"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span></a><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">num_elems</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1024</span>
+<span class="n">real_array</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">dtype_utils</span><span class="o">.</span><span class="n">flatten_compound_to_real</span><span class="p">(</span><span class="n">structured_array</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Structured array is of shape {} and have values:&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">structured_array</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">structured_array</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">This array converted to regular scalar matrix has shape: {} and values:&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">real_array</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">real_array</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Structured array is of shape (5,) and have values:
+[(818.8225 , 308, 141.49083787) (117.05978, 936, 836.12060097)
+ (623.2409 , 219, 286.13915957) (357.5592 , 871, 918.0494692 )
+ (272.34195, 758, 220.45322256)]
+
+This array converted to regular scalar matrix has shape: (15,) and values:
+[818.82250977 117.05977631 623.24090576 357.5592041  272.34194946
+ 308.         936.         219.         871.         758.
+ 141.49083787 836.12060097 286.13915957 918.0494692  220.45322256]
+</pre></div>
+</div>
+</div>
+<div class="section" id="flatten-to-real">
+<h2>flatten_to_real()<a class="headerlink" href="#flatten-to-real" title="Permalink to this headline">¶</a></h2>
+<p>This function checks the data type of the provided dataset and then uses either of the above functions to
+(if necessary) flatten the dataset into a real-valued matrix. By checking the data type of the dataset, it obviates
+the need to explicitly call the aforementioned functions (that still do the work). Here is an example of the function
+being applied to the compound valued numpy array again:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">real_array</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">dtype_utils</span><span class="o">.</span><span class="n">flatten_to_real</span><span class="p">(</span><span class="n">structured_array</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Structured array is of shape {} and have values:&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">structured_array</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">structured_array</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">This array converted to regular scalar matrix has shape: {} and values:&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">real_array</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">real_array</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Structured array is of shape (5,) and have values:
+[(818.8225 , 308, 141.49083787) (117.05978, 936, 836.12060097)
+ (623.2409 , 219, 286.13915957) (357.5592 , 871, 918.0494692 )
+ (272.34195, 758, 220.45322256)]
+
+This array converted to regular scalar matrix has shape: (15,) and values:
+[818.82250977 117.05977631 623.24090576 357.5592041  272.34194946
+ 308.         936.         219.         871.         758.
+ 141.49083787 836.12060097 286.13915957 918.0494692  220.45322256]
+</pre></div>
+</div>
+<p>The next three functions perform the inverse operation of taking real-valued matrices or datasets and converting them
+to complex or compound-valued datasets.</p>
+</div>
+<div class="section" id="stack-real-to-complex">
+<h2>stack_real_to_complex()<a class="headerlink" href="#stack-real-to-complex" title="Permalink to this headline">¶</a></h2>
+<p>As the name suggests, this function collapses a N dimensional real-valued array of size <code class="docutils literal notranslate"><span class="pre">(a,</span> <span class="pre">b,</span> <span class="pre">2</span> <span class="pre">*</span> <span class="pre">c)</span></code> to a
+complex-valued array of shape <code class="docutils literal notranslate"><span class="pre">(a,</span> <span class="pre">b,</span> <span class="pre">c)</span></code>. It assumes that the first c values in real-valued dataset are the real
+components and the following c values are the imaginary components of the complex value. This will become clearer
+with an example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">real_val</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.hstack.html#numpy.hstack" title="View documentation for numpy.hstack"><span class="n">np</span><span class="o">.</span><span class="n">hstack</span></a><span class="p">([</span><span class="mi">5</span> <span class="o">*</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.rand.html#numpy.random.rand" title="View documentation for numpy.random.rand"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span></a><span class="p">(</span><span class="mi">6</span><span class="p">),</span>
+                      <span class="mi">7</span> <span class="o">*</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.rand.html#numpy.random.rand" title="View documentation for numpy.random.rand"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span></a><span class="p">(</span><span class="mi">6</span><span class="p">)])</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Real valued dataset of shape {}:&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">real_val</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">real_val</span><span class="p">)</span>
+
+<span class="n">comp_val</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">dtype_utils</span><span class="o">.</span><span class="n">stack_real_to_complex</span><span class="p">(</span><span class="n">real_val</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Complex-valued array of shape: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">comp_val</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">comp_val</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Real valued dataset of shape (12,):
+[0.23024321 0.30219327 1.36709669 3.02744143 3.2431705  4.68102575
+ 6.38175739 1.56057158 6.70709248 4.46336275 5.02398342 0.63507291]
+
+Complex-valued array of shape: (6,)
+[0.23024321+6.38175739j 0.30219327+1.56057158j 1.36709669+6.70709248j
+ 3.02744143+4.46336275j 3.2431705 +5.02398342j 4.68102575+0.63507291j]
+</pre></div>
+</div>
+</div>
+<div class="section" id="stack-real-to-compound">
+<h2>stack_real_to_compound()<a class="headerlink" href="#stack-real-to-compound" title="Permalink to this headline">¶</a></h2>
+<p>Similar to the above function, this function shrinks the last axis of a real valued dataset to create the desired
+compound valued dataset. Here we will demonstrate it on the same 3-field <code class="docutils literal notranslate"><span class="pre">(r,g,b)</span></code> compound datatype:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">num_elems</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">real_val</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.concatenate.html#numpy.concatenate" title="View documentation for numpy.concatenate"><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span></a><span class="p">((</span><a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.random.html#numpy.random.random" title="View documentation for numpy.random.random"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span></a><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">num_elems</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">,</span>
+                           <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.randint.html#numpy.random.randint" title="View documentation for numpy.random.randint"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span></a><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">num_elems</span><span class="p">),</span>
+                           <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.random.html#numpy.random.random" title="View documentation for numpy.random.random"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span></a><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">num_elems</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Real valued dataset of shape {}:&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">real_val</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">real_val</span><span class="p">)</span>
+
+<span class="n">comp_val</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">dtype_utils</span><span class="o">.</span><span class="n">stack_real_to_compound</span><span class="p">(</span><span class="n">real_val</span><span class="p">,</span> <span class="n">struct_dtype</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Structured array of shape: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">comp_val</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">comp_val</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Real valued dataset of shape (15,):
+[981.36521359 720.1854334  988.12682696 259.07465697 419.67539727
+ 115.         509.         477.         809.         472.
+ 188.44645763 330.20431081 448.51941018 503.20624415 867.90883715]
+
+Structured array of shape: (5,)
+[(981.36523, 115, 188.44645763) (720.1854 , 509, 330.20431081)
+ (988.12683, 477, 448.51941018) (259.07465, 809, 503.20624415)
+ (419.67538, 472, 867.90883715)]
+</pre></div>
+</div>
+</div>
+<div class="section" id="stack-real-to-target-dtype">
+<h2>stack_real_to_target_dtype()<a class="headerlink" href="#stack-real-to-target-dtype" title="Permalink to this headline">¶</a></h2>
+<p>This function performs the inverse of <code class="docutils literal notranslate"><span class="pre">flatten_to_real()</span></code> - stacks the provided real-valued dataset into a complex or
+compound valued dataset using the two above functions. Note that unlike <code class="docutils literal notranslate"><span class="pre">flatten_to_real()</span></code>, the target data type must
+be supplied to the function for this to work:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;Real valued dataset of shape {}:&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">real_val</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">real_val</span><span class="p">)</span>
+
+<span class="n">comp_val</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">dtype_utils</span><span class="o">.</span><span class="n">stack_real_to_target_dtype</span><span class="p">(</span><span class="n">real_val</span><span class="p">,</span> <span class="n">struct_dtype</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Structured array of shape: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">comp_val</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">comp_val</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Real valued dataset of shape (15,):
+[981.36521359 720.1854334  988.12682696 259.07465697 419.67539727
+ 115.         509.         477.         809.         472.
+ 188.44645763 330.20431081 448.51941018 503.20624415 867.90883715]
+
+Structured array of shape: (5,)
+[(981.36523, 115, 188.44645763) (720.1854 , 509, 330.20431081)
+ (988.12683, 477, 448.51941018) (259.07465, 809, 503.20624415)
+ (419.67538, 472, 867.90883715)]
+</pre></div>
+</div>
+</div>
+<div class="section" id="check-dtype">
+<h2>check_dtype()<a class="headerlink" href="#check-dtype" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">check_dtype()</span></code> is a master function that figures out the data type, necessary function to transform a HDF5 dataset to
+a real-valued array, expected data shape, etc. Before we demonstrate this function, we need to quickly create an
+example HDF5 dataset.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">file_path</span> <span class="o">=</span> <span class="s1">&#39;dtype_utils_example.h5&#39;</span>
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">h5_f</span><span class="p">:</span>
+    <span class="n">num_elems</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+    <span class="n">structured_array</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.zeros.html#numpy.zeros" title="View documentation for numpy.zeros"><span class="n">np</span><span class="o">.</span><span class="n">zeros</span></a><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">num_elems</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">struct_dtype</span><span class="p">)</span>
+    <span class="n">structured_array</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">450</span> <span class="o">*</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.random.html#numpy.random.random" title="View documentation for numpy.random.random"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span></a><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">num_elems</span><span class="p">)</span>
+    <span class="n">structured_array</span><span class="p">[</span><span class="s1">&#39;g&#39;</span><span class="p">]</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.randint.html#numpy.random.randint" title="View documentation for numpy.random.randint"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span></a><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">num_elems</span><span class="p">)</span>
+    <span class="n">structured_array</span><span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3178</span> <span class="o">*</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.random.html#numpy.random.random" title="View documentation for numpy.random.random"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span></a><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">num_elems</span><span class="p">)</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">h5_f</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s1">&#39;compound&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">structured_array</span><span class="p">)</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">h5_f</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s1">&#39;real&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="mi">450</span> <span class="o">*</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.random.html#numpy.random.random" title="View documentation for numpy.random.random"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span></a><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">num_elems</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">)</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">h5_f</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s1">&#39;complex&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.random.html#numpy.random.random" title="View documentation for numpy.random.random"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span></a><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">num_elems</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1j</span> <span class="o">*</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.random.html#numpy.random.random" title="View documentation for numpy.random.random"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span></a><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">num_elems</span><span class="p">),</span>
+                            <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex64</span><span class="p">)</span>
+    <span class="n">h5_f</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Now, lets test the the function on compound-, complex-, and real-valued HDF5 datasets:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">check_dataset</span><span class="p">(</span><span class="n">h5_dset</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">Dataset being tested: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">h5_dset</span><span class="p">))</span>
+    <span class="n">func</span><span class="p">,</span> <span class="n">is_complex</span><span class="p">,</span> <span class="n">is_compound</span><span class="p">,</span> <span class="n">n_features</span><span class="p">,</span> <span class="n">type_mult</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">dtype_utils</span><span class="o">.</span><span class="n">check_dtype</span><span class="p">(</span><span class="n">h5_dset</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">Function to transform to real: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">func</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">is_complex? </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">is_complex</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">is_compound? </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">is_compound</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">Shape of dataset in its current form: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">h5_dset</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">After flattening to real, shape is expected to be: ({}, {})&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">h5_dset</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">n_features</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">Byte-size of a single element in its current form: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">type_mult</span><span class="p">))</span>
+
+
+<span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">h5_f</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Checking a compound-valued dataset:&#39;</span><span class="p">)</span>
+    <span class="n">check_dataset</span><span class="p">(</span><span class="n">h5_f</span><span class="p">[</span><span class="s1">&#39;compound&#39;</span><span class="p">])</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Checking a complex-valued dataset:&#39;</span><span class="p">)</span>
+    <span class="n">check_dataset</span><span class="p">(</span><span class="n">h5_f</span><span class="p">[</span><span class="s1">&#39;complex&#39;</span><span class="p">])</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Checking a real-valued dataset:&#39;</span><span class="p">)</span>
+    <span class="n">check_dataset</span><span class="p">(</span><span class="n">h5_f</span><span class="p">[</span><span class="s1">&#39;real&#39;</span><span class="p">])</span>
+<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Checking a compound-valued dataset:
+        Dataset being tested: &lt;HDF5 dataset &quot;compound&quot;: shape (5, 7), type &quot;|V14&quot;&gt;
+        Function to transform to real: &lt;function flatten_compound_to_real at 0x7f03ca849d90&gt;
+        is_complex? False
+        is_compound? True
+        Shape of dataset in its current form: (5, 7)
+        After flattening to real, shape is expected to be: (5, 21)
+        Byte-size of a single element in its current form: 12
+
+Checking a complex-valued dataset:
+        Dataset being tested: &lt;HDF5 dataset &quot;complex&quot;: shape (5, 7), type &quot;&lt;c8&quot;&gt;
+        Function to transform to real: &lt;function flatten_complex_to_real at 0x7f03ca849d08&gt;
+        is_complex? True
+        is_compound? False
+        Shape of dataset in its current form: (5, 7)
+        After flattening to real, shape is expected to be: (5, 14)
+        Byte-size of a single element in its current form: 8
+
+Checking a real-valued dataset:
+        Dataset being tested: &lt;HDF5 dataset &quot;real&quot;: shape (5, 7), type &quot;&lt;f2&quot;&gt;
+        Function to transform to real: &lt;class &#39;numpy.float32&#39;&gt;
+        is_complex? False
+        is_compound? False
+        Shape of dataset in its current form: (5, 7)
+        After flattening to real, shape is expected to be: (5, 7)
+        Byte-size of a single element in its current form: 4
+</pre></div>
+</div>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  0.012 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-cookbooks-plot-dtype-utils-py">
+<div class="sphx-glr-download docutils container">
+<a class="reference download internal" href="../../_downloads/plot_dtype_utils.py" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_dtype_utils.py</span></code></a></div>
+<div class="sphx-glr-download docutils container">
+<a class="reference download internal" href="../../_downloads/plot_dtype_utils.ipynb" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_dtype_utils.ipynb</span></code></a></div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="plot_parallel_compute.html" class="btn btn-neutral float-right" title="07. Speed up computations with parallel_compute()" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="plot_hdf_utils_read.html" class="btn btn-neutral" title="05. Utilities for reading h5USID files" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Suhas Somnath, Chris R. Smith, Stephen Jesse.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.0.4',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

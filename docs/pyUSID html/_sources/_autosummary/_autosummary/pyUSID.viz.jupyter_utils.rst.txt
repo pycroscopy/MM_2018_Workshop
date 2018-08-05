@@ -1,0 +1,23 @@
+pyUSID.viz.jupyter\_utils
+=========================
+
+.. automodule:: pyUSID.viz.jupyter_utils
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      save_fig_filebox_button
+      simple_ndim_visualizer
+   
+   
+
+   
+   
+   
+
+   
+   
+   

@@ -1,0 +1,592 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pycroscopy.viz.be_viz_utils &mdash; pycroscopy 0.60.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pycroscopy.viz.cluster_utils" href="pycroscopy.viz.cluster_utils.html" />
+    <link rel="prev" title="pycroscopy.viz" href="../pycroscopy.viz.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> pycroscopy
+          
+
+          
+            
+            <img src="../../_static/logo_v01.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.60.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">Pycroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../package_organization.html">Package Organization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../translators.html">Data Translators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../papers_conferences.html">Papers / Conferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whats_new.html">What’s New</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../api.html#package-structure">Package Structure</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.analysis.html">pycroscopy.analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.io.html">pycroscopy.io</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.processing.html">pycroscopy.processing</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../pycroscopy.viz.html">pycroscopy.viz</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../pycroscopy.viz.html#submodules">Submodules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pycroscopy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../api.html">API Reference</a> &raquo;</li>
+        
+          <li><a href="../pycroscopy.viz.html">pycroscopy.viz</a> &raquo;</li>
+        
+      <li>pycroscopy.viz.be_viz_utils</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/_autosummary/_autosummary/pycroscopy.viz.be_viz_utils.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pycroscopy.viz.be_viz_utils">
+<span id="pycroscopy-viz-be-viz-utils"></span><h1>pycroscopy.viz.be_viz_utils<a class="headerlink" href="#module-pycroscopy.viz.be_viz_utils" title="Permalink to this headline">¶</a></h1>
+<p>Created on Thu Jan 05 13:29:12 2017</p>
+<p>&#64;author: Chris R. Smith, Suhas Somnath</p>
+<p class="rubric">Functions</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pycroscopy.viz.be_viz_utils.jupyter_visualize_be_spectrograms" title="pycroscopy.viz.be_viz_utils.jupyter_visualize_be_spectrograms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">jupyter_visualize_be_spectrograms</span></code></a>(pc_main[,&nbsp;…])</td>
+<td>Jupyer notebook ONLY function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pycroscopy.viz.be_viz_utils.jupyter_visualize_beps_loops" title="pycroscopy.viz.be_viz_utils.jupyter_visualize_beps_loops"><code class="xref py py-obj docutils literal notranslate"><span class="pre">jupyter_visualize_beps_loops</span></code></a>(…[,&nbsp;…])</td>
+<td>Interactive plotting of the BE Loops</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pycroscopy.viz.be_viz_utils.jupyter_visualize_beps_sho" title="pycroscopy.viz.be_viz_utils.jupyter_visualize_beps_sho"><code class="xref py py-obj docutils literal notranslate"><span class="pre">jupyter_visualize_beps_sho</span></code></a>(pc_sho_dset,&nbsp;…)</td>
+<td>Jupyer notebook ONLY function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pycroscopy.viz.be_viz_utils.jupyter_visualize_loop_sho_raw_comparison" title="pycroscopy.viz.be_viz_utils.jupyter_visualize_loop_sho_raw_comparison"><code class="xref py py-obj docutils literal notranslate"><span class="pre">jupyter_visualize_loop_sho_raw_comparison</span></code></a>(…)</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param h5_loop_parameters:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pycroscopy.viz.be_viz_utils.jupyter_visualize_parameter_maps" title="pycroscopy.viz.be_viz_utils.jupyter_visualize_parameter_maps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">jupyter_visualize_parameter_maps</span></code></a>(…[,&nbsp;cmap])</td>
+<td>Interactive plot of the spatial maps of the loop parameters for all cycles.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pycroscopy.viz.be_viz_utils.plot_1d_spectrum" title="pycroscopy.viz.be_viz_utils.plot_1d_spectrum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_1d_spectrum</span></code></a>(data_vec,&nbsp;freq,&nbsp;title,&nbsp;**kwargs)</td>
+<td>Plots the Step averaged BE response</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pycroscopy.viz.be_viz_utils.plot_2d_spectrogram" title="pycroscopy.viz.be_viz_utils.plot_2d_spectrogram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_2d_spectrogram</span></code></a>(mean_spectrogram,&nbsp;freq)</td>
+<td>Plots the position averaged spectrogram</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pycroscopy.viz.be_viz_utils.plot_histograms" title="pycroscopy.viz.be_viz_utils.plot_histograms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_histograms</span></code></a>(p_hist,&nbsp;p_hbins,&nbsp;title[,&nbsp;…])</td>
+<td>Plots the position averaged spectrogram</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pycroscopy.viz.be_viz_utils.plot_loop_guess_fit" title="pycroscopy.viz.be_viz_utils.plot_loop_guess_fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_loop_guess_fit</span></code></a>(vdc,&nbsp;ds_proj_loops,&nbsp;…)</td>
+<td>Plots the loop guess, fit, source projected loops for a single cycle</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pycroscopy.viz.be_viz_utils.plot_loop_sho_raw_comparison" title="pycroscopy.viz.be_viz_utils.plot_loop_sho_raw_comparison"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_loop_sho_raw_comparison</span></code></a>(h5_loop_parameters)</td>
+<td><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param h5_loop_parameters:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body">Dataset containing the loop parameters</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pycroscopy.viz.be_viz_utils.visualize_sho_results" title="pycroscopy.viz.be_viz_utils.visualize_sho_results"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visualize_sho_results</span></code></a>(h5_main[,&nbsp;save_plots,&nbsp;…])</td>
+<td>Plots some loops, amplitude, phase maps for BE-Line and BEPS datasets.</td>
+</tr>
+</tbody>
+</table>
+<dl class="function">
+<dt id="pycroscopy.viz.be_viz_utils.jupyter_visualize_be_spectrograms">
+<code class="descname">jupyter_visualize_be_spectrograms</code><span class="sig-paren">(</span><em>pc_main</em>, <em>cmap=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/viz/be_viz_utils.html#jupyter_visualize_be_spectrograms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.viz.be_viz_utils.jupyter_visualize_be_spectrograms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Jupyer notebook ONLY function. Sets up a simple visualzier for visualizing raw BE data.
+Sliders for position indices can be used to visualize BE spectrograms (frequency, UDVS step).
+In the case of 2 spatial dimensions, a spatial map will be provided as well</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>pc_main</strong> (<em>USIDataset</em>) – Raw Band Excitation dataset</li>
+<li><strong>cmap</strong> (<em>String</em><em>, or </em><em>matplotlib.colors.LinearSegmentedColormap object</em><em> (</em><em>Optional</em><em>)</em>) – Requested color map</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pycroscopy.viz.be_viz_utils.jupyter_visualize_beps_loops">
+<code class="descname">jupyter_visualize_beps_loops</code><span class="sig-paren">(</span><em>h5_projected_loops</em>, <em>h5_loop_guess</em>, <em>h5_loop_fit</em>, <em>step_chan='DC_Offset'</em>, <em>cmap=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/viz/be_viz_utils.html#jupyter_visualize_beps_loops"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.viz.be_viz_utils.jupyter_visualize_beps_loops" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interactive plotting of the BE Loops</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_projected_loops</strong> (<em>h5py.Dataset</em>) – Dataset holding the loop projections</li>
+<li><strong>h5_loop_guess</strong> (<em>h5py.Dataset</em>) – Dataset holding the loop guesses</li>
+<li><strong>h5_loop_fit</strong> (<em>h5py.Dataset</em>) – Dataset holding the loop fits</li>
+<li><strong>step_chan</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – The name of the Spectroscopic dimension to plot versus.  Needs testing.
+Default ‘DC_Offset’</li>
+<li><strong>cmap</strong> (<em>String</em><em>, or </em><em>matplotlib.colors.LinearSegmentedColormap object</em><em> (</em><em>Optional</em><em>)</em>) – Requested color map</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)">None</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pycroscopy.viz.be_viz_utils.jupyter_visualize_beps_sho">
+<code class="descname">jupyter_visualize_beps_sho</code><span class="sig-paren">(</span><em>pc_sho_dset</em>, <em>step_chan</em>, <em>resp_func=None</em>, <em>resp_label='Response'</em>, <em>cmap=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/viz/be_viz_utils.html#jupyter_visualize_beps_sho"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.viz.be_viz_utils.jupyter_visualize_beps_sho" title="Permalink to this definition">¶</a></dt>
+<dd><p>Jupyer notebook ONLY function. Sets up an interactive visualizer for viewing SHO fitted BEPS data.
+Currently, this is limited to DC and AC spectroscopy datasets.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>pc_sho_dset</strong> (<em>USIDataset</em>) – dataset to be plotted</li>
+<li><strong>step_chan</strong> (<em>string / unicode</em>) – Name of the channel that forms the primary spectroscopic axis (eg - DC offset)</li>
+<li><strong>resp_func</strong> (<em>function</em><em> (</em><em>optional</em><em>)</em>) – Function to apply to the spectroscopic data. Currently, DC spectroscopy uses A*cos(phi) and AC spectroscopy
+uses A</li>
+<li><strong>resp_label</strong> (<em>string / unicode</em><em> (</em><em>optional</em><em>)</em>) – Label for the response (y) axis.</li>
+<li><strong>cmap</strong> (<em>String</em><em>, or </em><em>matplotlib.colors.LinearSegmentedColormap object</em><em> (</em><em>Optional</em><em>)</em>) – Requested color map</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pycroscopy.viz.be_viz_utils.jupyter_visualize_loop_sho_raw_comparison">
+<code class="descname">jupyter_visualize_loop_sho_raw_comparison</code><span class="sig-paren">(</span><em>h5_loop_parameters</em>, <em>cmap=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/viz/be_viz_utils.html#jupyter_visualize_loop_sho_raw_comparison"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.viz.be_viz_utils.jupyter_visualize_loop_sho_raw_comparison" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>h5_loop_parameters</strong> – </li>
+<li><strong>cmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><a class="reference external" href="https://matplotlib.org/api/_as_gen/matplotlib.colors.Colormap.html#matplotlib.colors.Colormap" title="(in Matplotlib v2.2.2)"><em>matplotlib.colors.Colormap</em></a>) – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pycroscopy.viz.be_viz_utils.jupyter_visualize_parameter_maps">
+<code class="descname">jupyter_visualize_parameter_maps</code><span class="sig-paren">(</span><em>h5_loop_parameters</em>, <em>cmap=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/viz/be_viz_utils.html#jupyter_visualize_parameter_maps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.viz.be_viz_utils.jupyter_visualize_parameter_maps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interactive plot of the spatial maps of the loop parameters for all cycles.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_loop_parameters</strong> (<em>h5py.Dataset</em>) – The dataset containing the loop parameters to be visualized</li>
+<li><strong>cmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><a class="reference external" href="https://matplotlib.org/api/_as_gen/matplotlib.colors.Colormap.html#matplotlib.colors.Colormap" title="(in Matplotlib v2.2.2)"><em>matplotlib.colors.Colormap</em></a>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)">None</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pycroscopy.viz.be_viz_utils.plot_1d_spectrum">
+<code class="descname">plot_1d_spectrum</code><span class="sig-paren">(</span><em>data_vec</em>, <em>freq</em>, <em>title</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/viz/be_viz_utils.html#plot_1d_spectrum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.viz.be_viz_utils.plot_1d_spectrum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots the Step averaged BE response</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>data_vec</strong> (<em>1D numpy array</em>) – Response of one BE pulse</li>
+<li><strong>freq</strong> (<em>1D numpy array</em>) – BE frequency that serves as the X axis of the plot</li>
+<li><strong>title</strong> (<em>String</em>) – Plot group name</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>fig</strong> (<em>Matplotlib.pyplot figure</em>) – Figure handle</li>
+<li><strong>axes</strong> (<em>Matplotlib.pyplot axis</em>) – Axis handle</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pycroscopy.viz.be_viz_utils.plot_2d_spectrogram">
+<code class="descname">plot_2d_spectrogram</code><span class="sig-paren">(</span><em>mean_spectrogram</em>, <em>freq</em>, <em>title=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/viz/be_viz_utils.html#plot_2d_spectrogram"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.viz.be_viz_utils.plot_2d_spectrogram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots the position averaged spectrogram</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>mean_spectrogram</strong> (<em>2D numpy complex array</em>) – Means spectrogram arranged as [frequency, UDVS step]</li>
+<li><strong>freq</strong> (<em>1D numpy float array</em>) – BE frequency that serves as the X axes of the plot</li>
+<li><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em>, </em><em>optional</em>) – Plot group name</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>fig</strong> (<em>Matplotlib.pyplot figure</em>) – Figure handle</li>
+<li><strong>axes</strong> (<em>Matplotlib.pyplot axes</em>) – Axis handle</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pycroscopy.viz.be_viz_utils.plot_histograms">
+<code class="descname">plot_histograms</code><span class="sig-paren">(</span><em>p_hist</em>, <em>p_hbins</em>, <em>title</em>, <em>figure_path=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/viz/be_viz_utils.html#plot_histograms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.viz.be_viz_utils.plot_histograms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots the position averaged spectrogram</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>p_hist</strong> (<em>2D numpy array</em>) – histogram data arranged as [physical quantity, frequency bin]</li>
+<li><strong>p_hbins</strong> (<em>1D numpy array</em>) – BE frequency that serves as the X axis of the plot</li>
+<li><strong>title</strong> (<em>String</em>) – Plot group name</li>
+<li><strong>figure_path</strong> (<em>String / Unicode</em>) – Absolute path of the file to write the figure to</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>fig</strong> – Figure handle</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Matplotlib.pyplot figure</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pycroscopy.viz.be_viz_utils.plot_loop_guess_fit">
+<code class="descname">plot_loop_guess_fit</code><span class="sig-paren">(</span><em>vdc</em>, <em>ds_proj_loops</em>, <em>ds_guess</em>, <em>ds_fit</em>, <em>title=''</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/viz/be_viz_utils.html#plot_loop_guess_fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.viz.be_viz_utils.plot_loop_guess_fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots the loop guess, fit, source projected loops for a single cycle</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>- 1D float numpy array</strong> (<em>vdc</em>) – DC offset vector (unshifted)</li>
+<li><strong>- 2D numpy array</strong> (<em>ds_proj_loops</em>) – Projected loops arranged as [position, vdc]</li>
+<li><strong>- 1D compound numpy array</strong> (<em>ds_fit</em>) – Loop guesses arranged as [position]</li>
+<li><strong>- 1D compound numpy array</strong> – Loop fits arranged as [position]</li>
+<li><strong>-</strong><strong> (</strong><strong>Optional</strong><strong>) </strong><strong>String / unicode</strong> (<em>title</em>) – Title for the figure</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><em>fig - matplotlib.pyplot.figure object</em> – Figure handle</li>
+<li><em>axes - 2D array of matplotlib.pyplot.axis handles</em> – handles to axes in the 2d figure</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pycroscopy.viz.be_viz_utils.plot_loop_sho_raw_comparison">
+<code class="descname">plot_loop_sho_raw_comparison</code><span class="sig-paren">(</span><em>h5_loop_parameters, selected_loop_parm=None, selected_loop_cycle=0, selected_loop_pos=[0, 0], selected_step=0, tick_font_size=14, cmap='viridis', step_chan='DC_Offset'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/viz/be_viz_utils.html#plot_loop_sho_raw_comparison"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.viz.be_viz_utils.plot_loop_sho_raw_comparison" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_loop_parameters</strong> (<em>h5py.Dataset</em>) – Dataset containing the loop parameters</li>
+<li><strong>selected_loop_parm</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The initial loop parameter to be plotted</li>
+<li><strong>selected_loop_cycle</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The initial loop cycle to be plotted</li>
+<li><strong>selected_loop_pos</strong> (<em>array-like of two ints</em>) – The initial position to be plotted</li>
+<li><strong>selected_step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The initial bias step to be plotted</li>
+<li><strong>tick_font_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Font size for the axes tick labels</li>
+<li><strong>cmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><a class="reference external" href="https://matplotlib.org/api/_as_gen/matplotlib.colors.Colormap.html#matplotlib.colors.Colormap" title="(in Matplotlib v2.2.2)"><em>matplotlib.colors.Colormap</em></a>) – Colormap to be used in plotting the parameter map</li>
+<li><strong>step_chan</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Name of spectral dimension loops were fit over</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)">None</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pycroscopy.viz.be_viz_utils.visualize_sho_results">
+<code class="descname">visualize_sho_results</code><span class="sig-paren">(</span><em>h5_main</em>, <em>save_plots=True</em>, <em>show_plots=True</em>, <em>cmap=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/viz/be_viz_utils.html#visualize_sho_results"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.viz.be_viz_utils.visualize_sho_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots some loops, amplitude, phase maps for BE-Line and BEPS datasets.</p>
+<p>Note: The file MUST contain SHO fit gusses at the very least</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_main</strong> (<em>HDF5 Dataset</em>) – dataset to be plotted</li>
+<li><strong>save_plots</strong> (<em>(</em><em>Optional</em><em>) </em><em>Boolean</em>) – Whether or not to save plots to files in the same directory as the h5 file</li>
+<li><strong>show_plots</strong> (<em>(</em><em>Optional</em><em>) </em><em>Boolean</em>) – Whether or not to display the plots on the screen</li>
+<li><strong>cmap</strong> (<em>String</em><em>, or </em><em>matplotlib.colors.LinearSegmentedColormap object</em><em> (</em><em>Optional</em><em>)</em>) – Requested color map</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)">None</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pycroscopy.viz.cluster_utils.html" class="btn btn-neutral float-right" title="pycroscopy.viz.cluster_utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../pycroscopy.viz.html" class="btn btn-neutral" title="pycroscopy.viz" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Suhas Somnath, Chris Smith, Stephen Jesse, Numan Laanait.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.60.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

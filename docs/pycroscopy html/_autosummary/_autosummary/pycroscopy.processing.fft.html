@@ -1,0 +1,442 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pycroscopy.processing.fft &mdash; pycroscopy 0.60.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pycroscopy.processing.gmode_utils" href="pycroscopy.processing.gmode_utils.html" />
+    <link rel="prev" title="pycroscopy.processing.decomposition" href="pycroscopy.processing.decomposition.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> pycroscopy
+          
+
+          
+            
+            <img src="../../_static/logo_v01.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.60.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">Pycroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../package_organization.html">Package Organization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../translators.html">Data Translators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../papers_conferences.html">Papers / Conferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whats_new.html">What’s New</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../api.html#package-structure">Package Structure</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.analysis.html">pycroscopy.analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.io.html">pycroscopy.io</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../pycroscopy.processing.html">pycroscopy.processing</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../pycroscopy.processing.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.viz.html">pycroscopy.viz</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pycroscopy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../api.html">API Reference</a> &raquo;</li>
+        
+          <li><a href="../pycroscopy.processing.html">pycroscopy.processing</a> &raquo;</li>
+        
+      <li>pycroscopy.processing.fft</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/_autosummary/_autosummary/pycroscopy.processing.fft.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pycroscopy.processing.fft">
+<span id="pycroscopy-processing-fft"></span><h1>pycroscopy.processing.fft<a class="headerlink" href="#module-pycroscopy.processing.fft" title="Permalink to this headline">¶</a></h1>
+<p>Created on Tue Oct 20 17:42:41 2015</p>
+<p>&#64;author: Suhas Somnath</p>
+<p class="rubric">Functions</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">are_compatible_filters</span></code>(frequency_filters)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">build_composite_freq_filter</span></code>(frequency_filters)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pycroscopy.processing.fft.build_radius_matrix" title="pycroscopy.processing.fft.build_radius_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">build_radius_matrix</span></code></a>(image_shape)</td>
+<td>Builds a matrix where the value of a given pixel is its L2 distance from the origin, which is located at the center of the provided image rather one of the corners of the image.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pycroscopy.processing.fft.down_sample" title="pycroscopy.processing.fft.down_sample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">down_sample</span></code></a>(fft_vec,&nbsp;freq_ratio)</td>
+<td>Downsamples the provided data vector</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pycroscopy.processing.fft.fft_to_real" title="pycroscopy.processing.fft.fft_to_real"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fft_to_real</span></code></a>(image)</td>
+<td>Provides the real-space equivalent of the provided image in Fourier space</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pycroscopy.processing.fft.get_2d_gauss_lpf" title="pycroscopy.processing.fft.get_2d_gauss_lpf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_2d_gauss_lpf</span></code></a>(radius_mat,&nbsp;filter_width)</td>
+<td>Builds a 2D, radially symmetric, low-pass Gaussian filter based on the provided radius matrix.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pycroscopy.processing.fft.get_fft_stack" title="pycroscopy.processing.fft.get_fft_stack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_fft_stack</span></code></a>(image_stack)</td>
+<td>Gets the 2D FFT for a single or stack of images by applying a blackman window</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pycroscopy.processing.fft.get_noise_floor" title="pycroscopy.processing.fft.get_noise_floor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_noise_floor</span></code></a>(fft_data,&nbsp;tolerance)</td>
+<td>Calculate the noise floor from the FFT data.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">FrequencyFilter</span></code>(signal_length,&nbsp;samp_rate,&nbsp;…)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">HarmonicPassFilter</span></code>(signal_length,&nbsp;samp_rate,&nbsp;…)</td>
+<td>Builds a filter that only keeps N harmonics</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">LowPassFilter</span></code>(signal_length,&nbsp;samp_rate,&nbsp;f_cutoff)</td>
+<td>Builds a low pass filter</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">NoiseBandFilter</span></code>(signal_length,&nbsp;samp_rate,&nbsp;…)</td>
+<td>Builds a filter that removes specified noise frequencies</td>
+</tr>
+</tbody>
+</table>
+<dl class="function">
+<dt id="pycroscopy.processing.fft.build_radius_matrix">
+<code class="descname">build_radius_matrix</code><span class="sig-paren">(</span><em>image_shape</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/processing/fft.html#build_radius_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.fft.build_radius_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds a matrix where the value of a given pixel is its L2 distance from the origin, which is located at the
+center of the provided image rather one of the corners of the image. The result from this function is required
+by get_2d_gauss_lpf</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>image_shape</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a>) – Number of rows and columns in the image</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>radius_mat</strong> – Radius matrix</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">2d numpy float array</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pycroscopy.processing.fft.down_sample">
+<code class="descname">down_sample</code><span class="sig-paren">(</span><em>fft_vec</em>, <em>freq_ratio</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/processing/fft.html#down_sample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.fft.down_sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downsamples the provided data vector</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fft_vec</strong> (<em>1D complex numpy array</em>) – Waveform that is already FFT shifted</li>
+<li><strong>freq_ratio</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – new sampling rate / old sampling rate (less than 1)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>fft_vec</strong> – downsampled waveform</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">1D numpy array</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pycroscopy.processing.fft.fft_to_real">
+<code class="descname">fft_to_real</code><span class="sig-paren">(</span><em>image</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/processing/fft.html#fft_to_real"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.fft.fft_to_real" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides the real-space equivalent of the provided image in Fourier space</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>image</strong> (<em>2D numpy float array</em>) – FFT of image that has been fft shifted.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>image</strong> – Image in real space</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">2D numpy float array</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pycroscopy.processing.fft.get_2d_gauss_lpf">
+<code class="descname">get_2d_gauss_lpf</code><span class="sig-paren">(</span><em>radius_mat</em>, <em>filter_width</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/processing/fft.html#get_2d_gauss_lpf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.fft.get_2d_gauss_lpf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds a 2D, radially symmetric, low-pass Gaussian filter based on the provided radius matrix. The corresponding
+high pass filter can be built simply by subtracting the resulting low-pass filter from 1.</p>
+<p>Multiply the output of this function with the (shifted) fft of an image to apply the filter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>radius_mat</strong> (<em>2d numpy float array</em>) – A [NxM] matrix of the same size as the image that this filter will be applied to</li>
+<li><strong>filter_width</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Size of the filter</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>gauss_filt</strong> – matrix with a single gaussian peak at the center of the matrix.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">2D numpy float array</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pycroscopy.processing.fft.get_fft_stack">
+<code class="descname">get_fft_stack</code><span class="sig-paren">(</span><em>image_stack</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/processing/fft.html#get_fft_stack"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.fft.get_fft_stack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the 2D FFT for a single or stack of images by applying a blackman window</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>image_stack</strong> (<em>2D</em><em> or </em><em>3D real numpy array</em>) – Either a 2D matrix [x, y] or a stack of 2D images arranged as [z or spectral, x, y]</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>fft_stack</strong> – 2 or 3 dimensional matrix arranged as [z or spectral, x, y]</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">2D or 3D real numpy array</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pycroscopy.processing.fft.get_noise_floor">
+<code class="descname">get_noise_floor</code><span class="sig-paren">(</span><em>fft_data</em>, <em>tolerance</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/processing/fft.html#get_noise_floor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.fft.get_noise_floor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the noise floor from the FFT data. Algorithm originally written by Mahmut Okatan Baris</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fft_data</strong> (<em>1D</em><em> or </em><em>2D complex numpy array</em>) – Signal in frequency space (ie - after FFT shifting) arranged as (channel or repetition, signal)</li>
+<li><strong>tolerance</strong> (<em>unsigned float</em>) – Tolerance to noise. A smaller value gets rid of more noise.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>noise_floor</strong> – One value per channel / repetition</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">1D array-like</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pycroscopy.processing.gmode_utils.html" class="btn btn-neutral float-right" title="pycroscopy.processing.gmode_utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pycroscopy.processing.decomposition.html" class="btn btn-neutral" title="pycroscopy.processing.decomposition" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Suhas Somnath, Chris Smith, Stephen Jesse, Numan Laanait.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.60.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

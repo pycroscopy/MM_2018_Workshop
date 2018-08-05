@@ -1,0 +1,544 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Spectral Unmixing &mdash; pycroscopy 0.60.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Data Translators" href="../translators.html" />
+    <link rel="prev" title="Image alignment and registration" href="plot_image_registration.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> pycroscopy
+          
+
+          
+            
+            <img src="../_static/logo_v01.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.60.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about.html">Pycroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../package_organization.html">Package Organization</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples &amp; Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#tutorials-on-fundamental-data-tools">Tutorials on fundamental data tools</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#scientific-data-analysis">Scientific Data Analysis</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="plot_fft_2d_filtering.html">FFT &amp; Filtering of Atomically Resolved Images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plot_image_registration.html">Image alignment and registration</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Spectral Unmixing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#in-this-notebook-we-load-some-spectral-data-and-perform-basic-data-analysis-including">In this notebook we load some spectral data, and perform basic data analysis, including:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#software-prerequisites">Software Prerequisites:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-data">The Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#singular-value-decomposition-svd">1. Singular Value Decomposition (SVD)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kmeans-clustering">2. KMeans Clustering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#non-negative-matrix-factorization-nmf">3. Non-negative Matrix Factorization (NMF)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../translators.html">Data Translators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../papers_conferences.html">Papers / Conferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../credits.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whats_new.html">What’s New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pycroscopy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Examples &amp; Tutorials</a> &raquo;</li>
+        
+      <li>Spectral Unmixing</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/auto_examples/plot_spectral_unmixing.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Click <a class="reference internal" href="#sphx-glr-download-auto-examples-plot-spectral-unmixing-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="spectral-unmixing">
+<span id="sphx-glr-auto-examples-plot-spectral-unmixing-py"></span><h1>Spectral Unmixing<a class="headerlink" href="#spectral-unmixing" title="Permalink to this headline">¶</a></h1>
+<p>Suhas Somnath, Rama K. Vasudevan, Stephen Jesse</p>
+<ul class="simple">
+<li>Institute for Functional Imaging of Materials</li>
+<li>Center for Nanophase Materials Sciences</li>
+</ul>
+<p>Oak Ridge National Laboratory, Oak Ridge TN 37831, USA</p>
+<div class="section" id="in-this-notebook-we-load-some-spectral-data-and-perform-basic-data-analysis-including">
+<h2>In this notebook we load some spectral data, and perform basic data analysis, including:<a class="headerlink" href="#in-this-notebook-we-load-some-spectral-data-and-perform-basic-data-analysis-including" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>KMeans Clustering</li>
+<li>Non-negative Matrix Factorization</li>
+<li>Principal Component Analysis</li>
+</ul>
+</div>
+<div class="section" id="software-prerequisites">
+<h2>Software Prerequisites:<a class="headerlink" href="#software-prerequisites" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Standard distribution of <strong>Anaconda</strong> (includes numpy, scipy, matplotlib and sci-kit learn)</li>
+<li><strong>pycroscopy</strong> : Though pycroscopy is mainly used here for plotting purposes only, it’s true capabilities
+are realized through the ability to seamlessly perform these analyses on any imaging dataset (regardless
+of origin, size, complexity) and storing the results back into the same dataset among other things</li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import packages</span>
+
+<span class="c1"># Ensure that this code works on both python 2 and python 3</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
+
+<span class="c1"># basic numeric computation:</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="c1"># The package used for creating and manipulating HDF5 files:</span>
+<span class="kn">import</span> <span class="nn">h5py</span>
+
+<span class="c1"># Plotting and visualization:</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="c1"># for downloading files:</span>
+<span class="kn">import</span> <span class="nn">wget</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1"># multivariate analysis:</span>
+<span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <a href="http://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html#sklearn.cluster.KMeans" title="View documentation for sklearn.cluster.KMeans"><span class="n">KMeans</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <a href="http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.NMF.html#sklearn.decomposition.NMF" title="View documentation for sklearn.decomposition.NMF"><span class="n">NMF</span></a>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="k">def</span> <span class="nf">install</span><span class="p">(</span><span class="n">package</span><span class="p">):</span>
+    <span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;pip&quot;</span><span class="p">,</span> <span class="s2">&quot;install&quot;</span><span class="p">,</span> <span class="n">package</span><span class="p">])</span>
+<span class="c1"># Package for downloading online files:</span>
+<span class="c1"># finally import pycroscopy:</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">pyUSID</span> <span class="kn">as</span> <span class="nn">usid</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;pyUSID not found.  Will install with pip.&#39;</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">pip</span>
+    <span class="n">install</span><span class="p">(</span><span class="s1">&#39;pyUSID&#39;</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">pyUSID</span> <span class="kn">as</span> <span class="nn">usid</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">pycroscopy</span> <span class="kn">as</span> <span class="nn">px</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;pycroscopy not found.  Will install with pip.&#39;</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">pip</span>
+    <span class="n">install</span><span class="p">(</span><span class="s1">&#39;pycroscopy&#39;</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">pycroscopy</span> <span class="kn">as</span> <span class="nn">px</span>
+<span class="kn">from</span> <span class="nn">pycroscopy.viz</span> <span class="kn">import</span> <span class="n">cluster_utils</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-data">
+<h2>The Data<a class="headerlink" href="#the-data" title="Permalink to this headline">¶</a></h2>
+<p>In this example, we will work on a <strong>Band Excitation Piezoresponse Force Microscopy (BE-PFM)</strong> imaging dataset
+acquired from advanced atomic force microscopes. In this dataset, a spectra was collected for each position in a two
+dimensional grid of spatial locations. Thus, this is a three dimensional dataset that has been flattened to a two
+dimensional matrix in accordance with the pycroscopy data format.</p>
+<p>Fortunately, all statistical analysis, machine learning, spectral unmixing algorithms, etc. only accept data that is
+formatted in the same manner of [position x spectra] in a two dimensional matrix.</p>
+<p>We will be using an data file available on our GitHub project page by default. You are encouraged
+to download this document as a Jupyter Notebook (button at the bottom of the page) and use your own data instead.
+When using your own data, you can skip this cell and provide the path to your data using the variable - data_file_path</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data_file_path</span> <span class="o">=</span> <span class="s1">&#39;temp_um.h5&#39;</span>
+<span class="c1"># download the data file from Github:</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/pycroscopy/pycroscopy/master/data/BELine_0004.h5&#39;</span>
+<span class="n">data_file_path</span> <span class="o">=</span> <span class="n">wget</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data_file_path</span><span class="p">,</span> <span class="n">bar</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+
+<span class="n">h5_file</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">data_file_path</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r+&#39;</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Contents of data file:&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;----------------------&#39;</span><span class="p">)</span>
+<span class="n">usid</span><span class="o">.</span><span class="n">hdf_utils</span><span class="o">.</span><span class="n">print_tree</span><span class="p">(</span><span class="n">h5_file</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;----------------------&#39;</span><span class="p">)</span>
+
+<span class="n">h5_meas_grp</span> <span class="o">=</span> <span class="n">h5_file</span><span class="p">[</span><span class="s1">&#39;Measurement_000&#39;</span><span class="p">]</span>
+
+<span class="c1"># Extracting some basic parameters:</span>
+<span class="n">num_rows</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">hdf_utils</span><span class="o">.</span><span class="n">get_attr</span><span class="p">(</span><span class="n">h5_meas_grp</span><span class="p">,</span> <span class="s1">&#39;grid_num_rows&#39;</span><span class="p">)</span>
+<span class="n">num_cols</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">hdf_utils</span><span class="o">.</span><span class="n">get_attr</span><span class="p">(</span><span class="n">h5_meas_grp</span><span class="p">,</span> <span class="s1">&#39;grid_num_cols&#39;</span><span class="p">)</span>
+
+<span class="c1"># Getting a reference to the main dataset:</span>
+<span class="n">h5_main</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">USIDataset</span><span class="p">(</span><span class="n">h5_meas_grp</span><span class="p">[</span><span class="s1">&#39;Channel_000/Raw_Data&#39;</span><span class="p">])</span>
+<span class="n">usid</span><span class="o">.</span><span class="n">hdf_utils</span><span class="o">.</span><span class="n">write_simple_attrs</span><span class="p">(</span><span class="n">h5_main</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;quantity&#39;</span><span class="p">:</span> <span class="s1">&#39;Deflection&#39;</span><span class="p">,</span> <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="s1">&#39;V&#39;</span><span class="p">})</span>
+
+<span class="c1"># Extracting the X axis - vector of frequencies</span>
+<span class="n">h5_spec_vals</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">hdf_utils</span><span class="o">.</span><span class="n">get_auxiliary_datasets</span><span class="p">(</span><span class="n">h5_main</span><span class="p">,</span> <span class="s1">&#39;Spectroscopic_Values&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">freq_vec</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.squeeze.html#numpy.squeeze" title="View documentation for numpy.squeeze"><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span></a><span class="p">(</span><span class="n">h5_spec_vals</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1E-3</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Data currently of shape:&#39;</span><span class="p">,</span> <span class="n">h5_main</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="n">x_label</span> <span class="o">=</span> <span class="s1">&#39;Frequency (kHz)&#39;</span>
+<span class="n">y_label</span> <span class="o">=</span> <span class="s1">&#39;Amplitude (a.u.)&#39;</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Contents of data file:
+----------------------
+/
+├ Measurement_000
+  ---------------
+  ├ Channel_000
+    -----------
+    ├ Bin_FFT
+    ├ Bin_Frequencies
+    ├ Bin_Indices
+    ├ Bin_Step
+    ├ Bin_Wfm_Type
+    ├ Excitation_Waveform
+    ├ Noise_Floor
+    ├ Position_Indices
+    ├ Position_Values
+    ├ Raw_Data
+    ├ Spatially_Averaged_Plot_Group_000
+      ---------------------------------
+      ├ Bin_Frequencies
+      ├ Mean_Spectrogram
+      ├ Spectroscopic_Parameter
+      ├ Step_Averaged_Response
+    ├ Spectroscopic_Indices
+    ├ Spectroscopic_Values
+    ├ UDVS
+    ├ UDVS_Indices
+----------------------
+Data currently of shape: (16384, 119)
+</pre></div>
+</div>
+</div>
+<div class="section" id="singular-value-decomposition-svd">
+<h2>1. Singular Value Decomposition (SVD)<a class="headerlink" href="#singular-value-decomposition-svd" title="Permalink to this headline">¶</a></h2>
+<p>SVD is an eigenvector decomposition that is defined statistically, and therefore typically produces
+non-physical eigenvectors. Consequently, the interpretation of eigenvectors and abundance maps from
+SVD requires care and caution in interpretation. Nonetheless, it is a good method for quickly
+visualizing the major trends in the dataset since the resultant eigenvectors are sorted in descending
+order of variance or importance. Furthermore, SVD is also very well suited for data cleaning through
+the reconstruction of the dataset using only the first N (most significant) components.</p>
+<p>SVD results in three matrices:</p>
+<ul class="simple">
+<li>V - Eigenvectors sorted by variance in descending order</li>
+<li>U - corresponding abundance maps</li>
+<li>S - Variance or importance of each of these components</li>
+</ul>
+<div class="section" id="advantage-of-pycroscopy">
+<h3>Advantage of pycroscopy:<a class="headerlink" href="#advantage-of-pycroscopy" title="Permalink to this headline">¶</a></h3>
+<p>Notice that we are working with a complex valued dataset. Passing the complex values as is to SVD would result in
+complex valued eigenvectors / endmembers as well as abundance maps. Complex valued abundance maps are not physical.
+Thus, one would need to restructure the data such that it is real-valued only.</p>
+<p>One solution is to stack the real value followed by the magnitude of the imaginary component before passing to SVD.
+After SVD, the real-valued eigenvectors would need to be treated as the concatenation of the real and imaginary
+components. So, the eigenvectors would need to be restructured to get back the complex valued eigenvectors.</p>
+<p><strong>Pycroscopy handles all these data transformations (both for the source dataset and the eigenvectors)
+automatically.</strong>  In general, pycroscopy handles compound / complex valued datasets everywhere possible</p>
+<p>Furthermore, while it is not discussed in this example, pycroscopy also writes back the results from SVD back to
+the same source h5 file including all relevant links to the source dataset and other ancillary datasets</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">decomposer</span> <span class="o">=</span> <a href="../_autosummary/pycroscopy.processing.html#pycroscopy.processing.SVD" title="View documentation for pycroscopy.processing.svd_utils.SVD"><span class="n">px</span><span class="o">.</span><span class="n">processing</span><span class="o">.</span><span class="n">svd_utils</span><span class="o">.</span><span class="n">SVD</span></a><span class="p">(</span><span class="n">h5_main</span><span class="p">,</span> <span class="n">num_components</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">h5_svd_group</span> <span class="o">=</span> <span class="n">decomposer</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+
+<span class="n">h5_u</span> <span class="o">=</span> <span class="n">h5_svd_group</span><span class="p">[</span><span class="s1">&#39;U&#39;</span><span class="p">]</span>
+<span class="n">h5_v</span> <span class="o">=</span> <span class="n">h5_svd_group</span><span class="p">[</span><span class="s1">&#39;V&#39;</span><span class="p">]</span>
+<span class="n">h5_s</span> <span class="o">=</span> <span class="n">h5_svd_group</span><span class="p">[</span><span class="s1">&#39;S&#39;</span><span class="p">]</span>
+
+<span class="c1"># Since the two spatial dimensions (x, y) have been collapsed to one, we need to reshape the abundance maps:</span>
+<span class="n">abun_maps</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.reshape.html#numpy.reshape" title="View documentation for numpy.reshape"><span class="n">np</span><span class="o">.</span><span class="n">reshape</span></a><span class="p">(</span><span class="n">h5_u</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">25</span><span class="p">],</span> <span class="p">(</span><span class="n">num_rows</span><span class="p">,</span> <span class="n">num_cols</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="n">usid</span><span class="o">.</span><span class="n">plot_utils</span><span class="o">.</span><span class="n">plot_map_stack</span><span class="p">(</span><span class="n">abun_maps</span><span class="p">,</span> <span class="n">num_comps</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;SVD Abundance Maps&#39;</span><span class="p">,</span> <span class="n">reverse_dims</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                             <span class="n">color_bar_mode</span><span class="o">=</span><span class="s1">&#39;single&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;inferno&#39;</span><span class="p">,</span> <span class="n">title_yoffset</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
+
+
+<span class="c1"># Visualize the variance / statistical importance of each component:</span>
+<span class="n">usid</span><span class="o">.</span><span class="n">plot_utils</span><span class="o">.</span><span class="n">plot_scree</span><span class="p">(</span><span class="n">h5_s</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Note the exponential drop of variance with number of components&#39;</span><span class="p">)</span>
+
+<span class="c1"># Visualize the eigenvectors:</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">plot_utils</span><span class="o">.</span><span class="n">plot_complex_spectra</span><span class="p">(</span><span class="n">h5_v</span><span class="p">[:</span><span class="mi">9</span><span class="p">,</span> <span class="p">:],</span> <span class="n">x_label</span><span class="o">=</span><span class="n">x_label</span><span class="p">,</span> <span class="n">y_label</span><span class="o">=</span><span class="n">y_label</span><span class="p">,</span>
+                                       <span class="n">title</span><span class="o">=</span><span class="s1">&#39;SVD Eigenvectors&#39;</span><span class="p">,</span> <span class="n">evenly_spaced</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="sphx-glr-horizontal">
+<li><img alt="../_images/sphx_glr_plot_spectral_unmixing_001.png" class="sphx-glr-multi-img first" src="../_images/sphx_glr_plot_spectral_unmixing_001.png" />
+</li>
+<li><img alt="../_images/sphx_glr_plot_spectral_unmixing_002.png" class="sphx-glr-multi-img first" src="../_images/sphx_glr_plot_spectral_unmixing_002.png" />
+</li>
+<li><img alt="../_images/sphx_glr_plot_spectral_unmixing_003.png" class="sphx-glr-multi-img first" src="../_images/sphx_glr_plot_spectral_unmixing_003.png" />
+</li>
+</ul>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Consider calling test() to check results before calling compute() which computes on the entire dataset and writes back to the HDF5 file
+Took 480.98 msec to compute randomized SVD
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="kmeans-clustering">
+<h2>2. KMeans Clustering<a class="headerlink" href="#kmeans-clustering" title="Permalink to this headline">¶</a></h2>
+<p>KMeans clustering is a quick and easy method to determine the types of spectral responses present in the
+data. It is not a decomposition method, but a basic clustering method. The user inputs the number of
+clusters (sets) to partition the data into. The algorithm proceeds to find the optimal labeling
+(ie., assignment of each spectra as belonging to the k&lt;sup&gt;th&lt;/sup&gt; set) such that the within-cluster
+sum of squares is minimized.</p>
+<p>Set the number of clusters below</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">num_clusters</span> <span class="o">=</span> <span class="mi">4</span>
+
+<span class="n">estimator</span> <span class="o">=</span> <a href="../_autosummary/pycroscopy.processing.html#pycroscopy.processing.Cluster" title="View documentation for pycroscopy.processing.Cluster"><span class="n">px</span><span class="o">.</span><span class="n">processing</span><span class="o">.</span><span class="n">Cluster</span></a><span class="p">(</span><span class="n">h5_main</span><span class="p">,</span> <a href="http://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html#sklearn.cluster.KMeans" title="View documentation for sklearn.cluster.KMeans"><span class="n">KMeans</span></a><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">num_clusters</span><span class="p">))</span>
+<span class="n">h5_kmeans_grp</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">h5_main</span><span class="p">)</span>
+<span class="n">h5_kmeans_labels</span> <span class="o">=</span> <span class="n">h5_kmeans_grp</span><span class="p">[</span><span class="s1">&#39;Labels&#39;</span><span class="p">]</span>
+<span class="n">h5_kmeans_mean_resp</span> <span class="o">=</span> <span class="n">h5_kmeans_grp</span><span class="p">[</span><span class="s1">&#39;Mean_Response&#39;</span><span class="p">]</span>
+
+<a href="../_autosummary/_autosummary/pycroscopy.viz.cluster_utils.html#pycroscopy.viz.cluster_utils.plot_cluster_h5_group" title="View documentation for pycroscopy.viz.cluster_utils.plot_cluster_h5_group"><span class="n">cluster_utils</span><span class="o">.</span><span class="n">plot_cluster_h5_group</span></a><span class="p">(</span><span class="n">h5_kmeans_grp</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="sphx-glr-horizontal">
+<li><img alt="../_images/sphx_glr_plot_spectral_unmixing_004.png" class="sphx-glr-multi-img first" src="../_images/sphx_glr_plot_spectral_unmixing_004.png" />
+</li>
+<li><img alt="../_images/sphx_glr_plot_spectral_unmixing_005.png" class="sphx-glr-multi-img first" src="../_images/sphx_glr_plot_spectral_unmixing_005.png" />
+</li>
+</ul>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Consider calling test() to check results before calling compute() which computes on the entire dataset and writes back to the HDF5 file
+Performing clustering on /Measurement_000/Channel_000/Raw_Data.
+Took 1.45 sec to compute KMeans
+Calculated the Mean Response of each cluster.
+Starting computing on 1 cores (requested 1 cores)
+Computing serially ...
+Took 360.44 msec to calculate mean response per cluster
+Writing clustering results to file.
+</pre></div>
+</div>
+</div>
+<div class="section" id="non-negative-matrix-factorization-nmf">
+<h2>3. Non-negative Matrix Factorization (NMF)<a class="headerlink" href="#non-negative-matrix-factorization-nmf" title="Permalink to this headline">¶</a></h2>
+<p>NMF, or non-negative matrix factorization, is a method that is useful towards unmixing of spectral
+data. It only works on data with positive real values. It operates by approximate determination of
+factors (matrices) W and H, given a matrix V, as shown below</p>
+<img alt="https://upload.wikimedia.org/wikipedia/commons/f/f9/NMF.png" src="https://upload.wikimedia.org/wikipedia/commons/f/f9/NMF.png" />
+<p>Unlike SVD and k-Means that can be applied to complex-valued datasets, NMF only works on non-negative datasets.
+For illustrative purposes, we will only take the amplitude component of the spectral data</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">num_comps</span> <span class="o">=</span> <span class="mi">4</span>
+
+<span class="c1"># get the non-negative portion of the dataset</span>
+<span class="n">data_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">h5_main</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <a href="http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.NMF.html#sklearn.decomposition.NMF" title="View documentation for sklearn.decomposition.NMF"><span class="n">NMF</span></a><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="n">num_comps</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data_mat</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="View documentation for matplotlib.pyplot.subplots"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">5.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">usid</span><span class="o">.</span><span class="n">plot_utils</span><span class="o">.</span><span class="n">plot_line_family</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">freq_vec</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">components_</span><span class="p">,</span> <span class="n">label_prefix</span><span class="o">=</span><span class="s1">&#39;NMF Component #&#39;</span><span class="p">)</span>
+<span class="n">axis</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">x_label</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">axis</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">y_label</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">axis</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;NMF Components&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">axis</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/sphx_glr_plot_spectral_unmixing_006.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_spectral_unmixing_006.png" />
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Close and delete the h5_file</span>
+<span class="n">h5_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">data_file_path</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  5.342 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-spectral-unmixing-py">
+<div class="sphx-glr-download docutils container">
+<a class="reference download internal" href="../_downloads/plot_spectral_unmixing.py" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_spectral_unmixing.py</span></code></a></div>
+<div class="sphx-glr-download docutils container">
+<a class="reference download internal" href="../_downloads/plot_spectral_unmixing.ipynb" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_spectral_unmixing.ipynb</span></code></a></div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../translators.html" class="btn btn-neutral float-right" title="Data Translators" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="plot_image_registration.html" class="btn btn-neutral" title="Image alignment and registration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Suhas Somnath, Chris Smith, Stephen Jesse, Numan Laanait.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.60.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

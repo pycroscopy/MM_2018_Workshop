@@ -1,0 +1,368 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pycroscopy.processing.gmode_utils &mdash; pycroscopy 0.60.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pycroscopy.processing.image_processing" href="pycroscopy.processing.image_processing.html" />
+    <link rel="prev" title="pycroscopy.processing.fft" href="pycroscopy.processing.fft.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> pycroscopy
+          
+
+          
+            
+            <img src="../../_static/logo_v01.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.60.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">Pycroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../package_organization.html">Package Organization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../translators.html">Data Translators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../papers_conferences.html">Papers / Conferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whats_new.html">What’s New</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../api.html#package-structure">Package Structure</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.analysis.html">pycroscopy.analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.io.html">pycroscopy.io</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../pycroscopy.processing.html">pycroscopy.processing</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../pycroscopy.processing.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.viz.html">pycroscopy.viz</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pycroscopy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../api.html">API Reference</a> &raquo;</li>
+        
+          <li><a href="../pycroscopy.processing.html">pycroscopy.processing</a> &raquo;</li>
+        
+      <li>pycroscopy.processing.gmode_utils</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/_autosummary/_autosummary/pycroscopy.processing.gmode_utils.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pycroscopy.processing.gmode_utils">
+<span id="pycroscopy-processing-gmode-utils"></span><h1>pycroscopy.processing.gmode_utils<a class="headerlink" href="#module-pycroscopy.processing.gmode_utils" title="Permalink to this headline">¶</a></h1>
+<p>Created on Thu May 05 13:29:12 2016</p>
+<p>&#64;author: Suhas Somnath</p>
+<p class="rubric">Functions</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pycroscopy.processing.gmode_utils.decompress_response" title="pycroscopy.processing.gmode_utils.decompress_response"><code class="xref py py-obj docutils literal notranslate"><span class="pre">decompress_response</span></code></a>(f_condensed_mat,&nbsp;…)</td>
+<td>Returns the time domain representation of waveform(s) that are compressed in the frequency space</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pycroscopy.processing.gmode_utils.reshape_from_lines_to_pixels" title="pycroscopy.processing.gmode_utils.reshape_from_lines_to_pixels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reshape_from_lines_to_pixels</span></code></a>(h5_main,&nbsp;…[,&nbsp;…])</td>
+<td>Breaks up the provided raw G-mode dataset into lines and pixels (from just lines)</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pycroscopy.processing.gmode_utils.test_filter" title="pycroscopy.processing.gmode_utils.test_filter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">test_filter</span></code></a>(resp_wfm[,&nbsp;frequency_filters,&nbsp;…])</td>
+<td>Filters the provided response with the provided filters.</td>
+</tr>
+</tbody>
+</table>
+<dl class="function">
+<dt id="pycroscopy.processing.gmode_utils.decompress_response">
+<code class="descname">decompress_response</code><span class="sig-paren">(</span><em>f_condensed_mat</em>, <em>num_pts</em>, <em>hot_inds</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/processing/gmode_utils.html#decompress_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.gmode_utils.decompress_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the time domain representation of waveform(s) that are compressed in the frequency space</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>f_condensed_mat</strong> (<em>1D</em><em> or </em><em>2D complex numpy arrays</em>) – Frequency domain signals arranged as [position, frequency].
+Only the positive frequncy bins must be in the compressed dataset.
+The dataset is assumed to have been FFT shifted (such that 0 Hz is at the center).</li>
+<li><strong>num_pts</strong> (<em>unsigned int</em>) – Number of points in the time domain signal</li>
+<li><strong>hot_inds</strong> (<em>1D unsigned int numpy array</em>) – Indices of the frequency bins in the compressed data.
+This index array will be necessary to reverse map the condensed
+FFT into its original form</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>time_resp</strong> – Time domain response arranged as [position, time]</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">2D numpy array</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Memory is given higher priority here, so this function loops over the position
+instead of doing the inverse FFT on the complete data.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pycroscopy.processing.gmode_utils.reshape_from_lines_to_pixels">
+<code class="descname">reshape_from_lines_to_pixels</code><span class="sig-paren">(</span><em>h5_main</em>, <em>pts_per_cycle</em>, <em>scan_step_x_m=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/processing/gmode_utils.html#reshape_from_lines_to_pixels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.gmode_utils.reshape_from_lines_to_pixels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Breaks up the provided raw G-mode dataset into lines and pixels (from just lines)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_main</strong> (<em>h5py.Dataset object</em>) – Reference to the main dataset that contains the raw data that is only broken up by lines</li>
+<li><strong>pts_per_cycle</strong> (<em>unsigned int</em>) – Number of points in a single pixel</li>
+<li><strong>scan_step_x_m</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Step in meters for pixels</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>h5_resh</strong> – Reference to the main dataset that contains the reshaped data</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">h5py.Dataset object</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pycroscopy.processing.gmode_utils.test_filter">
+<code class="descname">test_filter</code><span class="sig-paren">(</span><em>resp_wfm</em>, <em>frequency_filters=None</em>, <em>noise_threshold=None</em>, <em>excit_wfm=None</em>, <em>show_plots=True</em>, <em>plot_title=None</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/processing/gmode_utils.html#test_filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.processing.gmode_utils.test_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filters the provided response with the provided filters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>resp_wfm</strong> (<em>array-like</em><em>, </em><em>1D</em>) – Raw response waveform in the time domain</li>
+<li><strong>frequency_filters</strong> (<em>(</em><em>Optional</em><em>) </em><em>FrequencyFilter object</em><em> or </em><em>list of</em>) – Frequency filters to apply to signal</li>
+<li><strong>noise_threshold</strong> (<em>(</em><em>Optional</em><em>) </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – Noise threshold to apply to signal</li>
+<li><strong>excit_wfm</strong> (<em>(</em><em>Optional</em><em>) </em><em>1D array-like</em>) – Excitation waveform in the time domain. This waveform is necessary for plotting loops. If the length of
+resp_wfm matches excit_wfm, a single plot will be returned with the raw and filtered signals plotted against the
+excit_wfm. Else, resp_wfm and the filtered (filt_data) signal will be broken into chunks matching the length of
+excit_wfm and a figure with multiple plots (one for each chunk) with the raw and filtered signal chunks plotted
+against excit_wfm will be returned for fig_loops</li>
+<li><strong>show_plots</strong> (<em>(</em><em>Optional</em><em>) </em><em>Boolean</em>) – Whether or not to plot FFTs before and after filtering</li>
+<li><strong>plot_title</strong> (<em>str / unicode</em><em> (</em><em>Optional</em><em>)</em>) – Title for the raw vs filtered plots if requested. For example - ‘Row 15’</li>
+<li><strong>verbose</strong> (<em>(</em><em>Optional</em><em>) </em><em>Boolean</em>) – Prints extra debugging information if True.  Default False</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>filt_data</strong> (<em>1D numpy float array</em>) – Filtered signal in the time domain</li>
+<li><strong>fig_fft</strong> (<em>matplotlib.pyplot.figure object</em>) – handle to the plotted figure if requested, else None</li>
+<li><strong>fig_loops</strong> (<em>matplotlib.pyplot.figure object</em>) – handle to figure with the filtered signal and raw signal plotted against the excitation waveform</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pycroscopy.processing.image_processing.html" class="btn btn-neutral float-right" title="pycroscopy.processing.image_processing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pycroscopy.processing.fft.html" class="btn btn-neutral" title="pycroscopy.processing.fft" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Suhas Somnath, Chris Smith, Stephen Jesse, Numan Laanait.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.60.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

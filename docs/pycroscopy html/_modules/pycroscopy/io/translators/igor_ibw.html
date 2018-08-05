@@ -1,0 +1,470 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pycroscopy.io.translators.igor_ibw &mdash; pycroscopy 0.60.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../../../../about.html" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> pycroscopy
+          
+
+          
+            
+            <img src="../../../../_static/logo_v01.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.60.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../about.html">Pycroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../package_organization.html">Package Organization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../translators.html">Data Translators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../papers_conferences.html">Papers / Conferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../credits.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../whats_new.html">What’s New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">pycroscopy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pycroscopy.io.translators.igor_ibw</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pycroscopy.io.translators.igor_ibw</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on Wed Dec 07 16:04:34 2016</span>
+
+<span class="sd">@author: Suhas Somnath, Chris R. Smith, Raj Giri</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">remove</span>  <span class="c1"># File Path formatting</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>  <span class="c1"># For array operations</span>
+<span class="kn">import</span> <span class="nn">h5py</span>
+<span class="kn">from</span> <span class="nn">igor</span> <span class="k">import</span> <span class="n">binarywave</span> <span class="k">as</span> <span class="n">bw</span>
+
+<span class="kn">from</span> <span class="nn">pyUSID.io.translator</span> <span class="k">import</span> <span class="n">Translator</span><span class="p">,</span> \
+    <span class="n">generate_dummy_main_parms</span>  <span class="c1"># Because this class extends the abstract Translator class</span>
+<span class="kn">from</span> <span class="nn">pyUSID.io.write_utils</span> <span class="k">import</span> <span class="n">VALUES_DTYPE</span><span class="p">,</span> <span class="n">Dimension</span>
+<span class="kn">from</span> <span class="nn">pyUSID.io.hdf_utils</span> <span class="k">import</span> <span class="n">create_indexed_group</span><span class="p">,</span> <span class="n">write_main_dataset</span><span class="p">,</span> <span class="n">write_simple_attrs</span><span class="p">,</span> <span class="n">write_ind_val_dsets</span>
+
+
+<div class="viewcode-block" id="IgorIBWTranslator"><a class="viewcode-back" href="../../../../_autosummary/pycroscopy.io.html#pycroscopy.io.translators.IgorIBWTranslator">[docs]</a><span class="k">class</span> <span class="nc">IgorIBWTranslator</span><span class="p">(</span><span class="n">Translator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Translates Igor Binary Wave (.ibw) files containing images or force curves to .h5</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="IgorIBWTranslator.translate"><a class="viewcode-back" href="../../../../_autosummary/pycroscopy.io.html#pycroscopy.io.translators.IgorIBWTranslator.translate">[docs]</a>    <span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parm_encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Translates the provided file to .h5</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        file_path : String / unicode</span>
+<span class="sd">            Absolute path of the .ibw file</span>
+<span class="sd">        verbose : Boolean (Optional)</span>
+<span class="sd">            Whether or not to show  print statements for debugging</span>
+<span class="sd">        parm_encoding : str, optional</span>
+<span class="sd">            Codec to be used to decode the bytestrings into Python strings if needed.</span>
+<span class="sd">            Default &#39;utf-8&#39;</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        h5_path : String / unicode</span>
+<span class="sd">            Absolute path of the .h5 file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">file_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="c1"># Prepare the .h5 file:</span>
+        <span class="n">folder_path</span><span class="p">,</span> <span class="n">base_name</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="n">base_name</span> <span class="o">=</span> <span class="n">base_name</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+        <span class="n">h5_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder_path</span><span class="p">,</span> <span class="n">base_name</span> <span class="o">+</span> <span class="s1">&#39;.h5&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">h5_path</span><span class="p">):</span>
+            <span class="n">remove</span><span class="p">(</span><span class="n">h5_path</span><span class="p">)</span>
+
+        <span class="n">h5_file</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">h5_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Load the ibw file first</span>
+        <span class="n">ibw_obj</span> <span class="o">=</span> <span class="n">bw</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="n">ibw_wave</span> <span class="o">=</span> <span class="n">ibw_obj</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;wave&#39;</span><span class="p">)</span>
+        <span class="n">parm_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_parms</span><span class="p">(</span><span class="n">ibw_wave</span><span class="p">,</span> <span class="n">parm_encoding</span><span class="p">)</span>
+        <span class="n">chan_labels</span><span class="p">,</span> <span class="n">chan_units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_chan_labels</span><span class="p">(</span><span class="n">ibw_wave</span><span class="p">,</span> <span class="n">parm_encoding</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Channels and units found:&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">chan_labels</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">chan_units</span><span class="p">)</span>
+
+        <span class="c1"># Get the data to figure out if this is an image or a force curve</span>
+        <span class="n">images</span> <span class="o">=</span> <span class="n">ibw_wave</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;wData&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">images</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">chan_labels</span><span class="p">):</span>
+            <span class="n">chan_labels</span> <span class="o">=</span> <span class="n">chan_labels</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>  <span class="c1"># for layer 0 null set errors in older AR software</span>
+
+        <span class="k">if</span> <span class="n">images</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>  <span class="c1"># Image stack</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Found image stack of size </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">images</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+            <span class="n">type_suffix</span> <span class="o">=</span> <span class="s1">&#39;Image&#39;</span>
+
+            <span class="n">num_rows</span> <span class="o">=</span> <span class="n">parm_dict</span><span class="p">[</span><span class="s1">&#39;ScanLines&#39;</span><span class="p">]</span>
+            <span class="n">num_cols</span> <span class="o">=</span> <span class="n">parm_dict</span><span class="p">[</span><span class="s1">&#39;ScanPoints&#39;</span><span class="p">]</span>
+
+            <span class="n">images</span> <span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># now ordered as [chan, Y, X] image</span>
+            <span class="n">images</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="p">(</span><span class="n">images</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># 3D [chan, Y*X points,1]</span>
+
+            <span class="n">pos_desc</span> <span class="o">=</span> <span class="p">[</span><span class="n">Dimension</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">parm_dict</span><span class="p">[</span><span class="s1">&#39;FastScanSize&#39;</span><span class="p">],</span> <span class="n">num_cols</span><span class="p">)),</span>
+                        <span class="n">Dimension</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">parm_dict</span><span class="p">[</span><span class="s1">&#39;SlowScanSize&#39;</span><span class="p">],</span> <span class="n">num_rows</span><span class="p">))]</span>
+
+            <span class="n">spec_desc</span> <span class="o">=</span> <span class="n">Dimension</span><span class="p">(</span><span class="s1">&#39;arb&#39;</span><span class="p">,</span> <span class="s1">&#39;a.u.&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># single force curve</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Found force curve of size </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">images</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+
+            <span class="n">type_suffix</span> <span class="o">=</span> <span class="s1">&#39;ForceCurve&#39;</span>
+            <span class="n">images</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_3d</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>  <span class="c1"># now [Z, chan, 1]</span>
+            <span class="n">images</span> <span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="n">transpose</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>  <span class="c1"># [chan ,1, Z] force curve</span>
+
+            <span class="c1"># The data generated above varies linearly. Override.</span>
+            <span class="c1"># For now, we&#39;ll shove the Z sensor data into the spectroscopic values.</span>
+
+            <span class="c1"># Find the channel that corresponds to either Z sensor or Raw:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">chan_ind</span> <span class="o">=</span> <span class="n">chan_labels</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;ZSnsr&#39;</span><span class="p">)</span>
+                <span class="n">spec_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">VALUES_DTYPE</span><span class="p">(</span><span class="n">images</span><span class="p">[</span><span class="n">chan_ind</span><span class="p">]))</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">chan_ind</span> <span class="o">=</span> <span class="n">chan_labels</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;Raw&#39;</span><span class="p">)</span>
+                    <span class="n">spec_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">VALUES_DTYPE</span><span class="p">(</span><span class="n">images</span><span class="p">[</span><span class="n">chan_ind</span><span class="p">]))</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="c1"># We don&#39;t expect to come here. If we do, spectroscopic values remains as is</span>
+                    <span class="n">spec_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">images</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+            <span class="n">pos_desc</span> <span class="o">=</span> <span class="n">Dimension</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">spec_desc</span> <span class="o">=</span> <span class="n">Dimension</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">spec_data</span><span class="p">)</span>
+
+        <span class="c1"># Create measurement group</span>
+        <span class="n">meas_grp</span> <span class="o">=</span> <span class="n">create_indexed_group</span><span class="p">(</span><span class="n">h5_file</span><span class="p">,</span> <span class="s1">&#39;Measurement&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Write file and measurement level parameters</span>
+        <span class="n">global_parms</span> <span class="o">=</span> <span class="n">generate_dummy_main_parms</span><span class="p">()</span>
+        <span class="n">global_parms</span><span class="p">[</span><span class="s1">&#39;data_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;IgorIBW_&#39;</span> <span class="o">+</span> <span class="n">type_suffix</span>
+        <span class="n">global_parms</span><span class="p">[</span><span class="s1">&#39;translator&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;IgorIBW&#39;</span>
+        <span class="n">write_simple_attrs</span><span class="p">(</span><span class="n">h5_file</span><span class="p">,</span> <span class="n">global_parms</span><span class="p">)</span>
+
+        <span class="n">write_simple_attrs</span><span class="p">(</span><span class="n">meas_grp</span><span class="p">,</span> <span class="n">parm_dict</span><span class="p">)</span>
+
+        <span class="c1"># Create Position and spectroscopic datasets</span>
+        <span class="n">h5_pos_inds</span><span class="p">,</span> <span class="n">h5_pos_vals</span> <span class="o">=</span> <span class="n">write_ind_val_dsets</span><span class="p">(</span><span class="n">meas_grp</span><span class="p">,</span> <span class="n">pos_desc</span><span class="p">,</span> <span class="n">is_spectral</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">h5_spec_inds</span><span class="p">,</span> <span class="n">h5_spec_vals</span> <span class="o">=</span> <span class="n">write_ind_val_dsets</span><span class="p">(</span><span class="n">meas_grp</span><span class="p">,</span> <span class="n">spec_desc</span><span class="p">,</span> <span class="n">is_spectral</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Prepare the list of raw_data datasets</span>
+        <span class="k">for</span> <span class="n">chan_data</span><span class="p">,</span> <span class="n">chan_name</span><span class="p">,</span> <span class="n">chan_unit</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">chan_labels</span><span class="p">,</span> <span class="n">chan_units</span><span class="p">):</span>
+            <span class="n">chan_grp</span> <span class="o">=</span> <span class="n">create_indexed_group</span><span class="p">(</span><span class="n">meas_grp</span><span class="p">,</span> <span class="s1">&#39;Channel&#39;</span><span class="p">)</span>
+
+            <span class="n">write_main_dataset</span><span class="p">(</span><span class="n">chan_grp</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">chan_data</span><span class="p">),</span> <span class="s1">&#39;Raw_Data&#39;</span><span class="p">,</span>
+                               <span class="n">chan_name</span><span class="p">,</span> <span class="n">chan_unit</span><span class="p">,</span>
+                               <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span>
+                               <span class="n">h5_pos_inds</span><span class="o">=</span><span class="n">h5_pos_inds</span><span class="p">,</span> <span class="n">h5_pos_vals</span><span class="o">=</span><span class="n">h5_pos_vals</span><span class="p">,</span>
+                               <span class="n">h5_spec_inds</span><span class="o">=</span><span class="n">h5_spec_inds</span><span class="p">,</span> <span class="n">h5_spec_vals</span><span class="o">=</span><span class="n">h5_spec_vals</span><span class="p">,</span>
+                               <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished preparing raw datasets&#39;</span><span class="p">)</span>
+
+        <span class="n">h5_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">h5_path</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_read_parms</span><span class="p">(</span><span class="n">ibw_wave</span><span class="p">,</span> <span class="n">codec</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parses the parameters in the provided dictionary</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ibw_wave : dictionary</span>
+<span class="sd">            Wave entry in the dictionary obtained from loading the ibw file</span>
+<span class="sd">        codec : str, optional</span>
+<span class="sd">            Codec to be used to decode the bytestrings into Python strings if needed.</span>
+<span class="sd">            Default &#39;utf-8&#39;</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        parm_dict : dictionary</span>
+<span class="sd">            Dictionary containing parameters</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parm_string</span> <span class="o">=</span> <span class="n">ibw_wave</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;note&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">parm_string</span><span class="p">)</span> <span class="o">==</span> <span class="nb">bytes</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">parm_string</span> <span class="o">=</span> <span class="n">parm_string</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">codec</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">parm_string</span> <span class="o">=</span> <span class="n">parm_string</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ISO-8859-1&#39;</span><span class="p">)</span>  <span class="c1"># for older AR software</span>
+        <span class="n">parm_string</span> <span class="o">=</span> <span class="n">parm_string</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">parm_list</span> <span class="o">=</span> <span class="n">parm_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">parm_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">pair_string</span> <span class="ow">in</span> <span class="n">parm_list</span><span class="p">:</span>
+            <span class="n">temp</span> <span class="o">=</span> <span class="n">pair_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">temp</span><span class="p">]</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">num</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="n">parm_dict</span><span class="p">[</span><span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">num</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">num</span> <span class="o">==</span> <span class="nb">int</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+                            <span class="n">parm_dict</span><span class="p">[</span><span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="ne">OverflowError</span><span class="p">:</span>
+                        <span class="k">pass</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="n">parm_dict</span><span class="p">[</span><span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># Grab the creation and modification times:</span>
+        <span class="n">other_parms</span> <span class="o">=</span> <span class="n">ibw_wave</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;wave_header&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;creationDate&#39;</span><span class="p">,</span> <span class="s1">&#39;modDate&#39;</span><span class="p">,</span> <span class="s1">&#39;bname&#39;</span><span class="p">]:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">parm_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">other_parms</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">return</span> <span class="n">parm_dict</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_get_chan_labels</span><span class="p">(</span><span class="n">ibw_wave</span><span class="p">,</span> <span class="n">codec</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the names of the data channels and default units</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ibw_wave : dictionary</span>
+<span class="sd">            Wave entry in the dictionary obtained from loading the ibw file</span>
+<span class="sd">        codec : str, optional</span>
+<span class="sd">            Codec to be used to decode the bytestrings into Python strings if needed.</span>
+<span class="sd">            Default &#39;utf-8&#39;</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        labels : list of strings</span>
+<span class="sd">            List of the names of the data channels</span>
+<span class="sd">        default_units : list of strings</span>
+<span class="sd">            List of units for the measurement in each channel</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="n">ibw_wave</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;labels&#39;</span><span class="p">)</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">temp</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">labels</span> <span class="o">+=</span> <span class="n">item</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">item</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                <span class="n">labels</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+        <span class="n">default_units</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">chan_ind</span><span class="p">,</span> <span class="n">chan</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
+            <span class="c1"># clean up channel names</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">chan</span><span class="p">)</span> <span class="o">==</span> <span class="nb">bytes</span><span class="p">:</span>
+                <span class="n">chan</span> <span class="o">=</span> <span class="n">chan</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">codec</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">chan</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s1">&#39;trace&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">labels</span><span class="p">[</span><span class="n">chan_ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">chan</span><span class="p">[:</span><span class="n">chan</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s1">&#39;trace&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">5</span><span class="p">]</span>
+            <span class="c1"># Figure out (default) units</span>
+            <span class="k">if</span> <span class="n">chan</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;Phase&#39;</span><span class="p">):</span>
+                <span class="n">default_units</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;deg&#39;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">chan</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;Current&#39;</span><span class="p">):</span>
+                <span class="n">default_units</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">default_units</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;m&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">labels</span><span class="p">,</span> <span class="n">default_units</span>
+
+    <span class="k">def</span> <span class="nf">_parse_file_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_path</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_read_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Suhas Somnath, Chris Smith, Stephen Jesse, Numan Laanait.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.60.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

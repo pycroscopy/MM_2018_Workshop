@@ -1,0 +1,430 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pycroscopy.io.translators.sporc &mdash; pycroscopy 0.60.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../../../../about.html" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> pycroscopy
+          
+
+          
+            
+            <img src="../../../../_static/logo_v01.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.60.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../about.html">Pycroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../package_organization.html">Package Organization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../translators.html">Data Translators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../papers_conferences.html">Papers / Conferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../credits.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../whats_new.html">What’s New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">pycroscopy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pycroscopy.io.translators.sporc</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pycroscopy.io.translators.sporc</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on Tue Mar 29 16:04:34 2016</span>
+
+<span class="sd">@author: Suhas Somnath</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
+
+<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">remove</span>  <span class="c1"># File Path formatting</span>
+
+<span class="kn">import</span> <span class="nn">h5py</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>  <span class="c1"># For array operations</span>
+<span class="kn">from</span> <span class="nn">scipy.io.matlab</span> <span class="k">import</span> <span class="n">loadmat</span>  <span class="c1"># To load parameters stored in Matlab .mat file</span>
+
+<span class="kn">from</span> <span class="nn">pyUSID.io.translator</span> <span class="k">import</span> <span class="n">Translator</span><span class="p">,</span> \
+    <span class="n">generate_dummy_main_parms</span>  <span class="c1"># Because this class extends the abstract Translator class</span>
+<span class="kn">from</span> <span class="nn">pyUSID.io.write_utils</span> <span class="k">import</span> <span class="n">Dimension</span><span class="p">,</span> <span class="n">INDICES_DTYPE</span><span class="p">,</span> <span class="n">VALUES_DTYPE</span>
+<span class="kn">from</span> <span class="nn">pyUSID.io.hdf_utils</span> <span class="k">import</span> <span class="n">get_h5_obj_refs</span><span class="p">,</span> <span class="n">link_h5_objects_as_attrs</span>
+<span class="kn">from</span> <span class="nn">..write_utils</span> <span class="k">import</span> <span class="n">build_ind_val_dsets</span>
+<span class="kn">from</span> <span class="nn">..hdf_writer</span> <span class="k">import</span> <span class="n">HDFwriter</span>  <span class="c1"># Now the translator is responsible for writing the data.</span>
+<span class="c1"># The building blocks for defining heirarchical storage in the H5 file</span>
+<span class="kn">from</span> <span class="nn">..virtual_data</span> <span class="k">import</span> <span class="n">VirtualGroup</span><span class="p">,</span> <span class="n">VirtualDataset</span>
+
+
+<div class="viewcode-block" id="SporcTranslator"><a class="viewcode-back" href="../../../../_autosummary/pycroscopy.io.html#pycroscopy.io.translators.SporcTranslator">[docs]</a><span class="k">class</span> <span class="nc">SporcTranslator</span><span class="p">(</span><span class="n">Translator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Translates G-mode SPORC datasets from .mat files to .h5</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_read_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_parse_file_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_path</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="SporcTranslator.translate"><a class="viewcode-back" href="../../../../_autosummary/pycroscopy.io.html#pycroscopy.io.translators.SporcTranslator.translate">[docs]</a>    <span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parm_path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Basic method that translates .mat data files to a single .h5 file</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ------------</span>
+<span class="sd">        parm_path : string / unicode</span>
+<span class="sd">            Absolute file path of the parameters .mat file. </span>
+<span class="sd">            </span>
+<span class="sd">        Returns</span>
+<span class="sd">        ----------</span>
+<span class="sd">        h5_path : string / unicode</span>
+<span class="sd">            Absolute path of the translated h5 file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parm_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">parm_path</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">folder_path</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">parm_path</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">base_name</span><span class="p">)</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">folder_path</span><span class="p">)</span>
+        <span class="n">h5_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder_path</span><span class="p">,</span> <span class="n">base_name</span> <span class="o">+</span> <span class="s1">&#39;.h5&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Read parameters</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;reading parameter files&#39;</span><span class="p">)</span>
+        <span class="n">parm_dict</span><span class="p">,</span> <span class="n">excit_wfm</span><span class="p">,</span> <span class="n">spec_ind_mat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__readparms</span><span class="p">(</span><span class="n">parm_path</span><span class="p">)</span>
+        <span class="n">parm_dict</span><span class="p">[</span><span class="s1">&#39;data_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;SPORC&#39;</span>
+
+        <span class="n">num_rows</span> <span class="o">=</span> <span class="n">parm_dict</span><span class="p">[</span><span class="s1">&#39;grid_num_rows&#39;</span><span class="p">]</span>
+        <span class="n">num_cols</span> <span class="o">=</span> <span class="n">parm_dict</span><span class="p">[</span><span class="s1">&#39;grid_num_cols&#39;</span><span class="p">]</span>
+        <span class="n">num_pix</span> <span class="o">=</span> <span class="n">num_rows</span> <span class="o">*</span> <span class="n">num_cols</span>
+
+        <span class="c1"># new data format</span>
+        <span class="n">spec_ind_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">VALUES_DTYPE</span><span class="p">(</span><span class="n">spec_ind_mat</span><span class="p">))</span>
+
+        <span class="c1"># Now start creating datasets and populating:</span>
+        <span class="n">pos_desc</span> <span class="o">=</span> <span class="p">[</span><span class="n">Dimension</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_rows</span><span class="p">)),</span> <span class="n">Dimension</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_cols</span><span class="p">))]</span>
+        <span class="n">ds_pos_ind</span><span class="p">,</span> <span class="n">ds_pos_val</span> <span class="o">=</span> <span class="n">build_ind_val_dsets</span><span class="p">(</span><span class="n">pos_desc</span><span class="p">,</span> <span class="n">is_spectral</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="n">spec_ind_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x index&#39;</span><span class="p">,</span> <span class="s1">&#39;y index&#39;</span><span class="p">,</span> <span class="s1">&#39;loop index&#39;</span><span class="p">,</span> <span class="s1">&#39;repetition index&#39;</span><span class="p">,</span> <span class="s1">&#39;slope index&#39;</span><span class="p">]</span>
+        <span class="n">spec_ind_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">col_ind</span><span class="p">,</span> <span class="n">col_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">spec_ind_labels</span><span class="p">):</span>
+            <span class="n">spec_ind_dict</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="n">col_ind</span><span class="p">,</span> <span class="n">col_ind</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">))</span>
+        <span class="n">ds_spec_inds</span> <span class="o">=</span> <span class="n">VirtualDataset</span><span class="p">(</span><span class="s1">&#39;Spectroscopic_Indices&#39;</span><span class="p">,</span> <span class="n">INDICES_DTYPE</span><span class="p">(</span><span class="n">spec_ind_mat</span><span class="p">))</span>
+        <span class="n">ds_spec_inds</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">spec_ind_dict</span>
+        <span class="n">ds_spec_vals</span> <span class="o">=</span> <span class="n">VirtualDataset</span><span class="p">(</span><span class="s1">&#39;Spectroscopic_Values&#39;</span><span class="p">,</span> <span class="n">spec_ind_mat</span><span class="p">)</span>
+        <span class="n">ds_spec_vals</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">spec_ind_dict</span>
+        <span class="n">ds_spec_vals</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;V&#39;</span><span class="p">,</span> <span class="s1">&#39;V&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">]</span>
+
+        <span class="n">ds_excit_wfm</span> <span class="o">=</span> <span class="n">VirtualDataset</span><span class="p">(</span><span class="s1">&#39;Excitation_Waveform&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="n">excit_wfm</span><span class="p">))</span>
+
+        <span class="n">ds_raw_data</span> <span class="o">=</span> <span class="n">VirtualDataset</span><span class="p">(</span><span class="s1">&#39;Raw_Data&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">[],</span>
+                                     <span class="n">maxshape</span><span class="o">=</span><span class="p">(</span><span class="n">num_pix</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">excit_wfm</span><span class="p">)),</span>
+                                     <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">,</span> <span class="n">chunking</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">excit_wfm</span><span class="p">)),</span>
+                                     <span class="n">compression</span><span class="o">=</span><span class="s1">&#39;gzip&#39;</span><span class="p">)</span>
+
+        <span class="c1"># technically should change the date, etc.</span>
+
+        <span class="n">chan_grp</span> <span class="o">=</span> <span class="n">VirtualGroup</span><span class="p">(</span><span class="s1">&#39;Channel_000&#39;</span><span class="p">)</span>
+        <span class="n">chan_grp</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="n">parm_dict</span>
+        <span class="n">chan_grp</span><span class="o">.</span><span class="n">add_children</span><span class="p">([</span><span class="n">ds_pos_ind</span><span class="p">,</span> <span class="n">ds_pos_val</span><span class="p">,</span> <span class="n">ds_spec_inds</span><span class="p">,</span> <span class="n">ds_spec_vals</span><span class="p">,</span>
+                               <span class="n">ds_excit_wfm</span><span class="p">,</span> <span class="n">ds_raw_data</span><span class="p">])</span>
+
+        <span class="n">global_parms</span> <span class="o">=</span> <span class="n">generate_dummy_main_parms</span><span class="p">()</span>
+        <span class="n">global_parms</span><span class="p">[</span><span class="s1">&#39;grid_size_x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parm_dict</span><span class="p">[</span><span class="s1">&#39;grid_num_cols&#39;</span><span class="p">]</span>
+        <span class="n">global_parms</span><span class="p">[</span><span class="s1">&#39;grid_size_y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parm_dict</span><span class="p">[</span><span class="s1">&#39;grid_num_rows&#39;</span><span class="p">]</span>
+        <span class="c1"># assuming that the experiment was completed:        </span>
+        <span class="n">global_parms</span><span class="p">[</span><span class="s1">&#39;current_position_x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parm_dict</span><span class="p">[</span><span class="s1">&#39;grid_num_cols&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">global_parms</span><span class="p">[</span><span class="s1">&#39;current_position_y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parm_dict</span><span class="p">[</span><span class="s1">&#39;grid_num_rows&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">global_parms</span><span class="p">[</span><span class="s1">&#39;data_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parm_dict</span><span class="p">[</span><span class="s1">&#39;data_type&#39;</span><span class="p">]</span>
+        <span class="n">global_parms</span><span class="p">[</span><span class="s1">&#39;translator&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;SPORC&#39;</span>
+
+        <span class="n">meas_grp</span> <span class="o">=</span> <span class="n">VirtualGroup</span><span class="p">(</span><span class="s1">&#39;Measurement_000&#39;</span><span class="p">)</span>
+        <span class="n">meas_grp</span><span class="o">.</span><span class="n">add_children</span><span class="p">([</span><span class="n">chan_grp</span><span class="p">])</span>
+        <span class="n">spm_data</span> <span class="o">=</span> <span class="n">VirtualGroup</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">spm_data</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="n">global_parms</span>
+        <span class="n">spm_data</span><span class="o">.</span><span class="n">add_children</span><span class="p">([</span><span class="n">meas_grp</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">h5_path</span><span class="p">):</span>
+            <span class="n">remove</span><span class="p">(</span><span class="n">h5_path</span><span class="p">)</span>
+
+        <span class="c1"># Write everything except for the main data.</span>
+        <span class="n">hdf</span> <span class="o">=</span> <span class="n">HDFwriter</span><span class="p">(</span><span class="n">h5_path</span><span class="p">)</span>
+
+        <span class="n">h5_refs</span> <span class="o">=</span> <span class="n">hdf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">spm_data</span><span class="p">)</span>
+
+        <span class="n">h5_main</span> <span class="o">=</span> <span class="n">get_h5_obj_refs</span><span class="p">([</span><span class="s1">&#39;Raw_Data&#39;</span><span class="p">],</span> <span class="n">h5_refs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Now doing link_h5_objects_as_attrs:</span>
+        <span class="n">aux_ds_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Excitation_Waveform&#39;</span><span class="p">,</span> <span class="s1">&#39;Position_Indices&#39;</span><span class="p">,</span> <span class="s1">&#39;Position_Values&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;Spectroscopic_Indices&#39;</span><span class="p">,</span> <span class="s1">&#39;Spectroscopic_Values&#39;</span><span class="p">]</span>
+        <span class="n">link_h5_objects_as_attrs</span><span class="p">(</span><span class="n">h5_main</span><span class="p">,</span> <span class="n">get_h5_obj_refs</span><span class="p">(</span><span class="n">aux_ds_names</span><span class="p">,</span> <span class="n">h5_refs</span><span class="p">))</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;reading raw data now...&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Now read the raw data files:</span>
+        <span class="n">pos_ind</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">row_ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_rows</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">col_ind</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_cols</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">file_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder_path</span><span class="p">,</span> <span class="s1">&#39;result_r&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">row_ind</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_c&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">col_ind</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.mat&#39;</span><span class="p">)</span>
+                <span class="c1"># print(&#39;Working on row {} col {}&#39;.format(row_ind,col_ind))</span>
+                <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+                    <span class="c1"># Load data file</span>
+                    <span class="n">pix_data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">squeeze_me</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                    <span class="c1"># Take the inverse FFT on 1st dimension</span>
+                    <span class="n">pix_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifft</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">ifftshift</span><span class="p">(</span><span class="n">pix_data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]))</span>
+                    <span class="c1"># Verified with Matlab - no conjugate required here.</span>
+                    <span class="n">h5_main</span><span class="p">[</span><span class="n">pos_ind</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">pix_vec</span><span class="p">))</span>
+                    <span class="n">hdf</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>  <span class="c1"># flush from memory!</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;File for row </span><span class="si">{}</span><span class="s1"> col </span><span class="si">{}</span><span class="s1"> not found&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">row_ind</span><span class="p">,</span> <span class="n">col_ind</span><span class="p">))</span>
+                <span class="n">pos_ind</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="p">(</span><span class="mf">100.0</span> <span class="o">*</span> <span class="n">pos_ind</span> <span class="o">/</span> <span class="n">num_pix</span><span class="p">)</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished reading </span><span class="si">{}</span><span class="s1"> </span><span class="si">% o</span><span class="s1">f data&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">pos_ind</span> <span class="o">/</span> <span class="n">num_pix</span><span class="p">)))</span>
+
+        <span class="n">hdf</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">h5_path</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__readparms</span><span class="p">(</span><span class="n">parm_path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Copies experimental parameters from the .mat file to a dictionary</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ------------</span>
+<span class="sd">        parm_path : string / unicode</span>
+<span class="sd">            Absolute path of the parameters file</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        --------</span>
+<span class="sd">        (parm_dict, excit_wfm, spec_ind_mat) : tuple</span>
+
+<span class="sd">        parm_dict : dictionary</span>
+<span class="sd">            Dictionary containing all relevant parameters</span>
+<span class="sd">        excit_wfm : 1d numpy float array</span>
+<span class="sd">            Excitation waveform</span>
+<span class="sd">        spec_ind_mat : 2D numpy flaot array</span>
+<span class="sd">            Spectroscopic indicies matrix</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">parm_data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="n">parm_path</span><span class="p">,</span> <span class="n">squeeze_me</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">struct_as_record</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">parm_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+        <span class="n">IO_parms</span> <span class="o">=</span> <span class="n">parm_data</span><span class="p">[</span><span class="s1">&#39;IOparms&#39;</span><span class="p">]</span>
+        <span class="n">parm_dict</span><span class="p">[</span><span class="s1">&#39;IO_samp_rate_[Hz]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">(</span><span class="n">IO_parms</span><span class="p">[</span><span class="s1">&#39;sampRate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+        <span class="n">parm_dict</span><span class="p">[</span><span class="s1">&#39;IO_down_samp_rate_[Hz]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">(</span><span class="n">IO_parms</span><span class="p">[</span><span class="s1">&#39;downSampRate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+        <span class="n">parm_dict</span><span class="p">[</span><span class="s1">&#39;IO_AO0_amp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">(</span><span class="n">IO_parms</span><span class="p">[</span><span class="s1">&#39;AO0_amp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+        <span class="n">parm_dict</span><span class="p">[</span><span class="s1">&#39;IO_AI_chans&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">(</span><span class="n">parm_data</span><span class="p">[</span><span class="s1">&#39;aiChans&#39;</span><span class="p">])</span>
+
+        <span class="n">parm_dict</span><span class="p">[</span><span class="s1">&#39;grid_num_rows&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parm_data</span><span class="p">[</span><span class="s1">&#39;numrows&#39;</span><span class="p">]</span>
+        <span class="n">parm_dict</span><span class="p">[</span><span class="s1">&#39;grid_num_cols&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parm_data</span><span class="p">[</span><span class="s1">&#39;numcols&#39;</span><span class="p">]</span>
+
+        <span class="n">sporc_parms</span> <span class="o">=</span> <span class="n">parm_data</span><span class="p">[</span><span class="s1">&#39;sporcParms&#39;</span><span class="p">]</span>
+        <span class="n">parm_dict</span><span class="p">[</span><span class="s1">&#39;SPORC_V_max_[V]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="n">sporc_parms</span><span class="p">[</span><span class="s1">&#39;V_max&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+        <span class="n">parm_dict</span><span class="p">[</span><span class="s1">&#39;SPORC_N_steps&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">(</span><span class="n">sporc_parms</span><span class="p">[</span><span class="s1">&#39;N_steps&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+        <span class="n">parm_dict</span><span class="p">[</span><span class="s1">&#39;SPORC_N_reps&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">(</span><span class="n">sporc_parms</span><span class="p">[</span><span class="s1">&#39;N_reps&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+        <span class="n">parm_dict</span><span class="p">[</span><span class="s1">&#39;SPORC_t_max_[sec]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="n">sporc_parms</span><span class="p">[</span><span class="s1">&#39;t_max&#39;</span><span class="p">])</span>
+        <span class="n">parm_dict</span><span class="p">[</span><span class="s1">&#39;SPORC_f_cutoff_[Hz]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">(</span><span class="n">sporc_parms</span><span class="p">[</span><span class="s1">&#39;f_cutoff&#39;</span><span class="p">])</span>
+        <span class="n">parm_dict</span><span class="p">[</span><span class="s1">&#39;SPORC_f_rolloff_[Hz]&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">(</span><span class="n">sporc_parms</span><span class="p">[</span><span class="s1">&#39;f_rolloff&#39;</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="s1">&#39;FORC_vec&#39;</span> <span class="ow">in</span> <span class="n">parm_data</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="ow">and</span> <span class="s1">&#39;ind_vecs&#39;</span> <span class="ow">in</span> <span class="n">parm_data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">excit_wfm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="n">parm_data</span><span class="p">[</span><span class="s1">&#39;FORC_vec&#39;</span><span class="p">]))</span>
+            <span class="n">spec_ind_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">(</span><span class="n">parm_data</span><span class="p">[</span><span class="s1">&#39;ind_vecs&#39;</span><span class="p">]))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Look for a second parms file that contains these vectors:</span>
+            <span class="n">fold</span><span class="p">,</span> <span class="n">basename</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">parm_path</span><span class="p">)</span>
+            <span class="n">second_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fold</span><span class="p">,</span> <span class="s1">&#39;SPORC_wave.mat&#39;</span><span class="p">)</span>
+            <span class="n">h5_sporc_parms</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">second_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>  <span class="c1"># Use this for v7.3 and beyond.</span>
+            <span class="n">excit_wfm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">h5_sporc_parms</span><span class="p">[</span><span class="s1">&#39;FORC_vec&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+            <span class="n">spec_ind_mat</span> <span class="o">=</span> <span class="n">VALUES_DTYPE</span><span class="p">(</span><span class="n">h5_sporc_parms</span><span class="p">[</span><span class="s1">&#39;ind_vecs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+            <span class="n">h5_sporc_parms</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">parm_dict</span><span class="p">,</span> <span class="n">excit_wfm</span><span class="p">,</span> <span class="n">spec_ind_mat</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Suhas Somnath, Chris Smith, Stephen Jesse, Numan Laanait.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'0.60.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

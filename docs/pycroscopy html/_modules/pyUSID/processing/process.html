@@ -1,0 +1,631 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyUSID.processing.process &mdash; pycroscopy 0.60.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> pycroscopy
+          
+
+          
+            
+            <img src="../../../_static/logo_v01.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.60.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">Pycroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../package_organization.html">Package Organization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../translators.html">Data Translators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../papers_conferences.html">Papers / Conferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../credits.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../whats_new.html">What’s New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pycroscopy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyUSID.processing.process</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyUSID.processing.process</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on 7/17/16 10:08 AM</span>
+<span class="sd">@author: Suhas Somnath, Chris Smith</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">psutil</span>
+<span class="kn">import</span> <span class="nn">joblib</span>
+<span class="kn">import</span> <span class="nn">time</span> <span class="k">as</span> <span class="nn">tm</span>
+
+<span class="kn">from</span> <span class="nn">..io.hdf_utils</span> <span class="k">import</span> <span class="n">check_if_main</span><span class="p">,</span> <span class="n">check_for_old</span><span class="p">,</span> <span class="n">get_attributes</span>
+<span class="kn">from</span> <span class="nn">..io.usi_data</span> <span class="k">import</span> <span class="n">USIDataset</span>
+<span class="kn">from</span> <span class="nn">..io.io_utils</span> <span class="k">import</span> <span class="n">recommend_cpu_cores</span><span class="p">,</span> <span class="n">get_available_memory</span><span class="p">,</span> <span class="n">format_time</span>
+
+
+<span class="k">class</span> <span class="nc">Process</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Encapsulates the typical steps performed when applying a processing function to  a dataset.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h5_main</span><span class="p">,</span> <span class="n">cores</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_mem_mb</span><span class="o">=</span><span class="mi">4</span><span class="o">*</span><span class="mi">1024</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        h5_main : h5py.Dataset instance</span>
+<span class="sd">            The dataset over which the analysis will be performed. This dataset should be linked to the spectroscopic</span>
+<span class="sd">            indices and values, and position indices and values datasets.</span>
+<span class="sd">        cores : uint, optional</span>
+<span class="sd">            Default - all available cores - 2</span>
+<span class="sd">            How many cores to use for the computation</span>
+<span class="sd">        max_mem_mb : uint, optional</span>
+<span class="sd">            How much memory to use for the computation.  Default 1024 Mb</span>
+<span class="sd">        verbose : Boolean, (Optional, default = False)</span>
+<span class="sd">            Whether or not to print debugging statements</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">h5_main</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">mode</span> <span class="o">!=</span> <span class="s1">&#39;r+&#39;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Need to ensure that the file is in r+ mode to write results back to the file&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Checking if dataset is &quot;Main&quot;</span>
+        <span class="k">if</span> <span class="n">check_if_main</span><span class="p">(</span><span class="n">h5_main</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span> <span class="o">=</span> <span class="n">USIDataset</span><span class="p">(</span><span class="n">h5_main</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Provided dataset is not a &quot;Main&quot; dataset with necessary ancillary datasets&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_max_pos_per_read</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_max_mem_mb</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_end_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Determining the max size of the data that can be put into memory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_memory_and_cores</span><span class="p">(</span><span class="n">cores</span><span class="o">=</span><span class="n">cores</span><span class="p">,</span> <span class="n">mem</span><span class="o">=</span><span class="n">max_mem_mb</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">duplicate_h5_groups</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">partial_h5_groups</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">process_name</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Reset this in the extended classes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parms_dict</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">h5_results_grp</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Consider calling test() to check results before calling compute() which computes on the entire&#39;</span>
+              <span class="s1">&#39; dataset and writes back to the HDF5 file&#39;</span><span class="p">)</span>
+
+        <span class="c1"># DON&#39;T check for duplicates since parms_dict has not yet been initialized.</span>
+        <span class="c1"># Sub classes will check by themselves if they are interested.</span>
+
+    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tests the process on a subset (for example a pixel) of the whole data. The class can be reinstantiated with</span>
+<span class="sd">        improved parameters and tested repeatedly until the user is content, at which point the user can call</span>
+<span class="sd">        compute() on the whole dataset.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        kwargs - dict, optional</span>
+<span class="sd">            keyword arguments to test the process</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;test_on_subset has not yet been implemented&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_check_for_duplicates</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks for instances where the process was applied to the same dataset with the same parameters</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        duplicate_h5_groups : list of h5py.Datagroup objects</span>
+<span class="sd">            List of groups satisfying the above conditions</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Checking for duplicates:&#39;</span><span class="p">)</span>
+
+        <span class="n">duplicate_h5_groups</span> <span class="o">=</span> <span class="n">check_for_old</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_name</span><span class="p">,</span> <span class="n">new_parms</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parms_dict</span><span class="p">)</span>
+        <span class="n">partial_h5_groups</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># First figure out which ones are partially completed:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">duplicate_h5_groups</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">curr_group</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">duplicate_h5_groups</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">curr_group</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;last_pixel&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end_pos</span><span class="p">:</span>
+                    <span class="c1"># remove from duplicates and move to partial</span>
+                    <span class="n">partial_h5_groups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">duplicate_h5_groups</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">duplicate_h5_groups</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Note: &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_name</span> <span class="o">+</span> <span class="s1">&#39; has already been performed with the same parameters before. &#39;</span>
+                                                 <span class="s1">&#39;These results will be returned by compute() by default. &#39;</span>
+                                                 <span class="s1">&#39;Set override to True to force fresh computation&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">duplicate_h5_groups</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">partial_h5_groups</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Note: &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_name</span> <span class="o">+</span> <span class="s1">&#39; has already been performed PARTIALLY with the same parameters. &#39;</span>
+                                                 <span class="s1">&#39;compute() will resuming computation in the last group below. &#39;</span>
+                                                 <span class="s1">&#39;To choose a different group call use_patial_computation()&#39;</span>
+                                                 <span class="s1">&#39;Set override to True to force fresh computation or resume from a &#39;</span>
+                                                 <span class="s1">&#39;data group besides the last in the list.&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">partial_h5_groups</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">duplicate_h5_groups</span><span class="p">,</span> <span class="n">partial_h5_groups</span>
+
+    <span class="k">def</span> <span class="nf">use_partial_computation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h5_partial_group</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extracts the necessary parameters from the provided h5 group to resume computation</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        h5_partial_group : h5py.Datagroup object</span>
+<span class="sd">            Datagroup containing partially computed results</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Attempt to automatically take partial results</span>
+        <span class="k">if</span> <span class="n">h5_partial_group</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">partial_h5_groups</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No group was found with partial results and no such group was provided&#39;</span><span class="p">)</span>
+            <span class="n">h5_partial_group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">partial_h5_groups</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Make sure that this group is among the legal ones already discovered:</span>
+            <span class="k">if</span> <span class="n">h5_partial_group</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">partial_h5_groups</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Provided group does not appear to be in the list of discovered groups&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">parms_dict</span> <span class="o">=</span> <span class="n">get_attributes</span><span class="p">(</span><span class="n">h5_partial_group</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parms_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;last_pixel&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The last computed pixel shows that the computation was already complete&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">h5_results_grp</span> <span class="o">=</span> <span class="n">h5_partial_group</span>
+
+    <span class="k">def</span> <span class="nf">_set_memory_and_cores</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cores</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mem</span><span class="o">=</span><span class="mi">1024</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks hardware limitations such as memory, # cpus and sets the recommended datachunk sizes and the</span>
+<span class="sd">        number of cores to be used by analysis methods.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        cores : uint, optional</span>
+<span class="sd">            Default - 1</span>
+<span class="sd">            How many cores to use for the computation</span>
+<span class="sd">        mem : uint, optional</span>
+<span class="sd">            Default - 1024</span>
+<span class="sd">            The amount a memory in Mb to use in the computation</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">min_free_cores</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">psutil</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">cores</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cores</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">psutil</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span> <span class="o">-</span> <span class="n">min_free_cores</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cores</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;cores should be an integer but got: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cores</span><span class="p">))</span>
+            <span class="n">cores</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">cores</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cores</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">psutil</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">(),</span> <span class="n">cores</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">mem</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">mem</span> <span class="o">=</span> <span class="mi">1024</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mem</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;mem must be a whole number&#39;</span><span class="p">)</span>
+            <span class="n">mem</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">mem</span><span class="p">)</span>
+
+        <span class="n">_max_mem_mb</span> <span class="o">=</span> <span class="n">get_available_memory</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1E6</span>  <span class="c1"># in MB</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_max_mem_mb</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">_max_mem_mb</span><span class="p">,</span> <span class="n">mem</span><span class="p">)</span>
+
+        <span class="n">max_data_chunk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_mem_mb</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cores</span>
+
+        <span class="c1"># Now calculate the number of positions that can be stored in memory in one go.</span>
+        <span class="n">mb_per_position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mf">1e6</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_max_pos_per_read</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">max_data_chunk</span> <span class="o">/</span> <span class="n">mb_per_position</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Allowed to read </span><span class="si">{}</span><span class="s1"> pixels per chunk&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_max_pos_per_read</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Allowed to use up to&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cores</span><span class="p">),</span> <span class="s1">&#39;cores and&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_max_mem_mb</span><span class="p">),</span> <span class="s1">&#39;MB of memory&#39;</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_map_function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The function that manipulates the data on a single instance (position). This will be used by _unit_computation()</span>
+<span class="sd">        to process a chunk of data in parallel</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        args : list</span>
+<span class="sd">            arguments to the function in the correct order</span>
+<span class="sd">        kwargs : dictionary</span>
+<span class="sd">            keyword arguments to the function</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Please override the _unit_function specific to your process&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_read_data_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reads a chunk of data for the intended computation into memory</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_end_pos</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_pos_per_read</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">_end_pos</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Reading pixels </span><span class="si">{}</span><span class="s1"> to </span><span class="si">{}</span><span class="s1"> of </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end_pos</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+            <span class="c1"># DON&#39;T update the start position</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished reading all data!&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_write_results_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Writes the computed results into appropriate datasets.</span>
+
+<span class="sd">        This needs to be rewritten since the processed data is expected to be at least as large as the dataset</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Now update the start position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end_pos</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Please override the _set_results specific to your process&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_create_results_datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Process specific call that will write the h5 group, guess dataset, corresponding spectroscopic datasets and also</span>
+<span class="sd">        link the guess dataset to the spectroscopic datasets. It is recommended that the ancillary datasets be populated</span>
+<span class="sd">        within this function.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Please override the _create_results_datasets specific to your process&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_existing_datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The purpose of this function is to allow processes to resume from partly computed results</span>
+
+<span class="sd">        Start with self.h5_results_grp</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Please override the _get_existing_datasets specific to your process&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_unit_computation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The unit computation that is performed per data chunk. This allows room for any data pre / post-processing</span>
+<span class="sd">        as well as multiple calls to parallel_compute if necessary</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: Try to use the functools.partials to preconfigure the map function</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_results</span> <span class="o">=</span> <span class="n">parallel_compute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_function</span><span class="p">,</span> <span class="n">cores</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_cores</span><span class="p">,</span>
+                                         <span class="n">lengthy_computation</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                         <span class="n">func_args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="n">func_kwargs</span><span class="o">=</span><span class="n">kwargs</span><span class="p">,</span>
+                                         <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">override</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates placeholders for the results, applies the unit computation to chunks of the dataset</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        override : bool, optional. default = False</span>
+<span class="sd">            By default, compute will simply return duplicate results to avoid recomputing or resume computation on a</span>
+<span class="sd">            group with partial results. Set to True to force fresh computation.</span>
+<span class="sd">        args : list</span>
+<span class="sd">            arguments to the mapped function in the correct order</span>
+<span class="sd">        kwargs : dictionary</span>
+<span class="sd">            keyword arguments to the mapped function</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        h5_results_grp : h5py.Datagroup object</span>
+<span class="sd">            Datagroup containing all the results</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">override</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">duplicate_h5_groups</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Returned previously computed results at &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">duplicate_h5_groups</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">duplicate_h5_groups</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">partial_h5_groups</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Resuming computation in group: &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">partial_h5_groups</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">use_partial_computation</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_results_grp</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># starting fresh</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Creating datagroup and datasets&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_create_results_datasets</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># resuming from previous checkpoint</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Resuming computation&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_get_existing_datasets</span><span class="p">()</span>
+
+        <span class="n">time_per_pix</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">num_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span>
+        <span class="n">orig_start_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span>
+
+        <span class="c1"># TODO: Need to find a nice way of figuring out if a process has implemented the partial feature.</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You maybe able to abort this computation at any time and resume at a later time!</span><span class="se">\n</span><span class="s1">&#39;</span>
+              <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">If you are operating in a python console, press Ctrl+C or Cmd+C to abort</span><span class="se">\n</span><span class="s1">&#39;</span>
+              <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">If you are in a Jupyter notebook, click on &quot;Kernel&quot;&gt;&gt;&quot;Interrupt&quot;&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_read_data_chunk</span><span class="p">()</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+            <span class="n">t_start</span> <span class="o">=</span> <span class="n">tm</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_unit_computation</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+            <span class="n">tot_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">tm</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t_start</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Done parallel computing in </span><span class="si">{}</span><span class="s1"> or </span><span class="si">{}</span><span class="s1"> per pixel&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">format_time</span><span class="p">(</span><span class="n">tot_time</span><span class="p">),</span>
+                                                                             <span class="n">format_time</span><span class="p">(</span>
+                                                                                 <span class="n">tot_time</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span> <span class="o">==</span> <span class="n">orig_start_pos</span><span class="p">:</span>
+                <span class="n">time_per_pix</span> <span class="o">=</span> <span class="n">tot_time</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end_pos</span>  <span class="c1"># in seconds</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">time_remaining</span> <span class="o">=</span> <span class="p">(</span><span class="n">num_pos</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end_pos</span><span class="p">)</span> <span class="o">*</span> <span class="n">time_per_pix</span>  <span class="c1"># in seconds</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Time remaining: &#39;</span> <span class="o">+</span> <span class="n">format_time</span><span class="p">(</span><span class="n">time_remaining</span><span class="p">))</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_write_results_chunk</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_read_data_chunk</span><span class="p">()</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Completed computation on chunk. Writing to file.&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_results_grp</span>
+
+
+<span class="k">def</span> <span class="nf">parallel_compute</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">cores</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">lengthy_computation</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">func_args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">func_kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the guess function using multiple cores</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : numpy.ndarray</span>
+<span class="sd">        Data to map function to. Function will be mapped to the first axis of data</span>
+<span class="sd">    func : callable</span>
+<span class="sd">        Function to map to data</span>
+<span class="sd">    cores : uint, optional</span>
+<span class="sd">        Number of logical cores to use to compute</span>
+<span class="sd">        Default - 1 (serial computation)</span>
+<span class="sd">    lengthy_computation : bool, optional</span>
+<span class="sd">        Whether or not each computation is expected to take substantial time.</span>
+<span class="sd">        Sometimes the time for adding more cores can outweigh the time per core</span>
+<span class="sd">        Default - False</span>
+<span class="sd">    func_args : list, optional</span>
+<span class="sd">        arguments to be passed to the function</span>
+<span class="sd">    func_kwargs : dict, optional</span>
+<span class="sd">        keyword arguments to be passed onto function</span>
+<span class="sd">    verbose : bool, optional. default = False</span>
+<span class="sd">        Whether or not to print statements that aid in debugging</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    results : list</span>
+<span class="sd">        List of computational results</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">callable</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Function argument is not callable&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;data must be a numpy array&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">func_args</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">func_args</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">func_args</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="n">func_args</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">func_args</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">func_args</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Arguments to the mapped function should be specified as a list&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">func_kwargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">func_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">func_kwargs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Keyword arguments to the mapped function should be specified via a dictionary&#39;</span><span class="p">)</span>
+    <span class="n">req_cores</span> <span class="o">=</span> <span class="n">cores</span>
+    <span class="n">cores</span> <span class="o">=</span> <span class="n">recommend_cpu_cores</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                <span class="n">requested_cores</span><span class="o">=</span><span class="n">cores</span><span class="p">,</span>
+                                <span class="n">lengthy_computation</span><span class="o">=</span><span class="n">lengthy_computation</span><span class="p">,</span>
+                                <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Starting computing on </span><span class="si">{}</span><span class="s1"> cores (requested </span><span class="si">{}</span><span class="s1"> cores)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cores</span><span class="p">,</span> <span class="n">req_cores</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">cores</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">joblib</span><span class="o">.</span><span class="n">delayed</span><span class="p">(</span><span class="n">func</span><span class="p">)(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">func_args</span><span class="p">,</span> <span class="o">**</span><span class="n">func_kwargs</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">Parallel</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="n">cores</span><span class="p">)(</span><span class="n">values</span><span class="p">)</span>
+
+        <span class="c1"># Finished reading the entire data set</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished parallel computation&#39;</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Computing serially ...&quot;</span><span class="p">)</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">func</span><span class="p">(</span><span class="n">vector</span><span class="p">,</span> <span class="o">*</span><span class="n">func_args</span><span class="p">,</span> <span class="o">**</span><span class="n">func_kwargs</span><span class="p">)</span> <span class="k">for</span> <span class="n">vector</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">results</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Suhas Somnath, Chris Smith, Stephen Jesse, Numan Laanait.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.60.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

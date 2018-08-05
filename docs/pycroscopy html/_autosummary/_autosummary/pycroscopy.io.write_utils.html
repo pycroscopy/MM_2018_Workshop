@@ -1,0 +1,339 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pycroscopy.io.write_utils &mdash; pycroscopy 0.60.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pycroscopy.processing" href="../pycroscopy.processing.html" />
+    <link rel="prev" title="pycroscopy.io.translators" href="pycroscopy.io.translators.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> pycroscopy
+          
+
+          
+            
+            <img src="../../_static/logo_v01.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.60.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">Pycroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../package_organization.html">Package Organization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../translators.html">Data Translators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../papers_conferences.html">Papers / Conferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whats_new.html">What’s New</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../api.html#package-structure">Package Structure</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../api.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.analysis.html">pycroscopy.analysis</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../pycroscopy.io.html">pycroscopy.io</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../pycroscopy.io.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.processing.html">pycroscopy.processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pycroscopy.viz.html">pycroscopy.viz</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pycroscopy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../api.html">API Reference</a> &raquo;</li>
+        
+          <li><a href="../pycroscopy.io.html">pycroscopy.io</a> &raquo;</li>
+        
+      <li>pycroscopy.io.write_utils</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/_autosummary/_autosummary/pycroscopy.io.write_utils.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pycroscopy.io.write_utils">
+<span id="pycroscopy-io-write-utils"></span><h1>pycroscopy.io.write_utils<a class="headerlink" href="#module-pycroscopy.io.write_utils" title="Permalink to this headline">¶</a></h1>
+<p>Created on Tue Nov  3 21:14:25 2015</p>
+<p>&#64;author: Chris Smith</p>
+<p class="rubric">Functions</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pycroscopy.io.write_utils.build_ind_val_dsets" title="pycroscopy.io.write_utils.build_ind_val_dsets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">build_ind_val_dsets</span></code></a>(dimensions[,&nbsp;…])</td>
+<td>Creates VirtualDatasets for the position or spectroscopic indices and values of the data.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pycroscopy.io.write_utils.build_reduced_spec_dsets" title="pycroscopy.io.write_utils.build_reduced_spec_dsets"><code class="xref py py-obj docutils literal notranslate"><span class="pre">build_reduced_spec_dsets</span></code></a>(h5_parent_group,&nbsp;…)</td>
+<td>Creates new Spectroscopic Indices and Values datasets from the input datasets and keeps the dimensions specified in keep_dim</td>
+</tr>
+</tbody>
+</table>
+<dl class="function">
+<dt id="pycroscopy.io.write_utils.build_ind_val_dsets">
+<code class="descname">build_ind_val_dsets</code><span class="sig-paren">(</span><em>dimensions</em>, <em>is_spectral=True</em>, <em>verbose=False</em>, <em>base_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/write_utils.html#build_ind_val_dsets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.write_utils.build_ind_val_dsets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates VirtualDatasets for the position or spectroscopic indices and values of the data.
+Remember that the contents of the dataset can be changed if need be after the creation of the datasets.
+For example if one of the spectroscopic dimensions (e.g. - Bias) was sinusoidal and not linear, The specific
+dimension in the Spectroscopic_Values dataset can be manually overwritten.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dimensions</strong> (<em>Dimension</em><em> or </em><em>array-like of Dimension objects</em>) – Sequence of Dimension objects that provides all necessary instructions for constructing the indices and values
+datasets</li>
+<li><strong>is_spectral</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a><em>, </em><em>optional. default = True</em>) – Spectroscopic (True) or Position (False)</li>
+<li><strong>verbose</strong> (<em>Boolean</em><em>, </em><em>optional</em>) – Whether or not to print statements for debugging purposes</li>
+<li><strong>base_name</strong> (<em>str / unicode</em><em>, </em><em>optional</em>) – Prefix for the datasets. Default: ‘Position_’ when is_spectral is False, ‘Spectroscopic_’ otherwise</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>ds_inds</strong> (<em>VirtualDataset</em>) – Reduced Spectroscopic indices dataset</li>
+<li><strong>ds_vals</strong> (<em>VirtualDataset</em>) – Reduces Spectroscopic values dataset</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p><cite>steps</cite>, <cite>initial_values</cite>, <cite>labels</cite>, and ‘units’ must be the same length as
+<cite>dimensions</cite> when they are specified.</p>
+<p>Dimensions should be in the order from fastest varying to slowest.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pycroscopy.io.write_utils.build_reduced_spec_dsets">
+<code class="descname">build_reduced_spec_dsets</code><span class="sig-paren">(</span><em>h5_parent_group</em>, <em>h5_spec_inds</em>, <em>h5_spec_vals</em>, <em>keep_dim</em>, <em>step_starts</em>, <em>basename='Spectroscopic'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pycroscopy/io/write_utils.html#build_reduced_spec_dsets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pycroscopy.io.write_utils.build_reduced_spec_dsets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates new Spectroscopic Indices and Values datasets from the input datasets
+and keeps the dimensions specified in keep_dim</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>h5_parent_group</strong> (<em>h5py.Group</em><em> or </em><em>h5py.File</em>) – Group under which the indices and values datasets will be created</li>
+<li><strong>h5_spec_inds</strong> (<em>HDF5 Dataset</em>) – Spectroscopic indices dataset</li>
+<li><strong>h5_spec_vals</strong> (<em>HDF5 Dataset</em>) – Spectroscopic values dataset</li>
+<li><strong>keep_dim</strong> (<em>Numpy Array</em><em>, </em><em>Boolean</em>) – Array designating which rows of the input spectroscopic datasets to keep</li>
+<li><strong>step_starts</strong> (<em>Numpy Array</em><em>, </em><em>Unsigned Integers</em>) – Array specifying the start of each step in the reduced datasets</li>
+<li><strong>basename</strong> (<em>str / unicode</em>) – String to which ‘_Indices’ and ‘_Values’ will be appended to get the names
+of the new datasets</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>ds_inds</strong> (<em>VirtualDataset</em>) – Reduced Spectroscopic indices dataset</li>
+<li><strong>ds_vals</strong> (<em>VirtualDataset</em>) – Reduces Spectroscopic values dataset</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../pycroscopy.processing.html" class="btn btn-neutral float-right" title="pycroscopy.processing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pycroscopy.io.translators.html" class="btn btn-neutral" title="pycroscopy.io.translators" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Suhas Somnath, Chris Smith, Stephen Jesse, Numan Laanait.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.60.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+pycroscopy.analysis.be\_sho\_fitter
+===================================
+
+.. automodule:: pycroscopy.analysis.be_sho_fitter
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      is_reshapable
+      reshape_to_n_steps
+      reshape_to_one_step
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      BESHOfitter
+   
+   
+
+   
+   
+   

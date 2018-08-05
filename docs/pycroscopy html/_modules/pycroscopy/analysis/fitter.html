@@ -1,0 +1,879 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pycroscopy.analysis.fitter &mdash; pycroscopy 0.60.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> pycroscopy
+          
+
+          
+            
+            <img src="../../../_static/logo_v01.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.60.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">Pycroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../package_organization.html">Package Organization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../translators.html">Data Translators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../papers_conferences.html">Papers / Conferences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../credits.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../whats_new.html">What’s New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pycroscopy</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pycroscopy.analysis.fitter</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pycroscopy.analysis.fitter</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on 7/17/16 10:08 AM</span>
+<span class="sd">@author: Numan Laanait, Suhas Somnath, Chris Smith</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">psutil</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">h5py</span>
+<span class="kn">import</span> <span class="nn">time</span> <span class="k">as</span> <span class="nn">tm</span>
+<span class="kn">from</span> <span class="nn">.guess_methods</span> <span class="k">import</span> <span class="n">GuessMethods</span>
+<span class="kn">from</span> <span class="nn">.fit_methods</span> <span class="k">import</span> <span class="n">Fit_Methods</span>
+<span class="kn">from</span> <span class="nn">pyUSID</span> <span class="k">import</span> <span class="n">USIDataset</span>
+<span class="kn">from</span> <span class="nn">pyUSID.io.io_utils</span> <span class="k">import</span> <span class="n">get_available_memory</span><span class="p">,</span> <span class="n">recommend_cpu_cores</span><span class="p">,</span> <span class="n">format_time</span>
+<span class="kn">from</span> <span class="nn">pyUSID.io.hdf_utils</span> <span class="k">import</span> <span class="n">check_for_old</span><span class="p">,</span> <span class="n">find_results_groups</span><span class="p">,</span> <span class="n">check_for_matching_attrs</span><span class="p">,</span> <span class="n">get_attr</span>
+<span class="kn">from</span> <span class="nn">.optimize</span> <span class="k">import</span> <span class="n">Optimize</span>
+
+
+<div class="viewcode-block" id="Fitter"><a class="viewcode-back" href="../../../_autosummary/pycroscopy.analysis.html#pycroscopy.analysis.fitter.Fitter">[docs]</a><span class="k">class</span> <span class="nc">Fitter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Encapsulates the typical routines performed during model-dependent analysis of data.</span>
+<span class="sd">    This abstract class should be extended to cover different types of imaging modalities.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h5_main</span><span class="p">,</span> <span class="n">variables</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Frequency&#39;</span><span class="p">],</span> <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        For now, we assume that the guess dataset has not been generated for this dataset but we will relax this</span>
+<span class="sd">        requirement after testing the basic components.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        h5_main : h5py.Dataset instance</span>
+<span class="sd">            The dataset over which the analysis will be performed. This dataset should be linked to the spectroscopic</span>
+<span class="sd">            indices and values, and position indices and values datasets.</span>
+<span class="sd">        variables : list(string), Default [&#39;Frequency&#39;]</span>
+<span class="sd">            Lists of attributes that h5_main should possess so that it may be analyzed by Model.</span>
+<span class="sd">        parallel : bool, optional</span>
+<span class="sd">            Should the parallel implementation of the fitting be used.  Default True</span>
+<span class="sd">        verbose : bool, optional. default = False</span>
+<span class="sd">            Whether or not to print statements that aid in debugging</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">h5_main</span><span class="p">,</span> <span class="n">USIDataset</span><span class="p">):</span>
+            <span class="n">h5_main</span> <span class="o">=</span> <span class="n">USIDataset</span><span class="p">(</span><span class="n">h5_main</span><span class="p">)</span>
+
+        <span class="c1"># Checking if dataset has the proper dimensions for the model to run.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_legal</span><span class="p">(</span><span class="n">h5_main</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span> <span class="o">=</span> <span class="n">h5_main</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Provided dataset is not a &quot;Main&quot; dataset with necessary ancillary datasets&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Checking if parallel processing will be used</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parallel</span> <span class="o">=</span> <span class="n">parallel</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+
+        <span class="c1"># Determining the max size of the data that can be put into memory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_memory_and_cores</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_end_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">h5_guess</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">h5_fit</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">h5_results_grp</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># TODO: do NOT expose a lot of innards. Turn it into private with _var_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">guess</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fit</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fitter_name</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Reset this in the extended classes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parms_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_set_memory_and_cores</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks hardware limitations such as memory, # cpus and sets the recommended datachunk sizes and the</span>
+<span class="sd">        number of cores to be used by analysis methods.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parallel</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_maxCpus</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">psutil</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_maxCpus</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxCpus</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parallel</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_maxMemoryMB</span> <span class="o">=</span> <span class="n">get_available_memory</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1024</span> <span class="o">**</span> <span class="mi">2</span>  <span class="c1"># in Mb</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_maxDataChunk</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_maxMemoryMB</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxCpus</span><span class="p">)</span>
+
+        <span class="c1"># Now calculate the number of positions that can be stored in memory in one go.</span>
+        <span class="n">mb_per_position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mf">1024.0</span> <span class="o">**</span> <span class="mi">2</span>
+
+        <span class="c1"># TODO: The size of the chunk should be determined by BOTH the computation time and memory restrictions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_max_pos_per_read</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_maxDataChunk</span> <span class="o">/</span> <span class="n">mb_per_position</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Allowed to read </span><span class="si">{}</span><span class="s1"> pixels per chunk&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_max_pos_per_read</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_is_legal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h5_main</span><span class="p">,</span> <span class="n">variables</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks whether or not the provided object can be analyzed by this Model class.</span>
+<span class="sd">        Classes that extend this class will do additional checks to ensure that the supplied dataset is legal.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----</span>
+<span class="sd">        h5_main : USIDataset instance</span>
+<span class="sd">            The dataset over which the analysis will be performed. This dataset should be linked to the spectroscopic</span>
+<span class="sd">            indices and values, and position indices and values datasets.</span>
+
+<span class="sd">        variables : list(string)</span>
+<span class="sd">            The dimensions needed to be present in the attributes of h5_main to analyze the data with Model.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        legal : Boolean</span>
+<span class="sd">            Whether or not this dataset satisfies the necessary conditions for analysis</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">variables</span><span class="p">,</span> <span class="n">h5_main</span><span class="o">.</span><span class="n">spec_dim_labels</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_get_data_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reads the next chunk of data for the guess or the fit into memory</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_end_pos</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_pos_per_read</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">_end_pos</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Reading pixels </span><span class="si">{}</span><span class="s1"> to </span><span class="si">{}</span><span class="s1"> of </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end_pos</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished reading all data!&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_get_guess_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a chunk of guess dataset corresponding to the main dataset.</span>
+<span class="sd">        Should be called BEFORE _get_data_chunk since it relies upon current values of</span>
+<span class="sd">        `self._start_pos`, `self._end_pos`</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        -----</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        --------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_end_pos</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_pos_per_read</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">guess</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_guess</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">_end_pos</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">guess</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_guess</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">_end_pos</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Guess of shape: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">guess</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_set_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_guess</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Writes the provided guess or fit results into appropriate datasets.</span>
+<span class="sd">        Given that the guess and fit datasets are relatively small, we should be able to hold them in memory just fine</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ---------</span>
+<span class="sd">        is_guess : bool, optional</span>
+<span class="sd">            Default - False</span>
+<span class="sd">            Flag that differentiates the guess from the fit</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">statement</span> <span class="o">=</span> <span class="s1">&#39;guess&#39;</span>
+
+        <span class="k">if</span> <span class="n">is_guess</span><span class="p">:</span>
+            <span class="n">targ_dset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_guess</span>
+            <span class="n">source_dset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">guess</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">statement</span> <span class="o">=</span> <span class="s1">&#39;fit&#39;</span>
+            <span class="n">targ_dset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_fit</span>
+            <span class="n">source_dset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fit</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Writing data to positions: </span><span class="si">{}</span><span class="s1"> to </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end_pos</span><span class="p">))</span>
+        <span class="n">targ_dset</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end_pos</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">source_dset</span>
+
+        <span class="c1"># This flag will let us resume the computation if it is aborted</span>
+        <span class="n">targ_dset</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;last_pixel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end_pos</span>
+
+        <span class="c1"># Now update the start position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end_pos</span>
+
+        <span class="c1"># flush the file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished writing &#39;</span> <span class="o">+</span> <span class="n">statement</span> <span class="o">+</span> <span class="s1">&#39; results (chunk) to file!&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_create_guess_datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Model specific call that will write the h5 group, guess dataset, corresponding spectroscopic datasets and also</span>
+<span class="sd">        link the guess dataset to the spectroscopic datasets. It is recommended that the ancillary datasets be populated</span>
+<span class="sd">        within this function.</span>
+
+<span class="sd">        The guess dataset will NOT be populated here but will be populated by the __setData function</span>
+<span class="sd">        The fit dataset should NOT be populated here unless the user calls the optimize function.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        --------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">guess</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># replace with actual h5 dataset</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Please override the _create_guess_datasets specific to your model&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_create_fit_datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Model specific call that will write the h5 group, fit dataset, corresponding spectroscopic datasets and also</span>
+<span class="sd">        link the fit dataset to the spectroscopic datasets. It is recommended that the ancillary datasets be populated</span>
+<span class="sd">        within this function.</span>
+
+<span class="sd">        The fit dataset will NOT be populated here but will be populated by the __setData function</span>
+<span class="sd">        The guess dataset should NOT be populated here unless the user calls the optimize function.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        --------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fit</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># replace with actual h5 dataset</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Please override the _create_fit_datasets specific to your model&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_check_for_old_guess</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of datasets where the same parameters have already been used to compute Guesses for this dataset</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list</span>
+<span class="sd">            List of datasets with results from do_guess on this dataset</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">groups</span> <span class="o">=</span> <span class="n">check_for_old</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fitter_name</span><span class="p">,</span> <span class="n">new_parms</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_parms_dict</span><span class="p">,</span> <span class="n">target_dset</span><span class="o">=</span><span class="s1">&#39;Guess&#39;</span><span class="p">,</span>
+                               <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">)</span>
+        <span class="n">datasets</span> <span class="o">=</span> <span class="p">[</span><span class="n">grp</span><span class="p">[</span><span class="s1">&#39;Guess&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">grp</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">]</span>
+
+        <span class="c1"># Now sort these datasets into partial and complete:</span>
+        <span class="n">completed_dsets</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">partial_dsets</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">dset</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">last_pix</span> <span class="o">=</span> <span class="n">get_attr</span><span class="p">(</span><span class="n">dset</span><span class="p">,</span> <span class="s1">&#39;last_pixel&#39;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="n">last_pix</span> <span class="o">=</span> <span class="kc">None</span>
+                
+            <span class="c1"># Skip datasets without last_pixel attribute</span>
+            <span class="k">if</span> <span class="n">last_pix</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">elif</span> <span class="n">last_pix</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="n">partial_dsets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dset</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">completed_dsets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dset</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">partial_dsets</span><span class="p">,</span> <span class="n">completed_dsets</span>
+
+<div class="viewcode-block" id="Fitter.do_guess"><a class="viewcode-back" href="../../../_autosummary/pycroscopy.analysis.html#pycroscopy.analysis.fitter.Fitter.do_guess">[docs]</a>    <span class="k">def</span> <span class="nf">do_guess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">processors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="nb">dict</span><span class="p">(),</span> <span class="n">h5_partial_guess</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">override</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        strategy: string (optional)</span>
+<span class="sd">            Default is &#39;Wavelet_Peaks&#39;.</span>
+<span class="sd">            Can be one of [&#39;wavelet_peaks&#39;, &#39;relative_maximum&#39;, &#39;gaussian_processes&#39;].</span>
+<span class="sd">            For updated list, run GuessMethods.methods</span>
+<span class="sd">        processors : int (optional)</span>
+<span class="sd">            Number of cores to use for computing. Default = all available - 2 cores</span>
+<span class="sd">        options: dict</span>
+<span class="sd">            Default, options for wavelet_peaks {&quot;peaks_widths&quot;: np.array([10,200]), &quot;peak_step&quot;:20}.</span>
+<span class="sd">            Dictionary of options passed to strategy. For more info see GuessMethods documentation.</span>
+<span class="sd">        h5_partial_guess : h5py.group. optional, default = None</span>
+<span class="sd">            Datagroup containing (partially computed) guess results. do_guess will resume computation if provided.</span>
+<span class="sd">        override : bool, optional. default = False</span>
+<span class="sd">            By default, will simply return duplicate results to avoid recomputing or resume computation on a</span>
+<span class="sd">            group with partial results. Set to True to force fresh computation.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        h5_guess : h5py.Dataset</span>
+<span class="sd">            Dataset containing guesses that can be passed on to do_fit()</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">gm</span> <span class="o">=</span> <span class="n">GuessMethods</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">strategy</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">gm</span><span class="o">.</span><span class="n">methods</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s1">&#39;Error: </span><span class="si">%s</span><span class="s1"> is not implemented in pycroscopy.analysis.GuessMethods to find guesses&#39;</span> <span class="o">%</span>
+                           <span class="n">strategy</span><span class="p">)</span>
+
+        <span class="c1"># ################## CHECK FOR DUPLICATES AND RESUME PARTIAL #######################################</span>
+
+        <span class="c1"># Prepare the parms dict that will be used for comparison:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parms_dict</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parms_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;strategy&#39;</span><span class="p">:</span> <span class="n">strategy</span><span class="p">})</span>
+
+        <span class="c1"># check for old:</span>
+        <span class="n">partial_dsets</span><span class="p">,</span> <span class="n">completed_dsets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_for_old_guess</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">completed_dsets</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">partial_dsets</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No existing datasets found&#39;</span><span class="p">)</span>
+            <span class="n">override</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">override</span><span class="p">:</span>
+            <span class="c1"># First try to simply return any completed computation</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">completed_dsets</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Returned previously computed results at &#39;</span> <span class="o">+</span> <span class="n">completed_dsets</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">h5_guess</span> <span class="o">=</span> <span class="n">USIDataset</span><span class="p">(</span><span class="n">completed_dsets</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                <span class="k">return</span>
+
+            <span class="c1"># Next attempt to resume automatically if nothing is provided</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">partial_dsets</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># attempt to use whatever the user provided (if legal)</span>
+                <span class="n">target_partial_dset</span> <span class="o">=</span> <span class="n">partial_dsets</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">h5_partial_guess</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">h5_partial_guess</span><span class="p">,</span> <span class="n">h5py</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Provided parameter is not an h5py.Dataset object&#39;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">h5_partial_guess</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">partial_dsets</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Provided dataset for partial Guesses is not compatible&#39;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Provided partial Guess dataset was acceptable&#39;</span><span class="p">)</span>
+                    <span class="n">target_partial_dset</span> <span class="o">=</span> <span class="n">h5_partial_guess</span>
+
+                <span class="c1"># Finally resume from this dataset</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Resuming computation in group: &#39;</span> <span class="o">+</span> <span class="n">target_partial_dset</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">h5_guess</span> <span class="o">=</span> <span class="n">target_partial_dset</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span> <span class="o">=</span> <span class="n">target_partial_dset</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;last_pixel&#39;</span><span class="p">]</span>
+
+        <span class="c1"># No completed / partials available or forced via override:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_guess</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Starting a fresh computation!&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_create_guess_datasets</span><span class="p">()</span>
+
+        <span class="c1"># ################## BEGIN THE ACTUAL COMPUTING #######################################</span>
+
+        <span class="k">if</span> <span class="n">processors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">processors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxCpus</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">processors</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">processors</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxCpus</span><span class="p">)</span>
+        <span class="n">processors</span> <span class="o">=</span> <span class="n">recommend_cpu_cores</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_max_pos_per_read</span><span class="p">,</span> <span class="n">processors</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using </span><span class="si">%s</span><span class="s2"> to find guesses...</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">strategy</span><span class="p">)</span>
+
+        <span class="n">time_per_pix</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">num_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span>
+        <span class="n">orig_start_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You can abort this computation at any time and resume at a later time!</span><span class="se">\n</span><span class="s1">&#39;</span>
+              <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">If you are operating in a python console, press Ctrl+C or Cmd+C to abort</span><span class="se">\n</span><span class="s1">&#39;</span>
+              <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">If you are in a Jupyter notebook, click on &quot;Kernel&quot;&gt;&gt;&quot;Interrupt&quot;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_data_chunk</span><span class="p">()</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+            <span class="n">t_start</span> <span class="o">=</span> <span class="n">tm</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+            <span class="n">opt</span> <span class="o">=</span> <span class="n">Optimize</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_parallel</span><span class="p">)</span>
+            <span class="n">temp</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">computeGuess</span><span class="p">(</span><span class="n">processors</span><span class="o">=</span><span class="n">processors</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="n">strategy</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
+
+            <span class="c1"># reorder to get one numpy array out</span>
+            <span class="n">temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reformat_results</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="n">strategy</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">guess</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">temp</span><span class="p">))</span>
+
+            <span class="c1"># Write to file</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_results</span><span class="p">(</span><span class="n">is_guess</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="c1"># basic timing logs</span>
+            <span class="n">tot_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">tm</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t_start</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># in seconds</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Done parallel computing in </span><span class="si">{}</span><span class="s1"> or </span><span class="si">{}</span><span class="s1"> per pixel&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">format_time</span><span class="p">(</span><span class="n">tot_time</span><span class="p">),</span>
+                                                                             <span class="n">format_time</span><span class="p">(</span><span class="n">tot_time</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span> <span class="o">==</span> <span class="n">orig_start_pos</span><span class="p">:</span>
+                <span class="n">time_per_pix</span> <span class="o">=</span> <span class="n">tot_time</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end_pos</span>  <span class="c1"># in seconds</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">time_remaining</span> <span class="o">=</span> <span class="p">(</span><span class="n">num_pos</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end_pos</span><span class="p">)</span> <span class="o">*</span> <span class="n">time_per_pix</span>  <span class="c1"># in seconds</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Time remaining: &#39;</span> <span class="o">+</span> <span class="n">format_time</span><span class="p">(</span><span class="n">time_remaining</span><span class="p">))</span>
+
+            <span class="c1"># get next batch of data</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_get_data_chunk</span><span class="p">()</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Completed computing guess&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">USIDataset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_guess</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_reformat_results</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;wavelet_peaks&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Model specific restructuring / reformatting of the parallel compute results</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        results : array-like</span>
+<span class="sd">            Results to be formatted for writing</span>
+<span class="sd">        strategy : str</span>
+<span class="sd">            The strategy used in the fit.  Determines how the results will be reformatted.</span>
+<span class="sd">            Default &#39;wavelet_peaks&#39;</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        results : numpy.ndarray</span>
+<span class="sd">            Formatted array that is ready to be writen to the HDF5 file </span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_check_for_old_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns three lists of h5py.Dataset objects where the group contained:</span>
+<span class="sd">            1. Completed guess only</span>
+<span class="sd">            2. Partial Fit</span>
+<span class="sd">            3. Completed Fit</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># First find all groups that match the basic condition of matching tool name</span>
+        <span class="n">all_groups</span> <span class="o">=</span> <span class="n">find_results_groups</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fitter_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Groups that matched the nomenclature: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">all_groups</span><span class="p">))</span>
+
+        <span class="c1"># Next sort these groups into three categories:</span>
+        <span class="n">completed_guess</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">partial_fits</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">completed_fits</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">h5_group</span> <span class="ow">in</span> <span class="n">all_groups</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="s1">&#39;Fit&#39;</span> <span class="ow">in</span> <span class="n">h5_group</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="c1"># check group for fit attribute</span>
+
+                <span class="n">h5_fit</span> <span class="o">=</span> <span class="n">h5_group</span><span class="p">[</span><span class="s1">&#39;Fit&#39;</span><span class="p">]</span>
+
+                <span class="c1"># check Fit dataset against parms_dict</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">check_for_matching_attrs</span><span class="p">(</span><span class="n">h5_fit</span><span class="p">,</span> <span class="n">new_parms</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_parms_dict</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> did not match the given parameters&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">h5_fit</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># sort this dataset:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">last_pix</span> <span class="o">=</span> <span class="n">get_attr</span><span class="p">(</span><span class="n">h5_fit</span><span class="p">,</span> <span class="s1">&#39;last_pixel&#39;</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                    <span class="n">last_pix</span> <span class="o">=</span> <span class="kc">None</span>
+
+                <span class="c1"># For now skip any fits that are missing &#39;last_pixel&#39;</span>
+                <span class="k">if</span> <span class="n">last_pix</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">elif</span> <span class="n">last_pix</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                    <span class="n">partial_fits</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">h5_fit</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">completed_fits</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">h5_fit</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s1">&#39;Guess&#39;</span> <span class="ow">in</span> <span class="n">h5_group</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="n">h5_guess</span> <span class="o">=</span> <span class="n">h5_group</span><span class="p">[</span><span class="s1">&#39;Guess&#39;</span><span class="p">]</span>
+
+                    <span class="c1"># sort this dataset:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">last_pix</span> <span class="o">=</span> <span class="n">get_attr</span><span class="p">(</span><span class="n">h5_guess</span><span class="p">,</span> <span class="s1">&#39;last_pixel&#39;</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                        <span class="n">last_pix</span> <span class="o">=</span> <span class="kc">None</span>
+
+                    <span class="c1"># For now skip any fits that are missing &#39;last_pixel&#39;</span>
+                    <span class="k">if</span> <span class="n">last_pix</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                    <span class="k">elif</span> <span class="n">last_pix</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">:</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> was a completed Guess&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">h5_guess</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+                        <span class="n">completed_guess</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">h5_guess</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">:</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> did not not have completed Guesses&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">h5_guess</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> did not even have Guess. Categorizing as defective Group&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">h5_group</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">completed_guess</span><span class="p">,</span> <span class="n">partial_fits</span><span class="p">,</span> <span class="n">completed_fits</span>
+
+<div class="viewcode-block" id="Fitter.do_fit"><a class="viewcode-back" href="../../../_autosummary/pycroscopy.analysis.html#pycroscopy.analysis.fitter.Fitter.do_fit">[docs]</a>    <span class="k">def</span> <span class="nf">do_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">processors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">solver_type</span><span class="o">=</span><span class="s1">&#39;least_squares&#39;</span><span class="p">,</span> <span class="n">solver_options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">obj_func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">h5_partial_fit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">h5_guess</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">override</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates the fit for the given dataset and writes back to file</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        processors : int</span>
+<span class="sd">            Number of cpu cores the user wishes to run on.  The minimum of this and self._maxCpus is used.</span>
+<span class="sd">        solver_type : str</span>
+<span class="sd">            The name of the solver in scipy.optimize to use for the fit</span>
+<span class="sd">        solver_options : dict</span>
+<span class="sd">            Dictionary of parameters to pass to the solver specified by `solver_type`</span>
+<span class="sd">        obj_func : dict</span>
+<span class="sd">            Dictionary defining the class and method containing the function to be fit as well as any </span>
+<span class="sd">            additional function parameters.</span>
+<span class="sd">        h5_partial_fit : h5py.group. optional, default = None</span>
+<span class="sd">            Datagroup containing (partially computed) fit results. do_fit will resume computation if provided.</span>
+<span class="sd">        h5_guess : h5py.group. optional, default = None</span>
+<span class="sd">            Datagroup containing guess results. do_fit will use this if provided.</span>
+<span class="sd">        override : bool, optional. default = False</span>
+<span class="sd">            By default, will simply return duplicate results to avoid recomputing or resume computation on a</span>
+<span class="sd">            group with partial results. Set to True to force fresh computation.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        h5_results : h5py.Dataset object</span>
+<span class="sd">            Dataset with the fit parameters</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># ################## PREPARE THE SOLVER #######################################</span>
+
+        <span class="n">legit_solver</span> <span class="o">=</span> <span class="n">solver_type</span> <span class="ow">in</span> <span class="n">scipy</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">legit_solver</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s1">&#39;Error: Objective Functions &quot;</span><span class="si">%s</span><span class="s1">&quot; is not implemented in pycroscopy.analysis.Fit_Methods&#39;</span> <span class="o">%</span>
+                           <span class="n">obj_func</span><span class="p">[</span><span class="s1">&#39;obj_func&#39;</span><span class="p">])</span>
+
+        <span class="n">obj_func_name</span> <span class="o">=</span> <span class="n">obj_func</span><span class="p">[</span><span class="s1">&#39;obj_func&#39;</span><span class="p">]</span>
+        <span class="n">legit_obj_func</span> <span class="o">=</span> <span class="n">obj_func_name</span> <span class="ow">in</span> <span class="n">Fit_Methods</span><span class="p">()</span><span class="o">.</span><span class="n">methods</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">legit_obj_func</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s1">&#39;Error: Solver &quot;</span><span class="si">%s</span><span class="s1">&quot; does not exist!. For additional info see scipy.optimize</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">solver_type</span><span class="p">)</span>
+
+        <span class="c1"># ################## CHECK FOR DUPLICATES AND RESUME PARTIAL #######################################</span>
+
+        <span class="k">def</span> <span class="nf">_get_group_to_resume</span><span class="p">(</span><span class="n">legal_groups</span><span class="p">,</span> <span class="n">provided_partial_fit</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">h5_group</span> <span class="ow">in</span> <span class="n">legal_groups</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">h5_group</span><span class="p">[</span><span class="s1">&#39;Fit&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">provided_partial_fit</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">h5_group</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">def</span> <span class="nf">_resume_fit</span><span class="p">(</span><span class="n">fitter</span><span class="p">,</span> <span class="n">h5_group</span><span class="p">):</span>
+            <span class="n">fitter</span><span class="o">.</span><span class="n">h5_guess</span> <span class="o">=</span> <span class="n">h5_group</span><span class="p">[</span><span class="s1">&#39;Guess&#39;</span><span class="p">]</span>
+            <span class="n">fitter</span><span class="o">.</span><span class="n">h5_fit</span> <span class="o">=</span> <span class="n">h5_group</span><span class="p">[</span><span class="s1">&#39;Fit&#39;</span><span class="p">]</span>
+            <span class="n">fitter</span><span class="o">.</span><span class="n">_start_pos</span> <span class="o">=</span> <span class="n">fitter</span><span class="o">.</span><span class="n">h5_fit</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;last_pixel&#39;</span><span class="p">]</span>
+
+        <span class="k">def</span> <span class="nf">_start_fresh_fit</span><span class="p">(</span><span class="n">fitter</span><span class="p">,</span> <span class="n">h5_guess_legal</span><span class="p">):</span>
+            <span class="n">fitter</span><span class="o">.</span><span class="n">h5_guess</span> <span class="o">=</span> <span class="n">h5_guess_legal</span>
+            <span class="n">fitter</span><span class="o">.</span><span class="n">_create_fit_datasets</span><span class="p">()</span>
+            <span class="n">fitter</span><span class="o">.</span><span class="n">_start_pos</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># Prepare the parms dict that will be used for comparison:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parms_dict</span> <span class="o">=</span> <span class="n">solver_options</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parms_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;solver_type&#39;</span><span class="p">:</span> <span class="n">solver_type</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parms_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">obj_func</span><span class="p">)</span>
+
+        <span class="n">completed_guess</span><span class="p">,</span> <span class="n">partial_fit_groups</span><span class="p">,</span> <span class="n">completed_fits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_for_old_fit</span><span class="p">()</span>
+
+        <span class="n">override</span> <span class="o">=</span> <span class="n">override</span> <span class="ow">or</span> <span class="p">(</span><span class="n">h5_partial_fit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">h5_guess</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">override</span><span class="p">:</span>
+            <span class="c1"># First try to simply return completed results</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">completed_fits</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Returned previously computed results at &#39;</span> <span class="o">+</span> <span class="n">completed_fits</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">h5_fit</span> <span class="o">=</span> <span class="n">USIDataset</span><span class="p">(</span><span class="n">completed_fits</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                <span class="k">return</span>
+
+            <span class="c1"># Next, attempt to resume automatically:</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">partial_fit_groups</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Will resume fitting in </span><span class="si">{}</span><span class="s1">. &#39;</span>
+                      <span class="s1">&#39;You can supply a dataset using the h5_partial_fit argument&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">partial_fit_groups</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+                <span class="n">_resume_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">partial_fit_groups</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+            <span class="c1"># Finally, attempt to do fresh fitting using completed Guess:</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">completed_guess</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Will use </span><span class="si">{}</span><span class="s1"> for generating new Fit. &#39;</span>
+                      <span class="s1">&#39;You can supply a dataset using the h5_guess argument&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">completed_guess</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+                <span class="n">_start_fresh_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">completed_guess</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Could not find a compatible Guess to use for Fit. Call do_guess() before do_fit()&#39;</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">h5_partial_fit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">h5_group</span> <span class="o">=</span> <span class="n">_get_group_to_resume</span><span class="p">(</span><span class="n">partial_fit_groups</span><span class="p">,</span> <span class="n">h5_partial_fit</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">h5_group</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Provided dataset with partial Fit was not found to be compatible&#39;</span><span class="p">)</span>
+                <span class="n">_resume_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h5_group</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">h5_guess</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">h5_guess</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">completed_guess</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Provided dataset with completed Guess was not found to be compatible&#39;</span><span class="p">)</span>
+                <span class="n">_start_fresh_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h5_guess</span><span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Please provide a completed guess or partially completed Fit to resume&#39;</span><span class="p">)</span>
+
+        <span class="c1"># ################## BEGIN THE ACTUAL FITTING #######################################</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using solver </span><span class="si">%s</span><span class="s2"> and objective function </span><span class="si">%s</span><span class="s2"> to fit your data</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">solver_type</span><span class="p">,</span> <span class="n">obj_func</span><span class="p">[</span><span class="s1">&#39;obj_func&#39;</span><span class="p">]))</span>
+
+        <span class="k">if</span> <span class="n">processors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">processors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxCpus</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">processors</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">processors</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxCpus</span><span class="p">)</span>
+        <span class="n">processors</span> <span class="o">=</span> <span class="n">recommend_cpu_cores</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_max_pos_per_read</span><span class="p">,</span> <span class="n">processors</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">)</span>
+
+        <span class="n">time_per_pix</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">num_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h5_main</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span>
+        <span class="n">orig_start_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You can abort this computation at any time and resume at a later time!</span><span class="se">\n</span><span class="s1">&#39;</span>
+              <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">If you are operating in a python console, press Ctrl+C or Cmd+C to abort</span><span class="se">\n</span><span class="s1">&#39;</span>
+              <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">If you are in a Jupyter notebook, click on &quot;Kernel&quot;&gt;&gt;&quot;Interrupt&quot;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_guess_chunk</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_data_chunk</span><span class="p">()</span>
+
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+            <span class="n">t_start</span> <span class="o">=</span> <span class="n">tm</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+            <span class="n">opt</span> <span class="o">=</span> <span class="n">Optimize</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">guess</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">guess</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_parallel</span><span class="p">)</span>
+            <span class="n">temp</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">computeFit</span><span class="p">(</span><span class="n">processors</span><span class="o">=</span><span class="n">processors</span><span class="p">,</span> <span class="n">solver_type</span><span class="o">=</span><span class="n">solver_type</span><span class="p">,</span> <span class="n">solver_options</span><span class="o">=</span><span class="n">solver_options</span><span class="p">,</span>
+                                  <span class="n">obj_func</span><span class="o">=</span><span class="n">obj_func</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+
+            <span class="c1"># TODO: need a different .reformatResults to process fitting results</span>
+            <span class="c1"># reorder to get one numpy array out</span>
+            <span class="n">temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reformat_results</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="n">obj_func_name</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">temp</span><span class="p">))</span>
+
+            <span class="c1"># Write to file</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_results</span><span class="p">(</span><span class="n">is_guess</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+            <span class="c1"># basic timing logs</span>
+            <span class="n">tot_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">tm</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t_start</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># in seconds</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Done parallel computing in </span><span class="si">{}</span><span class="s1"> or </span><span class="si">{}</span><span class="s1"> per pixel&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">format_time</span><span class="p">(</span><span class="n">tot_time</span><span class="p">),</span>
+                                                                             <span class="n">format_time</span><span class="p">(</span>
+                                                                                 <span class="n">tot_time</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_pos</span> <span class="o">==</span> <span class="n">orig_start_pos</span><span class="p">:</span>
+                <span class="n">time_per_pix</span> <span class="o">=</span> <span class="n">tot_time</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end_pos</span>  <span class="c1"># in seconds</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">time_remaining</span> <span class="o">=</span> <span class="p">(</span><span class="n">num_pos</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_end_pos</span><span class="p">)</span> <span class="o">*</span> <span class="n">time_per_pix</span>  <span class="c1"># in seconds</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Time remaining: &#39;</span> <span class="o">+</span> <span class="n">format_time</span><span class="p">(</span><span class="n">time_remaining</span><span class="p">))</span>
+
+            <span class="c1"># get next batch of data</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_get_guess_chunk</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_get_data_chunk</span><span class="p">()</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Completed computing fit. Writing to file.&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">USIDataset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_fit</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Suhas Somnath, Chris Smith, Stephen Jesse, Numan Laanait.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.60.2',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,314 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyUSID &mdash; pyUSID 0.0.4 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+    <link rel="author" title="About these documents" href="#" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Getting Started" href="getting_started.html" />
+    <link rel="prev" title="Welcome to pyUSID’s documentation!" href="index.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> pyUSID
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.4
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">pyUSID</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what">What?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#why">Why?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#who">Who?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="package_organization.html">Package Organization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">Examples &amp; Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_format.html">Data Model and File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribution_guidelines.html">Guidelines for Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whats_new.html">What’s New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_to_python.html">Upgrading from Matlab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pyUSID</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>pyUSID</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/about.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pyusid">
+<h1>pyUSID<a class="headerlink" href="#pyusid" title="Permalink to this headline">¶</a></h1>
+<p><strong>Python framework for storing, visualizing, and processing Universal Spectroscopy and Imaging Data (USID)</strong></p>
+<div class="section" id="what">
+<h2>What?<a class="headerlink" href="#what" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>The <a class="reference external" href="./data_format.html">USID model</a>:<ul>
+<li>facilitates the representation of any spectroscopic or imaging data regardless of its origin, modality, size, or dimensionality.</li>
+<li>enables the development of instrument- and modality- agnostic data processing and analysis algorithms.</li>
+<li>is just a definition or a blueprint rather than something tangible and readily usable.</li>
+</ul>
+</li>
+<li>pyUSID is a <a class="reference external" href="http://www.python.org/">python</a> package that currently provides three pieces of functionality:<ol class="arabic">
+<li><strong>io</strong>: Primarily, it enables the storage and access of USID in <strong>hierarchical data format</strong> <a class="reference external" href="http://extremecomputingtraining.anl.gov/files/2015/03/HDF5-Intro-aug7-130.pdf">(HDF5)</a> files (referred to as h5USID files) using python</li>
+<li><strong>viz</strong>: It has handy tools for visualizing USID and general scientific data</li>
+<li><strong>processing</strong>: It provides a framework for formulating scientific problems into computational problems.
+See <a class="reference external" href="../pycroscopy/about.html">pycroscopy</a> - a sister project that uses pyUSID for analysis of microscopy data.</li>
+</ol>
+</li>
+<li>pyUSID uses a data-centric approach wherein the raw data collected from the instrument, results from analysis
+and processing routines are all written to the same h5USID file for traceability, reproducibility, and provenance.</li>
+<li>Just as scipy uses numpy underneath, scientific packages like <strong>pycroscopy</strong> use <strong>pyUSID</strong> for all file-handling, general plotting utilities and a data processing framework</li>
+<li>pyUSID uses popular packages such as numpy, h5py, joblib, matplotlib, etc. for most of the storage, computation, and visualization.</li>
+<li>See a high-level overview of pyUSID in this <a class="reference external" href="https://github.com/pycroscopy/pycroscopy/blob/master/docs/pycroscopy_presentation.pdf">presentation</a></li>
+<li>Jump to our <a class="reference external" href="https://github.com/pycroscopy/pyUSID">GitHub project</a></li>
+</ul>
+</div>
+<div class="section" id="why">
+<h2>Why?<a class="headerlink" href="#why" title="Permalink to this headline">¶</a></h2>
+<p>As we see it, there are a few opportunities in scientific imaging (that surely apply to several other scientific domains):</p>
+<dl class="docutils">
+<dt><strong>1. Growing data sizes</strong></dt>
+<dd><ul class="first last simple">
+<li>Cannot use desktop computers for analysis</li>
+<li><em>Need: High performance computing, storage resources and compatible, scalable file structures</em></li>
+</ul>
+</dd>
+<dt><strong>2. Increasing data complexity</strong></dt>
+<dd><ul class="first last simple">
+<li>Sophisticated imaging and spectroscopy modes resulting in 5,6,7… dimensional data</li>
+<li><em>Need: Robust software and generalized data formatting</em></li>
+</ul>
+</dd>
+<dt><strong>3. Multiple file formats</strong></dt>
+<dd><ul class="first last simple">
+<li>Different formats from each instrument. Proprietary in most cases</li>
+<li>Incompatible for correlation</li>
+<li><em>Need: Open, instrument-independent data format</em></li>
+</ul>
+</dd>
+<dt><strong>4. Expensive analysis software</strong></dt>
+<dd><ul class="first last simple">
+<li>Software supplied with instruments often insufficient / incapable of custom analysis routines</li>
+<li>Commercial software (Eg: Matlab, Origin..) are often prohibitively expensive.</li>
+<li><em>Need: Free, powerful, open source, user-friendly software</em></li>
+</ul>
+</dd>
+<dt><strong>5. Closed science</strong></dt>
+<dd><ul class="first last simple">
+<li>Analysis software and data not shared</li>
+<li>No guarantees of reproducibility or traceability</li>
+<li><em>Need: open source data structures, file formats, centralized code and data repositories</em></li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="who">
+<h2>Who?<a class="headerlink" href="#who" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>This project begun largely as an effort by scientists and engineers at the <strong>I</strong>nstitute for <strong>F</strong>unctional <strong>I</strong>maging of <strong>M</strong>aterials (<a class="reference external" href="https://ifim.ornl.gov">IFIM</a>) to implement a python library that can support the I/O, processing, and analysis of the gargantuan stream of images that their microscopes generate (thanks to the large IFIM users community!).</li>
+<li>It is now being developed and maintained by <a class="reference external" href="https://github.com/ssomnath">Suhas Somnath</a> of the <strong>A</strong>dvanced <strong>D</strong>ata &amp; <strong>W</strong>orkflows <strong>G</strong>roup (ADWG) at the <strong>O</strong>ak Ridge National Laboratory <strong>L</strong>eadership <strong>C</strong>omputing <strong>F</strong>acility (<a class="reference external" href="https://www.olcf.ornl.gov">OLCF</a>) and <a class="reference external" href="https://github.com/CompPhysChris">Chris R. Smith</a> of IFIM.
+Please visit our <a class="reference external" href="./credits.html">credits and acknowledgements</a> page for more information.</li>
+<li>By sharing our methodology and code for analyzing scientific imaging data we hope that it will benefit the wider scientific community. We also hope, quite ardently, that other scientists would follow suit.</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="getting_started.html" class="btn btn-neutral float-right" title="Getting Started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Welcome to pyUSID’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Suhas Somnath, Chris R. Smith, Stephen Jesse.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.4',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
